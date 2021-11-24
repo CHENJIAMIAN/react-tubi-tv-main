@@ -8,9 +8,9 @@ class Home extends React.Component {
         return (
             <div class="_3taaI">
                 <div class="app">
-                    <div class="menu-list">
+                    <div class="navbar">
                         <div
-                            class="menu-list-item P7Rba"
+                            class="item active"
                             data-index="0"
                             tabindex="0"
                             role="button"
@@ -19,7 +19,7 @@ class Home extends React.Component {
                             profile
                         </div>
                         <div
-                            class="menu-list-item"
+                            class="item"
                             data-index="1"
                             tabindex="0"
                             role="button"
@@ -28,7 +28,7 @@ class Home extends React.Component {
                             parental controls
                         </div>
                         <div
-                            class="menu-list-item"
+                            class="item"
                             data-index="2"
                             tabindex="0"
                             role="button"
@@ -37,7 +37,7 @@ class Home extends React.Component {
                             notifications
                         </div>
                         <div
-                            class="menu-list-item"
+                            class="item"
                             data-index="3"
                             tabindex="0"
                             role="button"

@@ -16494,25 +16494,25 @@ xxx0", "xxx1
     max-width: none
 }
 
-._284B9 {
+.row {
     justify-content: center;
     width: 100%;
     padding-bottom: 50px
 }
 
-._2EqeJ {
+.resetCol {
     padding: 0
 }
 
-._1s1vl {
+.nav {
     margin-bottom: 134px
 }
 
-._3pikT {
+.top {
     height: 100vh
 }
 
-._3pikT ._29xdv {
+.top .errorText {
     text-align: center;
     font-size: 1.5rem;
     color: #f44336;
@@ -16520,21 +16520,21 @@ xxx0", "xxx1
     top: 48%
 }
 
-._3pikT ._2hxD9 {
+.top .main {
     width: 100%;
     padding-top: 80px;
     min-height: calc(100vh - 292px);
     display: flex
 }
 
-._3pikT ._2hxD9 ._1Jzgs {
+.top .main .contentContainer {
     width: 100%;
     background: #fff;
     padding: 4rem 3rem 0
 }
 
 @media (min-width: 375px) {
-    ._3pikT ._2hxD9 ._1Jzgs {
+    .top .main .contentContainer {
         padding-right:0
     }
 }
@@ -17157,7 +17157,7 @@ xxx0", "xxx1
     letter-spacing: .5px
 }
 
-.menu-list {
+.navbar {
     color: #707c86;
     background: #fff;
     width: 100%;
@@ -17174,19 +17174,19 @@ xxx0", "xxx1
     overflow: scroll
 }
 
-.menu-list::-webkit-scrollbar {
+.navbar::-webkit-scrollbar {
     height: 0;
     background: transparent
 }
 
 @media (min-width: 540px) {
-    .menu-list {
+    .navbar {
         flex-wrap:wrap;
         justify-content: center
     }
 }
 
-.menu-list .menu-list-item {
+.navbar .item {
     justify-content: center;
     margin: 0 14px;
     color: #707c86;
@@ -17203,27 +17203,27 @@ xxx0", "xxx1
     text-align: center
 }
 
-.menu-list .menu-list-item:hover {
+.navbar .item:hover {
     opacity: .75
 }
 
-.menu-list .menu-list-item.P7Rba {
+.navbar .item.active {
     color: #ff501a
 }
 
-.kids-mode .menu-list .menu-list-item.P7Rba {
+.kids-mode .navbar .item.active {
     color: #fea534
 }
 
-._3BUwb {
+.settingsContent {
     margin-top: 214px
 }
 
-._3BUwb h1 {
+.settingsContent h1 {
     margin: 0 0 25px
 }
 
-.m1yBX {
+.text {
     font-size: 1rem;
     padding-bottom: 1.5rem;
     letter-spacing: .5px;
@@ -17231,12 +17231,12 @@ xxx0", "xxx1
     color: #707c86
 }
 
-._2ocY- {
+.inputContainer {
     width: 100%;
     position: relative
 }
 
-._2H9nH {
+.buttons {
     display: flex;
     justify-content: center;
     padding: 2.2rem 0;
@@ -17246,11 +17246,11 @@ xxx0", "xxx1
     margin-top: 2rem
 }
 
-._2H9nH button:active,._2H9nH button:focus {
+.buttons button:active,.buttons button:focus {
     outline: none
 }
 
-._1xJXr,._2r5Yz {
+.widerButton,.saveBtn {
     min-width: 10rem;
     border-radius: 0;
     text-transform: none;
@@ -17259,13 +17259,13 @@ xxx0", "xxx1
     height: 4rem
 }
 
-._1UTpF {
+.errorText {
     margin-top: .5rem;
     color: #f44336;
     text-align: center
 }
 
-._3j_II {
+.spinner {
     height: 3rem;
     width: 3rem;
     position: relative;
@@ -17274,7 +17274,7 @@ xxx0", "xxx1
     display: inherit
 }
 
-._1QmrE .SWd1x {
+.userProfile .userInfo {
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -17284,13 +17284,13 @@ xxx0", "xxx1
     border-bottom: 1px solid rgba(38,38,45,.1)
 }
 
-._1QmrE .SWd1x .b5-q0 {
+.userProfile .userInfo .photoSection {
     flex: 100%;
     text-align: center;
     margin: 0 auto
 }
 
-._1QmrE .SWd1x .b5-q0 img {
+.userProfile .userInfo .photoSection img {
     border-radius: 100%;
     height: 160px;
     width: 160px;
@@ -17298,30 +17298,30 @@ xxx0", "xxx1
     vertical-align: top
 }
 
-._1QmrE .SWd1x ._2kWKE {
+.userProfile .userInfo .demSection {
     margin-top: 24px;
     flex: 100%
 }
 
-._1QmrE .SWd1x ._2kWKE ._1q7k2 {
+.userProfile .userInfo .demSection .facebookContainer {
     display: flex;
     margin-top: 1rem
 }
 
-._1QmrE .SWd1x ._2kWKE ._1q7k2 div svg {
+.userProfile .userInfo .demSection .facebookContainer div svg {
     margin-right: 6px;
     border-radius: 0;
     position: relative;
     top: -2px
 }
 
-._1QmrE .SWd1x ._28rt- {
+.userProfile .userInfo .saveBtn {
     margin-top: 16px;
     width: 100%;
     text-align: right
 }
 
-._1QmrE .oHtFA {
+.userProfile .overlayDimmer {
     z-index: -1;
     position: fixed;
     width: 100%;
@@ -17333,12 +17333,12 @@ xxx0", "xxx1
     background: #000
 }
 
-._1QmrE .oHtFA._26qpi {
+.userProfile .overlayDimmer.overlayDimmerActive {
     z-index: 1;
     opacity: .7
 }
 
-._3czcP {
+.subText {
     font-size: .8rem;
     line-height: 1.45;
     letter-spacing: .5px;
@@ -17346,13 +17346,13 @@ xxx0", "xxx1
     color: #707c86
 }
 
-.Pk7x9 {
+.passwordSection {
     border-bottom: 1px solid rgba(38,38,45,.1);
     padding-bottom: 31px;
     margin-top: 30px
 }
 
-.Pk7x9 h2 {
+.passwordSection h2 {
     vertical-align: middle;
     font-weight: 700;
     letter-spacing: .5px;
@@ -17360,67 +17360,67 @@ xxx0", "xxx1
     font-size: 1.2rem
 }
 
-._1FWO1 {
+.changePasswordForm {
     margin: 30px 0
 }
 
-._19w10 {
+.content {
     padding-top: 175px;
     color: #26262d;
     background-color: #f0f3f5
 }
 
-.dTtEd {
+.row {
     justify-content: center;
     width: 100%;
     margin-bottom: 100px
 }
 
-._2O8Pa ._3pjNv,._2O8Pa ._20moJ {
+.newUserCreatePass .disclaimer,.newUserCreatePass .facebookAvatar {
     text-align: center
 }
 
-._2O8Pa ._3pjNv {
+.newUserCreatePass .disclaimer {
     font-size: 11px;
     letter-spacing: .5px;
     color: #707c86
 }
 
-._2O8Pa ._3pjNv:first-of-type {
+.newUserCreatePass .disclaimer:first-of-type {
     margin-top: 40px
 }
 
-._2O8Pa ._3pjNv a {
+.newUserCreatePass .disclaimer a {
     color: #26262d
 }
 
-.nI0fn ._3eAD8 {
+.newFbLinkAccounts .emailIconContainer {
     text-align: center
 }
 
-.nI0fn ._3eAD8 ._3IKuP {
+.newFbLinkAccounts .emailIconContainer .emailIcon {
     width: 13rem;
     height: auto
 }
 
-.nI0fn ._3WxXT {
+.newFbLinkAccounts .email {
     color: #ff501a
 }
 
-.kids-mode .nI0fn ._3WxXT {
+.kids-mode .newFbLinkAccounts .email {
     color: #fea534
 }
 
-.nI0fn ._1lQdp {
+.newFbLinkAccounts .linkForm {
     margin: 20px 0
 }
 
-.nI0fn ._1lQdp ._1qLhD {
+.newFbLinkAccounts .linkForm .buttons {
     justify-content: center;
     margin-top: 16px
 }
 
-.nI0fn ._1lQdp .zXUDs {
+.newFbLinkAccounts .linkForm .errorInfo {
     width: 100%;
     margin-bottom: 1rem;
     color: red;
@@ -17429,24 +17429,24 @@ xxx0", "xxx1
     word-wrap: break-word
 }
 
-._3777c {
+.instructions {
     font-size: 1rem;
     line-height: 1.6
 }
 
-._34Rut {
+.errorInfo {
     min-height: 2em;
     margin-bottom: 1rem;
     color: #f44336;
     word-wrap: break-word
 }
 
-.Bd8Sz {
+.buttonRow {
     margin: 16px 0;
     text-align: center
 }
 
-.OYwCh {
+.text {
     text-align: left;
     font-size: 1rem;
     padding-bottom: 1.5rem;
@@ -17455,42 +17455,42 @@ xxx0", "xxx1
     color: #707c86
 }
 
-._3Z-mX ._2OsZ- {
+.facebookAvatar .profileImage {
     border-radius: 2%
 }
 
-._3Z-mX ._2BxrI {
+.facebookAvatar .facebookIcon {
     transform: translateX(-75%)
 }
 
-._1Cyrt {
+.content {
     text-align: center;
     padding-top: 1rem
 }
 
-._1Cyrt ._1Chzf {
+.content .title {
     font-weight: 700;
     line-height: 2;
     color: #727272;
     font-size: 2rem
 }
 
-._1Cyrt ._1d-1Y {
+.content .success {
     font-size: 1.2rem;
     font-weight: 400
 }
 
-._1Cyrt ._1d-1Y ._20DAB {
+.content .success .button {
     margin-top: 3rem;
     text-transform: none;
     color: #000
 }
 
-._1Cyrt ._1d-1Y ._20DAB div {
+.content .success .button div {
     margin-top: 1.5rem
 }
 
-._21z0q .bt60B {
+.accountDelMain .deleteModal {
     z-index: 2;
     position: fixed;
     top: 50%;
@@ -17505,7 +17505,7 @@ xxx0", "xxx1
     padding: 2.8rem 1.5rem
 }
 
-._21z0q .bt60B ._1eWRG {
+.accountDelMain .deleteModal .cancelBtn {
     background: #fff;
     color: #bcbcbc;
     border: 1px solid #ededed;
@@ -17516,34 +17516,34 @@ xxx0", "xxx1
 }
 
 @media (min-width: 768px) {
-    ._21z0q .bt60B {
+    .accountDelMain .deleteModal {
         width:50vw;
         padding: 2.8rem
     }
 
-    ._21z0q .bt60B h1 {
+    .accountDelMain .deleteModal h1 {
         font-size: 2rem
     }
 
-    ._21z0q .bt60B ._2XRZL ._33B58 {
+    .accountDelMain .deleteModal .firstModal .leaveReasons {
         padding-top: 1rem
     }
 
-    ._21z0q .bt60B ._3kvoI {
+    .accountDelMain .deleteModal .closeX {
         height: 26px;
         width: 26px
     }
 }
 
-._21z0q .bt60B ._2XRZL ._33B58 {
+.accountDelMain .deleteModal .firstModal .leaveReasons {
     padding: 1rem .8rem
 }
 
-._21z0q .bt60B ._238MU {
+.accountDelMain .deleteModal .lastModal {
     padding-bottom: 2.77rem
 }
 
-._21z0q .bt60B ._3kvoI {
+.accountDelMain .deleteModal .closeX {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -17552,15 +17552,15 @@ xxx0", "xxx1
     cursor: pointer
 }
 
-._21z0q .bt60B ._3kvoI path {
+.accountDelMain .deleteModal .closeX path {
     fill: #000
 }
 
-._21z0q .bt60B ._3bbtL {
+.accountDelMain .deleteModal .text {
     padding-bottom: 2.8rem
 }
 
-._21z0q .bt60B ._1zJ0i {
+.accountDelMain .deleteModal .otherReason {
     margin: .5rem auto 2.78rem;
     width: 91%;
     max-width: 91%;
@@ -17570,23 +17570,23 @@ xxx0", "xxx1
     display: block
 }
 
-._21z0q .bt60B ._1zJ0i:active,._21z0q .bt60B ._1zJ0i:focus {
+.accountDelMain .deleteModal .otherReason:active,.accountDelMain .deleteModal .otherReason:focus {
     outline: none
 }
 
-._21z0q .bt60B ._1zJ0i.JFpHv {
+.accountDelMain .deleteModal .otherReason.disabled {
     cursor: not-allowed
 }
 
-._21z0q .bt60B ._1vxUb {
+.accountDelMain .deleteModal .buttons {
     flex-direction: row
 }
 
-._21z0q .bt60B ._1vxUb button div {
+.accountDelMain .deleteModal .buttons button div {
     min-width: 7rem
 }
 
-._21z0q ._3sFOQ {
+.accountDelMain .sectionHead {
     margin: 2rem 0;
     vertical-align: middle;
     cursor: pointer;
@@ -17599,7 +17599,7 @@ xxx0", "xxx1
     font-size: 1.2rem
 }
 
-._21z0q ._3sFOQ:after {
+.accountDelMain .sectionHead:after {
     content: "";
     width: 0;
     height: 0;
@@ -17612,21 +17612,21 @@ xxx0", "xxx1
     transition: transform .5s
 }
 
-._21z0q ._3sFOQ._2E9w2:after {
+.accountDelMain .sectionHead.active:after {
     transform: rotate(180deg)
 }
 
-._21z0q ._2Jdp1 {
+.accountDelMain .content {
     transition: max-height .2s;
     display: none
 }
 
-._21z0q ._2Jdp1._2E9w2 {
+.accountDelMain .content.active {
     display: block;
     transition: max-height .8s
 }
 
-._21z0q ._2Jdp1 ._3qNWf {
+.accountDelMain .content .sectionInfo {
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
@@ -17635,50 +17635,50 @@ xxx0", "xxx1
     color: #707c86
 }
 
-._21z0q ._2Jdp1 ._3qNWf p {
+.accountDelMain .content .sectionInfo p {
     margin: 0 0 1rem
 }
 
-._21z0q ._2Jdp1 ._31nKe {
+.accountDelMain .content .btnArea {
     text-align: right;
     margin-top: 35px
 }
 
-._21z0q ._1WDnL {
+.accountDelMain .buttonSubText {
     font-size: 1rem;
     padding-bottom: 1.5rem;
     line-height: 1.6;
     text-align: right
 }
 
-._21z0q ._1WDnL .tF8Q0 {
+.accountDelMain .buttonSubText .darkerLink {
     opacity: 1;
     margin-left: 5px
 }
 
-._2Edan {
+.modalBtns {
     display: flex;
     justify-content: center
 }
 
-._2Edan button:first-child {
+.modalBtns button:first-child {
     margin-right: 1rem
 }
 
-._3yvX5 {
+.modalEnter {
     opacity: 0
 }
 
-._3yvX5.xURkT {
+.modalEnter.modalEnterActive {
     opacity: 1;
     transition: opacity .4s
 }
 
-._3JmxP {
+.modalLeave {
     opacity: 1
 }
 
-._3JmxP._2rOf_ {
+.modalLeave.modalLeaveActive {
     opacity: 0;
     transition: opacity .4s
 }
@@ -18171,16 +18171,16 @@ xxx0", "xxx1
     left: 20px
 }
 
-.Gncf_ {
+.checkbox {
     margin-bottom: 6px
 }
 
-.Gncf_ label {
+.checkbox label {
     color: #707c86;
     letter-spacing: .5px
 }
 
-.Gncf_ input {
+.checkbox input {
     position: relative;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -18194,15 +18194,15 @@ xxx0", "xxx1
     top: 2px
 }
 
-.Gncf_ input:checked,.Gncf_ input:focus {
+.checkbox input:checked,.checkbox input:focus {
     border-color: #ff501a
 }
 
-.kids-mode .Gncf_ input:checked,.kids-mode .Gncf_ input:focus {
+.kids-mode .checkbox input:checked,.kids-mode .checkbox input:focus {
     border-color: #fea534
 }
 
-.Gncf_ input:checked:after {
+.checkbox input:checked:after {
     position: absolute;
     content: "";
     top: calc(50% - 5px);
@@ -18214,7 +18214,7 @@ xxx0", "xxx1
     transform: rotate(45deg)
 }
 
-._1mbfO {
+.modal {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -18227,7 +18227,7 @@ xxx0", "xxx1
     color: #fff
 }
 
-._1W13u ._1s9pN {
+.parentalMain .text {
     font-size: 1rem;
     padding-bottom: 1.5rem;
     letter-spacing: .5px;
@@ -18235,41 +18235,41 @@ xxx0", "xxx1
     color: #707c86
 }
 
-._1W13u .exq1s {
+.parentalMain .checkboxContainer {
     padding-bottom: 1rem
 }
 
-._1W13u ._2h79d {
+.parentalMain .parentalControls {
     margin-bottom: 2.8rem
 }
 
-._1W13u ._2h79d .J9_RG {
+.parentalMain .parentalControls .passwordConfirm {
     padding-top: 24px;
     border-top: 1px solid rgba(38,38,45,.1)
 }
 
-._1W13u ._31zAd {
+.parentalMain .parentalSelect {
     margin-bottom: 31px
 }
 
-._1W13u .xBCJr {
+.parentalMain .btnArea {
     text-align: right;
     margin-top: 17px
 }
 
-._3KYo6 {
+.head {
     color: #707c86;
     line-height: 1.71;
     letter-spacing: .5px;
     margin-bottom: 40px
 }
 
-._1vzRL {
+.btnArea {
     text-align: right;
     margin-top: 50px
 }
 
-.cNEGc .mv9TM {
+.historyMain .text {
     font-size: 1rem;
     padding-bottom: 1.5rem;
     line-height: 1.71;
@@ -18277,34 +18277,34 @@ xxx0", "xxx1
     color: #707c86
 }
 
-.cNEGc ._3pOjv {
+.historyMain .contentArea {
     margin-top: 56px
 }
 
-._1ipHP {
+.btnArea {
     text-align: right;
     margin-top: 50px
 }
 
-.TqZnt {
+.largeBtn {
     width: auto;
     height: auto;
     padding: 22px 40px
 }
 
-._39E1a {
+.tabsMain {
     width: 100%;
     border-radius: 4px
 }
 
-._39E1a ._2z88h {
+.tabsMain .tabs {
     display: flex;
     border: 1px solid rgba(64,71,76,.1);
     margin-bottom: 55px;
     border-radius: 2px
 }
 
-._39E1a ._2z88h ._2k3ol {
+.tabsMain .tabs .tabHeader {
     list-style-type: none;
     cursor: pointer;
     flex: 1;
@@ -18315,25 +18315,25 @@ xxx0", "xxx1
     color: #707c86
 }
 
-._39E1a ._2z88h ._2k3ol._3W0X- {
+.tabsMain .tabs .tabHeader.active {
     background: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.1),1px 0 0 0 rgba(0,0,0,.05)
 }
 
-._39E1a ._2ZNMn {
+.tabsMain .panelContainer {
     width: 100%
 }
 
-._39E1a ._2ZNMn ._1e41h {
+.tabsMain .panelContainer .panel {
     display: none;
     width: 100%
 }
 
-._15A03,._39E1a ._2ZNMn ._1e41h._1B3GH {
+.table,.tabsMain .panelContainer .panel.activePanel {
     display: flex
 }
 
-._15A03 {
+.table {
     flex-direction: column;
     width: 100%;
     max-height: 840px;
@@ -18341,11 +18341,11 @@ xxx0", "xxx1
     overflow-x: hidden
 }
 
-._15A03._2Bzrl {
+.table.bordered {
     border: 1px solid #9b9b9b
 }
 
-._15A03 ._2lTWR {
+.table .headerRow {
     background: #f7f7f7;
     color: #000;
     width: 100%;
@@ -18353,18 +18353,18 @@ xxx0", "xxx1
     height: 3.6rem
 }
 
-._2gA8T {
+.itemLeave {
     opacity: 1;
     transform: translateX(0)
 }
 
-._2gA8T._1Emb_ {
+.itemLeave.itemLeaveActive {
     opacity: 0;
     transform: translateX(5%);
     transition: opacity .4s,transform .4s
 }
 
-._1RZk4 {
+.historyQueueTableRow {
     justify-content: space-between;
     margin: 8px 0;
     flex-shrink: 0;
@@ -18376,16 +18376,16 @@ xxx0", "xxx1
     justify-content: flex-start
 }
 
-._1RZk4 ._16lw2 {
+.historyQueueTableRow .link {
     opacity: 1
 }
 
-._1RZk4 ._3M1Jw {
+.historyQueueTableRow .poster {
     height: 80px;
     width: 55px
 }
 
-._1RZk4 ._2qher {
+.historyQueueTableRow .contentData {
     display: flex;
     flex-direction: column;
     margin-left: 24px;
@@ -18397,25 +18397,25 @@ xxx0", "xxx1
     overflow: hidden
 }
 
-._1RZk4 ._2qher ._2PYgG {
+.historyQueueTableRow .contentData .contentTitle {
     margin: 0 0 7px;
     line-height: 1.33
 }
 
-._1RZk4 ._2qher ._3pRrf {
+.historyQueueTableRow .contentData .subInfo {
     color: #707c86
 }
 
-._1RZk4 ._2qher ._3pRrf ._2PKwf {
+.historyQueueTableRow .contentData .subInfo .seasons {
     font-weight: 700;
     margin: 4.5px 0 4px
 }
 
-._1RZk4 ._2qher .gLMFf {
+.historyQueueTableRow .contentData .ratingCol {
     text-align: right
 }
 
-._1RZk4 ._2qher .FPFHS {
+.historyQueueTableRow .contentData .rating {
     padding: 4px 8px;
     border-radius: 2px;
     color: #707c86;
@@ -18423,7 +18423,7 @@ xxx0", "xxx1
     background: rgba(38,38,45,.1)
 }
 
-._1RZk4 ._3wxNP {
+.historyQueueTableRow .deleteOverlay {
     display: flex;
     position: absolute;
     width: 100%;
