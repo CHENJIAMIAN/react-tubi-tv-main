@@ -1,16 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import duAm from '../video/film-du-am.mp4'
-import '../style/movies.css'
-import { films } from './data.js'
+import duAm from '../video/film-du-am.mp4';
+import '../style/movies.css';
+import { films } from './data.js';
+import Footer from 'src/components/Footer.js';
 
 class Movies extends React.Component {
-
     render() {
-        let props = this.props
-        let [film] = films.filter(item => `${item.id}` === props.match.params.id)
-        let type = film.type.split(',').map(item => item.trim())
+        let props = this.props;
+        let [film] = films.filter(
+            (item) => `${item.id}` === props.match.params.id
+        );
+        let type = film.type.split(',').map((item) => item.trim());
         return (
             <div className="movies">
                 <div className="play-movie">
@@ -21,11 +23,16 @@ class Movies extends React.Component {
                     </div>
                 </div>
                 <div className="info-movie flex">
-                    <div className="left" >
+                    <div className="left">
                         <div className="content">
                             <img src={film.url} alt="" />
                             <div className="left-content">
-                                <Link to="/react-tubi-tv" className="add-to-list">Add to My List</Link>
+                                <Link
+                                    to="/react-tubi-tv"
+                                    className="add-to-list"
+                                >
+                                    Add to My List
+                                </Link>
                                 <div className="share flex">
                                     {/* <Link to="/react-tubi-tv/">Share</Link> */}
                                     {/* <Link to="/react-tubi-tv/"><i className="fas fa-ellipsis-h"></i></Link> */}
@@ -33,15 +40,15 @@ class Movies extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="right" >
+                    <div className="right">
                         <h1 className="name">{film.name}</h1>
                         <div className="content">
                             <div className="row flex">
                                 <div className="time-type">
                                     <p>{film.time}</p>
-                                    {
-                                        type.map((item, index) => <span key={index}>{item}</span>)
-                                    }
+                                    {type.map((item, index) => (
+                                        <span key={index}>{item}</span>
+                                    ))}
                                 </div>
                                 <div className="sub flex">
                                     <p>CC</p>
@@ -49,31 +56,62 @@ class Movies extends React.Component {
                                 </div>
                             </div>
                             <div className="dirc">
-                                <p className="dirc" >After years in special ops and wrongful imprisonment, a     witness to the murder of a Chinese cop agrees to retrieve a kidnapped girl and a bag of money.</p>
-                                <p>DIRECTOR<Link to="/react-tubi-tv/">Kenio Waxman</Link></p>
-                                <p>STARRING<Link to="/react-tubi-tv/">Steven Seagal, Marlaina, MahVitaly Kravchenko</Link></p>
+                                <p className="dirc">
+                                    After years in special ops and wrongful
+                                    imprisonment, a witness to the murder of a
+                                    Chinese cop agrees to retrieve a kidnapped
+                                    girl and a bag of money.
+                                </p>
+                                <p>
+                                    DIRECTOR
+                                    <Link to="/react-tubi-tv/">
+                                        Kenio Waxman
+                                    </Link>
+                                </p>
+                                <p>
+                                    STARRING
+                                    <Link to="/react-tubi-tv/">
+                                        Steven Seagal, Marlaina, MahVitaly
+                                        Kravchenko
+                                    </Link>
+                                </p>
                             </div>
                         </div>
-
                     </div>
                     {/* Mobile */}
                     <div className="share-small hide">
-                        <Link to="/react-tubi-tv/" className="add-to-list">Add to My List</Link>
+                        <Link to="/react-tubi-tv/" className="add-to-list">
+                            Add to My List
+                        </Link>
                         {/* <Link to="/react-tubi-tv/">Share</Link> */}
                         {/* <Link to="/react-tubi-tv/"><i className="fas fa-ellipsis-h"></i></Link> */}
                     </div>
                     <div className="dirc-small hide">
-                        <p className="dirc" >After years in special ops and wrongful imprisonment, a     witness to the murder of a Chinese cop agrees to retrieve a kidnapped girl and a bag of money.</p>
-                        <span>DIRECTOR<Link to="/react-tubi-tv/">Kenio Waxman</Link></span>
-                        <span>STARRING<Link to="/react-tubi-tv/">Steven Seagal, Marlaina, MahVitaly Kravchenko</Link></span>
+                        <p className="dirc">
+                            After years in special ops and wrongful
+                            imprisonment, a witness to the murder of a Chinese
+                            cop agrees to retrieve a kidnapped girl and a bag of
+                            money.
+                        </p>
+                        <span>
+                            DIRECTOR
+                            <Link to="/react-tubi-tv/">Kenio Waxman</Link>
+                        </span>
+                        <span>
+                            STARRING
+                            <Link to="/react-tubi-tv/">
+                                Steven Seagal, Marlaina, MahVitaly Kravchenko
+                            </Link>
+                        </span>
                     </div>
                 </div>
+                <Footer />
             </div>
-        )
+        );
     }
     componentWillUnmount() {
-        window.scrollTo({top: 0})
+        window.scrollTo({ top: 0 });
     }
 }
 
-export default Movies
+export default Movies;

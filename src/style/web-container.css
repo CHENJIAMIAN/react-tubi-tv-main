@@ -1,0 +1,803 @@
+.enter {
+    opacity: 0
+}
+
+.enter.enterActive {
+    transition: opacity .2s;
+    opacity: 1
+}
+
+.leave {
+    opacity: 1
+}
+
+.leave.leaveActive {
+    transition: opacity .2s;
+    opacity: 0
+}
+
+.live .header {
+    padding-bottom: 48px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid rgba(150,153,163,.16)
+}
+
+.live .title {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 56px;
+    color: #fff;
+    margin-bottom: 0
+}
+
+.live .description {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    color: #fff;
+    opacity: .48
+}
+
+@media (min-width: 768px) {
+    .live .description {
+        width:50%
+    }
+}
+
+.live .content {
+    margin-top: 125px;
+    min-height: calc(100vh - 445px)
+}
+
+.live .filter {
+    display: flex;
+    margin-bottom: 60px;
+    flex-wrap: nowrap;
+    align-items: center
+}
+
+@media (max-width: 539px) {
+    .live .filter {
+        display:block
+    }
+}
+
+.live .filter .label {
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    margin-right: 40px;
+    flex-shrink: 0;
+    white-space: nowrap
+}
+
+@media (max-width: 539px) {
+    .live .filter .label {
+        margin-bottom:12px
+    }
+}
+
+@media (max-width: 539px) {
+    .live .filter .filterItems {
+        margin-left:-4px;
+        margin-right: -20px;
+        overflow-x: scroll
+    }
+}
+
+.live .subTitle {
+    color: #fff;
+    margin-bottom: 24px;
+    margin-top: 60px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -.2px
+}
+
+.filter {
+    white-space: nowrap
+}
+
+.filter .item {
+    display: inline-block;
+    padding: 12px 16px;
+    background: rgba(150,153,163,.16);
+    border-radius: 6px;
+    margin: 0 4px;
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 16px;
+    color: #fff;
+    cursor: pointer
+}
+
+.filter .item.selected {
+    background: #fff;
+    color: #10141f
+}
+
+.webChannel {
+    position: relative
+}
+
+.webChannel .imageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 280px;
+    display: flex;
+    justify-content: center
+}
+
+@media (min-width: 768px) {
+    .webChannel .imageWrapper {
+        height:656px
+    }
+}
+
+.webChannel .imageWrapper .image {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    min-width: 100vw;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.webChannel .imageWrapper .gradient {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.webChannel .channelContent {
+    position: relative;
+    color: #fff;
+    padding-top: 248px;
+    min-height: calc(100vh - 461px)
+}
+
+.webChannel .channelContent.withWebRefresh {
+    padding-top: 0;
+    margin-bottom: 72px
+}
+
+@media (min-width: 768px) {
+    .webChannel .channelContent {
+        padding-top:280px
+    }
+}
+
+.webChannel .channelContent .grid {
+    border-top: 1px solid rgba(211,215,219,.1);
+    padding: 24px 0 0
+}
+
+.webChannel .refreshBackground {
+    height: 476px
+}
+
+@media screen and (max-width: 1170px) {
+    .webChannel .refreshBackground {
+        height:338px
+    }
+}
+
+.channelDetails {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "logo title" "logo description";
+    color: #fff;
+    margin-bottom: 96px;
+    position: relative
+}
+
+.channelDetails:after {
+    content: "";
+    position: absolute;
+    bottom: -48px;
+    background: rgba(150,153,163,.16);
+    height: 1px;
+    width: 100%
+}
+
+@media screen and (max-width: 1170px) and (min-width:769px) {
+    .channelDetails {
+        margin-bottom:64px
+    }
+
+    .channelDetails:after {
+        bottom: -32px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .channelDetails {
+        grid-template-areas:"logo title" "description description";
+        align-items: center;
+        margin-bottom: 48px
+    }
+
+    .channelDetails:after {
+        bottom: -24px
+    }
+}
+
+.channelDetails .logo {
+    grid-area: logo;
+    width: 112px;
+    height: 112px;
+    margin-right: 48px
+}
+
+@media screen and (max-width: 768px) {
+    .channelDetails .logo {
+        width:48px;
+        height: 48px;
+        margin-right: 16px
+    }
+}
+
+.channelDetails .title {
+    grid-area: title;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 56px
+}
+
+@media screen and (max-width: 768px) {
+    .channelDetails .title {
+        font-weight:800;
+        font-size: 32px;
+        line-height: 40px
+    }
+}
+
+.channelDetails .description {
+    grid-area: description;
+    font-size: 18px;
+    line-height: 28px;
+    color: #9699a3;
+    max-width: 860px;
+    margin-top: 8px;
+    padding-right: 80px
+}
+
+@media screen and (max-width: 1170px) and (min-width:769px) {
+    .channelDetails .description {
+        max-width:720px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .channelDetails .description {
+        font-size:14px;
+        line-height: 20px;
+        margin-top: 16px;
+        padding-right: 48px
+    }
+}
+
+.channelDetails .share {
+    position: absolute;
+    bottom: 0;
+    right: 0
+}
+
+.channelDetails .share .shareMenuButton svg {
+    margin: 0
+}
+
+@media screen and (max-width: 768px) {
+    .channelDetails .share .shareMenuButton {
+        height:40px;
+        width: 40px;
+        padding: 8px;
+        justify-content: center
+    }
+}
+
+.channelDetails .share .shareMenu {
+    position: absolute;
+    border-radius: 6px;
+    border: 1px solid rgba(240,241,245,.16);
+    background: #1c1f29;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 232px;
+    top: 72px;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 16px;
+    line-height: 24px;
+    color: #9699a3
+}
+
+.channelDetails .share .shareMenu.show {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.channelDetails .share .shareMenu:after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 24px;
+    width: 0;
+    height: 0;
+    border-color: transparent transparent rgba(240,241,245,.16);
+    border-style: solid;
+    border-width: 0 8px 8px
+}
+
+.shareIcons {
+    font-size: 24px
+}
+
+.shareIcons svg {
+    margin-left: 8px;
+    transition: color .2s;
+    color: hsla(0,0%,100%,.64)
+}
+
+.shareIcons a,.shareIcons svg:hover {
+    color: #fff
+}
+
+.titleLogoRow {
+    display: flex;
+    align-items: center;
+    padding-bottom: 23px
+}
+
+@media (min-width: 768px) {
+    .titleLogoRow {
+        padding-bottom:29px
+    }
+}
+
+.titleLogoRow .logo {
+    height: 80px;
+    width: 80px;
+    margin-right: 20px
+}
+
+@media (min-width: 768px) {
+    .titleLogoRow .logo {
+        margin-right:15px
+    }
+}
+
+.titleLogoRow .title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: .5px;
+    transform: translateY(2px)
+}
+
+@media (min-width: 768px) {
+    .titleLogoRow .title {
+        transform:translateY(6px);
+        font-size: 67px;
+        font-weight: 700;
+        line-height: 64px;
+        letter-spacing: -1px
+    }
+}
+
+.description {
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: #d5d5d5;
+    padding: 16px 0 18px;
+    border-bottom: 1px solid rgba(211,215,219,.1);
+    border-top: 1px solid rgba(211,215,219,.1)
+}
+
+@media (min-width: 768px) {
+    .description {
+        padding:31px 0 16px;
+        width: 50%;
+        margin-left: 95px;
+        border-bottom: none
+    }
+}
+
+.externalUrl {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: .5px;
+    padding: 16px 0
+}
+
+@media (min-width: 768px) {
+    .externalUrl {
+        padding:0
+    }
+}
+
+.externalUrl .iconBorder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(211,215,219,.1);
+    border-radius: 50%;
+    margin-right: 10px
+}
+
+.externalUrl .link {
+    color: #fff;
+    opacity: .5;
+    transition: opacity .3s ease-in-out
+}
+
+.externalUrl .link:hover {
+    opacity: 1
+}
+
+@media (min-width: 768px) {
+    .externalUrl {
+        margin-left:95px
+    }
+}
+
+.shareButtonRow {
+    position: relative;
+    display: flex;
+    flex-direction: column
+}
+
+@media (min-width: 768px) {
+    .shareButtonRow {
+        margin-top:0;
+        margin-bottom: 0
+    }
+}
+
+.shareButtonRow .shareWrapper {
+    min-height: 40px
+}
+
+@media (min-width: 768px) {
+    .shareButtonRow .shareWrapper {
+        align-self:flex-end;
+        margin-bottom: 31px
+    }
+}
+
+.shareButtonRow .shareWrapper .shareButton {
+    border: 1px solid #fff
+}
+
+.shareButtonRow .shareWrapper .shareMenuTransitionWrapper {
+    width: 100%;
+    position: relative
+}
+
+.shareButtonRow .shareWrapper .shareMenuTransitionWrapper .shareMenu {
+    position: absolute;
+    top: 1rem;
+    z-index: 1
+}
+
+.shareButtonRow .shareWrapper .shareMenuTransitionWrapper .shareMenu:after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid #fff;
+    left: 50%
+}
+
+.enter {
+    opacity: 0
+}
+
+.enter.enterActive {
+    transition: opacity .2s;
+    opacity: 1
+}
+
+.leave {
+    opacity: 1
+}
+
+.leave.leaveActive {
+    transition: opacity .2s;
+    opacity: 0
+}
+
+.shareMenu {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: .5px;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    padding: 1rem;
+    width: 100%;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+    background: #fff;
+    border: 1px solid rgba(32,32,38,.1);
+    color: #26262d
+}
+
+.shareMenu .facebookIcon,.shareMenu .twitterIcon {
+    height: 1.5rem;
+    width: 1.5rem
+}
+
+.shareMenu .iconWrapper {
+    display: flex;
+    justify-content: flex-start;
+    color: #26262d
+}
+
+.shareMenu .iconWrapper path {
+    transition: fill .2s linear
+}
+
+.shareMenu .iconWrapper span {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: .5px;
+    text-transform: none;
+    margin-top: 2px
+}
+
+.shareMenu .iconWrapper:first-of-type {
+    padding-bottom: 4px;
+    margin-right: 16px
+}
+
+.shareMenu .iconWrapper:first-of-type:hover {
+    color: #3d6ac3
+}
+
+.shareMenu .iconWrapper:first-of-type:hover path {
+    fill: #3d6ac3
+}
+
+.shareMenu .iconWrapper:last-of-type:hover {
+    color: #55acee
+}
+
+.shareMenu .iconWrapper:last-of-type:hover path {
+    fill: #55acee
+}
+
+.listButton {
+    display: flex;
+    justify-content: flex-start;
+    transition: color .2s linear;
+    cursor: pointer
+}
+
+.listButton .text {
+    flex: 0 0 auto;
+    margin: 4px 0 0 5px
+}
+
+.listButton .link {
+    margin-top: .5em;
+    opacity: 1!important;
+    color: currentColor;
+    font-size: .8em;
+    white-space: nowrap
+}
+
+.listButton .link:hover {
+    color: #ff501a
+}
+
+.kids-mode .listButton .link:hover {
+    color: #fea534
+}
+
+.listButton:hover {
+    color: #ff501a
+}
+
+.kids-mode .listButton:hover {
+    color: #fea534
+}
+
+/*  */
+.title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px
+}
+
+.subtitle,.title {
+    letter-spacing: .5px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: row
+}
+
+.subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px
+}
+
+.content {
+    margin-top: 141px;
+    min-height: calc(100vh - 461px)
+}
+
+.content.withRefresh {
+    padding-right: 84px;
+    padding-left: 84px;
+    margin-bottom: 72px
+}
+
+@media screen and (max-width: 1170px) {
+    .content.withRefresh {
+        padding-right:40px;
+        padding-left: 40px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .content.withRefresh {
+        padding-right:24px;
+        padding-left: 24px
+    }
+}
+
+.detailContainer.withRefresh {
+    margin-bottom: 96px;
+    position: relative
+}
+
+.detailContainer.withRefresh:after {
+    content: "";
+    position: absolute;
+    bottom: -48px;
+    left: 0;
+    background: rgba(150,153,163,.16);
+    height: 1px;
+    width: 100%
+}
+
+@media screen and (max-width: 1170px) and (min-width:769px) {
+    .detailContainer.withRefresh {
+        margin-bottom:64px
+    }
+
+    .detailContainer.withRefresh:after {
+        bottom: -32px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .detailContainer.withRefresh {
+        margin-bottom:48px
+    }
+
+    .detailContainer.withRefresh:after {
+        bottom: -24px
+    }
+}
+
+.title.withRefresh {
+    margin: 0;
+    color: #fff;
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 56px
+}
+
+@media screen and (max-width: 768px) {
+    .title.withRefresh {
+        font-weight:800;
+        font-size: 32px;
+        line-height: 40px
+    }
+}
+
+.description {
+    font-weight: 300;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: #d5d5d5;
+    margin: 0 0 4.33333rem
+}
+
+@media (min-width: 768px) {
+    .description {
+        width:50%
+    }
+}
+
+.description.withRefresh {
+    font-size: 18px;
+    line-height: 28px;
+    color: #9699a3;
+    width: auto;
+    max-width: 790px;
+    margin-top: 8px;
+    position: relative
+}
+
+@media screen and (max-width: 1170px) and (min-width:769px) {
+    .description.withRefresh {
+        max-width:624px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .description.withRefresh {
+        font-size:14px;
+        line-height: 20px;
+        margin-top: 16px
+    }
+}
+
+.containerTitle {
+    position: relative
+}
+
+.containerTitle .parentTitle {
+    color: #fff;
+    font-size: 1.8rem
+}
+
+.containerTitle .title {
+    margin: 0 0 20px;
+    color: #fff;
+    font-size: 4.46667rem;
+    font-weight: 700
+}
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1.5rem
+}
+
+.back .button {
+    width: 28px;
+    height: 28px
+}
+
+.back .button .icon {
+    color: #26262d
+}
+
+.back .text {
+    padding-left: 1rem;
+    margin: 0;
+    font-weight: 400;
+    transition: opacity .2s;
+    font-size: 1.2rem
+}
+
+.back .text:hover {
+    opacity: .75
+}

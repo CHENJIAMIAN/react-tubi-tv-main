@@ -14,7 +14,7 @@
     <link crossorigin="true" rel="preconnect" href="//cdn.adrise.tv" />
     <link crossorigin="true" rel="preconnect" href="//canvas-bridge.tubitv.com" />
     <link crossorigin="true" rel="preconnect" href="//canvas-bridge02.tubitv.com" />
-    <link media="screen" rel="stylesheet" href="//d0.tubitv.com/web-k8s/dist/style.1db1f561.chunk.css" />
+    <link media="screen" rel="stylesheet" href="./src/style/all.css" />
     <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous"
         href="//d0.tubitv.com/web-k8s/dist/50de777f7092.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous"
@@ -81,51 +81,52 @@
 
 <body style="background:black;margin:0" class="" data-reactroot="">
     <div id="content" style="display:">
-        <div id="app" class="AlOn7" style="background:#26262D">
-            <div class="KBrro">
-                <div class="_3Za8E"></div>
+        <div id="app" class="app" style="background:#26262D">
+
+            <div class="tubiNotifications">
+                <div class="flexReverseOnMobile"></div>
             </div>
-            <div class="_3Qo9r">
-                <header class="U7IH3 _1lGOj RwMWO">
-                    <div class="pcWvI"></div>
-                    <div class="Container _3JvwP">
-                        <div class="_1sZ9q">
-                            <div class="_2v5vy _3iiU9">
-                                <div class="_277hK _2IAyq _1NyXl"></div>
-                                <a class="_2bni8 _13xbz" href="/home">
-                                    <svg class="_2rWrR _3GE7h _2fkhH _2DIK5" preserveAspectRatio="xMidYMid meet"
+            <div class="appContent">
+                <header class="topNav inverted withGradientBg">
+                    <div class="overlayWrapper"></div>
+                    <div class="Container container">
+                        <div class="leftNavItems">
+                            <div class="menuAndLogoWrapper browseMenuAndLogoWrapper">
+                                <div class="containerMenuWrapper hide containerBrowseMenuWrapper"></div>
+                                <a class="logo browseAndLogo" href="/home">
+                                    <svg class="svgIcon tubi black logoIcon" preserveAspectRatio="xMidYMid meet"
                                         style="fill:currentcolor" viewBox="0 0 105 44">
                                         <path
                                             d="M55.5 12h-7v16a8 8 0 11-16 0V13a1 1 0 00-1-1h-7v16a16 16 0 0032 0V13a1 1 0 00-1-1zM24.1 40.96l-3.03-5.21a1 1 0 00-1.27-.42A8.05 8.05 0 018.54 28v-7a1 1 0 011-1H19.6a1 1 0 001-1v-6a1 1 0 00-1-1H9.54a1 1 0 01-1-1V1a1 1 0 00-1-1H.5v28c0 8.84 7.2 16 16.08 16 2.54 0 4.95-.59 7.1-1.64a1 1 0 00.42-1.4zM100.5 0a4 4 0 100 8 4 4 0 000-8zm3 12h-7v31a1 1 0 001 1h6a1 1 0 001-1V13a1 1 0 00-1-1zm-27 24a8 8 0 110-16 8 8 0 010 16zm0-24c-2.35 0-4.58.5-6.59 1.42a1 1 0 01-1.41-.92V1a1 1 0 00-1-1h-7v28a16 16 0 1016-16z"
                                             fill="currentcolor"></path>
                                     </svg>
                                 </a>
-                                <div class="_1DRQ8 _1Qbb2">Browse</div>
+                                <div class="browseMenu inverse">Browse</div>
                             </div>
                         </div>
-                        <section class="yOpR1 wG6fJ">
-                            <svg class="_2rWrR _20cwl" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
+                        <section class="searchContainer topnavSearchBox">
+                            <svg class="svgIcon searchIcon" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
                                 viewBox="0 0 18.07 18.07">
                                 <path fill="currentColor"
                                     d="M7.5,13A5.5,5.5,0,1,0,2,7.5,5.5,5.5,0,0,0,7.5,13Zm4.55.46A7.5,7.5,0,1,1,13.46,12l4.31,4.31a1,1,0,1,1-1.41,1.41Z">
                                 </path>
                             </svg>
                             <form>
-                                <input type="search" class="_31SfF" placeholder="Find movies, TV shows and more"
+                                <input type="search" class="textInput" placeholder="Find movies, TV shows and more"
                                     value="" required="" />
                             </form>
-                            <svg class="_2rWrR _2se6d" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
+                            <svg class="svgIcon clearIcon" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
                                 viewBox="0 0 13 13">
                                 <path fill="currentColor" fill-rule="evenodd"
                                     d="M6.5 5.793l-2.12-2.12-.708.706 2.12 2.12-2.12 2.12.707.708 2.12-2.12 2.12 2.12.708-.707-2.12-2.12 2.12-2.12-.707-.708-2.12 2.12zM7 13c-4.09 0-7-2.91-7-6 0-4.09 2.91-7 7-7 3.09 0 6 2.91 6 7 0 3.09-2.91 6-6 6z">
                                 </path>
                             </svg>
                         </section>
-                        <div class="_1Sn36">
-                            <div class="_1-UPh">
-                                <div class="y_hxB _2Gq2l _1kV41">
-                                    <div class="_3tRfC">
-                                        Hi, <span class="_4wVtj">s</span>
+                        <div class="rightNavItems">
+                            <div class="account">
+                                <div class="greet greetAccount inverse">
+                                    <div class="greeting">
+                                        Hi, <span class="name">s</span>
                                     </div>
                                     <div></div>
                                 </div>
@@ -133,30 +134,30 @@
                         </div>
                     </div>
                 </header>
-                <div class="_3taaI">
-                    <div class="_270Nn">
-                        <div class="RhgZR P7Rba" data-index="0" tabindex="0" role="button" aria-label="profile">profile
+                <div class="wrapper">
+                    <div class="navbar">
+                        <div class="item active" data-index="0" tabindex="0" role="button" aria-label="profile">profile
                         </div>
-                        <div class="RhgZR" data-index="1" tabindex="0" role="button" aria-label="parental controls">
+                        <div class="item" data-index="1" tabindex="0" role="button" aria-label="parental controls">
                             parental controls</div>
-                        <div class="RhgZR" data-index="2" tabindex="0" role="button" aria-label="notifications">
+                        <div class="item" data-index="2" tabindex="0" role="button" aria-label="notifications">
                             notifications</div>
-                        <div class="RhgZR" data-index="3" tabindex="0" role="button" aria-label="history &amp; my list">
+                        <div class="item" data-index="3" tabindex="0" role="button" aria-label="history &amp; my list">
                             history &amp;my list</div>
                     </div>
                     <div class="Container">
                         <div>
-                            <div class="Row _284B9">
-                                <div class="Col Col--9 Col--lg-6 Col--xxl-4 _2EqeJ">
-                                    <div class="_1QmrE _3BUwb">
-                                        <div class="oHtFA"></div>
+                            <div class="Row row">
+                                <div class="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
+                                    <div class="userProfile settingsContent">
+                                        <div class="overlayDimmer"></div>
                                         <h1>My Account</h1>
-                                        <div class="SWd1x">
-                                            <div class="b5-q0">
+                                        <div class="userInfo">
+                                            <div class="photoSection">
                                                 <img
                                                     src="https://cdn.adrise.tv/tubitv-assets/img/default_profile_pic.png" />
                                             </div>
-                                            <div class="_2kWKE">
+                                            <div class="demSection">
                                                 <div class="Input Input--filled">
                                                     <input type="text" class="Input__input" name="firstName" value="s"
                                                         autoComplete="given-name" />
@@ -174,23 +175,23 @@
                                                     <span class="Select__down-icon"></span>
                                                 </div>
                                             </div>
-                                            <div class="_28rt-">
+                                            <div class="saveBtn">
                                                 <button class="Button Button--large">
                                                     <div class="Button__bg"></div>
                                                     <div class="Button__content">Save</div>
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="Pk7x9">
+                                        <div class="passwordSection">
                                             <div>
                                                 <h2>Change Password</h2>
                                             </div>
                                             <div>
-                                                <div class="_2ocY-">
-                                                    <div class="_1Cyrt">
+                                                <div class="inputContainer">
+                                                    <div class="content">
                                                         <form novalidate="">
                                                             <div>
-                                                                <div class="OYwCh">It appears that you have created this
+                                                                <div class="text">It appears that you have created this
                                                                     account using single sign-on. You’ll have to set a
                                                                     new password first.</div>
                                                                 <div style="text-align:center">
@@ -206,15 +207,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="delTop" class="_21z0q">
-                                            <h2 class="_3sFOQ">DELETE MY ACCOUNT</h2>
-                                            <div class="_2Jdp1">
-                                                <div class="_3qNWf">
+                                        <div id="delTop" class="accountDelMain">
+                                            <h2 class="sectionHead">DELETE MY ACCOUNT</h2>
+                                            <div class="content">
+                                                <div class="sectionInfo">
                                                     <p>Deleting your account from Tubi will remove your list and history
                                                         and unlink the devices associated with it.</p>
                                                     <p>Please allow up to 48 hours before your request is processed.</p>
                                                 </div>
-                                                <div class="_31nKe">
+                                                <div class="btnArea">
                                                     <button class="Button Button--large Button--inverse">
                                                         <div class="Button__bg"></div>
                                                         <div class="Button__content">Delete Account</div>
@@ -227,12 +228,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="_2IQWz">
-                        <div class="Container _1DmlB">
-                            <div class="Row _20pdU">
-                                <div class="_1Ubk_">
-                                    <a class="ATag _2CQSo" href="/home">
-                                        <svg class="_2rWrR _3GE7h _3K8H0" preserveAspectRatio="xMidYMid meet"
+                    <div class="footer">
+                        <div class="Container container">
+                            <div class="Row topRow">
+                                <div class="iconAndPath">
+                                    <a class="ATag homeLink" href="/home">
+                                        <svg class="svgIcon tubi tubiIcon" preserveAspectRatio="xMidYMid meet"
                                             style="fill:currentcolor" viewBox="0 0 105 44">
                                             <path
                                                 d="M55.5 12h-7v16a8 8 0 11-16 0V13a1 1 0 00-1-1h-7v16a16 16 0 0032 0V13a1 1 0 00-1-1zM24.1 40.96l-3.03-5.21a1 1 0 00-1.27-.42A8.05 8.05 0 018.54 28v-7a1 1 0 011-1H19.6a1 1 0 001-1v-6a1 1 0 00-1-1H9.54a1 1 0 01-1-1V1a1 1 0 00-1-1H.5v28c0 8.84 7.2 16 16.08 16 2.54 0 4.95-.59 7.1-1.64a1 1 0 00.42-1.4zM100.5 0a4 4 0 100 8 4 4 0 000-8zm3 12h-7v31a1 1 0 001 1h6a1 1 0 001-1V13a1 1 0 00-1-1zm-27 24a8 8 0 110-16 8 8 0 010 16zm0-24c-2.35 0-4.58.5-6.59 1.42a1 1 0 01-1.41-.92V1a1 1 0 00-1-1h-7v28a16 16 0 1016-16z"
@@ -240,13 +241,13 @@
                                         </svg>
                                     </a>
                                 </div>
-                                <div class="_23TJ8"></div>
-                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 _3O4gj">
-                                    <div class="_3Rq0D">
-                                        <div class="SPKaS">
+                                <div class="breadcrumbWrapper"></div>
+                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 followUs">
+                                    <div class="followUsContainer">
+                                        <div class="iconsRow">
                                             <a href="https://www.facebook.com/tubitv" rel="noopener" target="_blank"
-                                                class="ATag _2_qmc">
-                                                <svg class="_2rWrR _1-m4h" preserveAspectRatio="xMidYMid meet"
+                                                class="ATag facebookIcon">
+                                                <svg class="svgIcon facebook" preserveAspectRatio="xMidYMid meet"
                                                     style="fill:currentcolor" viewBox="0 0 20 20">
                                                     <path fill="currentColor" fill-rule="evenodd"
                                                         d="M2 0C.938 0 0 1.063 0 1.97v16.093C0 19.03 1.063 20 2 20h9v-8H8V9h3V7c-.318-2.573 1.26-3.98 4-4 .668.02 1.617.103 2 0v3h-2c-.957-.16-1.2.436-1 1v2h3l-1 3h-2v8h3.938c1.03 0 2.062-.938 2.062-1.938V1.97C20 1.03 18.937 0 17.937 0H2z">
@@ -254,8 +255,8 @@
                                                 </svg>
                                             </a>
                                             <a href="https://www.instagram.com/tubi" rel="noopener" target="_blank"
-                                                class="ATag Ejsie">
-                                                <svg class="_2rWrR" preserveAspectRatio="xMidYMid meet"
+                                                class="ATag instagramIcon">
+                                                <svg class="svgIcon" preserveAspectRatio="xMidYMid meet"
                                                     style="fill:currentcolor" viewBox="0 0 20 20">
                                                     <g fill="currentColor" fill-rule="evenodd">
                                                         <path
@@ -268,8 +269,8 @@
                                                 </svg>
                                             </a>
                                             <a href="https://twitter.com/tubi" rel="noopener" target="_blank"
-                                                class="ATag _20ow7">
-                                                <svg class="_2rWrR" preserveAspectRatio="xMidYMid meet"
+                                                class="ATag twitterIcon">
+                                                <svg class="svgIcon" preserveAspectRatio="xMidYMid meet"
                                                     style="fill:currentcolor" viewBox="0 0 20 17">
                                                     <path
                                                         d="M6 17c7.837 0 11.965-6.156 12-11-.035-.67-.035-.844 0-1 .756-.59 1.45-1.297 2-2-.75.218-1.543.433-2 1 .5-.978 1.14-1.77 1-3-.358.763-1.24 1.095-2 1C15.29.647 12.69.568 11 2c-1.03 1.084-1.48 2.555-1 4-3.45-.204-6.524-1.74-9-4C.303 3.584.86 5.945 3 7c-.99.11-1.63-.062-2 0-.2 1.6 1.178 3.255 3 4-.512-.202-1.146-.178-2 0 .777 1.35 2.318 2.478 4 3-1.38.635-3.175 1.246-5 1-.35.244-.675.223-1 0 1.877 1.37 4.06 2 6 2"
@@ -277,8 +278,8 @@
                                                 </svg>
                                             </a>
                                             <a href="https://www.linkedin.com/company/tubi-tv/" rel="noopener"
-                                                target="_blank" class="ATag _3ZVlJ">
-                                                <svg class="_2rWrR" preserveAspectRatio="xMidYMid meet"
+                                                target="_blank" class="ATag linkedInIcon">
+                                                <svg class="svgIcon" preserveAspectRatio="xMidYMid meet"
                                                     style="fill:currentcolor" viewBox="0 0 15 15">
                                                     <path
                                                         d="M13.89 0H1.11A1.1 1.1 0 0 0 0 1.08v12.84A1.1 1.1 0 0 0 1.11 15h12.78A1.1 1.1 0 0 0 15 13.92V1.08A1.1 1.1 0 0 0 13.89 0zM4 13H2V5h2zm0-9H2V2h2zm9 9h-2.24V9.2c0-.91 0-2.07-1.17-2.07s-1.35 1-1.35 2V13H6V5.19h2.15v1.07A2.33 2.33 0 0 1 10.31 5C12.58 5 13 6.62 13 8.72z">
@@ -289,14 +290,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="Row vCrxD">
-                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 _1kFxu"></div>
-                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 _1kFxu"></div>
+                            <div class="Row lineRow">
+                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 line"></div>
+                                <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 line"></div>
                             </div>
-                            <div class="Row _3bXfc">
+                            <div class="Row listContainer">
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">COMPANY</li>
+                                    <ul class="links">
+                                        <li class="lh">COMPANY</li>
                                         <li>
                                             <a href="https://corporate.tubitv.com" rel="noopener" target="_self"
                                                 class="ATag">About Us</a>
@@ -312,8 +313,8 @@
                                     </ul>
                                 </div>
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">SUPPORT</li>
+                                    <ul class="links">
+                                        <li class="lh">SUPPORT</li>
                                         <li>
                                             <a class="ATag" href="/static/support">Contact Support</a>
                                         </li>
@@ -330,8 +331,8 @@
                                     </ul>
                                 </div>
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">PARTNERS</li>
+                                    <ul class="links">
+                                        <li class="lh">PARTNERS</li>
                                         <li>
                                             <a href="https://corporate.tubitv.com/partners/advertisewithus/"
                                                 rel="noopener" target="_self" class="ATag">Advertise with Us</a>
@@ -342,8 +343,8 @@
                                     </ul>
                                 </div>
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">GET THE APPS</li>
+                                    <ul class="links">
+                                        <li class="lh">GET THE APPS</li>
                                         <li>
                                             <a href="https://itunes.apple.com/app/tubi-tv-watch-free-movies/id886445756?mt=8"
                                                 rel="noopener" target="_self" class="ATag">iOS</a>
@@ -363,8 +364,8 @@
                                     </ul>
                                 </div>
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">PRESS</li>
+                                    <ul class="links">
+                                        <li class="lh">PRESS</li>
                                         <li>
                                             <a href="https://corporate.tubitv.com/press-releases/" rel="noopener"
                                                 target="_self" class="ATag">Press Releases</a>
@@ -376,8 +377,8 @@
                                     </ul>
                                 </div>
                                 <div class="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                                    <ul class="_1FwaP">
-                                        <li class="_1VwYJ">LEGAL</li>
+                                    <ul class="links">
+                                        <li class="lh">LEGAL</li>
                                         <li>
                                             <a class="ATag" href="/static/privacy">Privacy Policy (Updated)</a>
                                         </li>
@@ -391,25 +392,25 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="MsUIH">
-                                <div class="_1kXvx">
+                            <div class="bottomSection">
+                                <div class="downloadLinks">
                                     <a href="https://itunes.apple.com/app/tubi-tv-watch-free-movies/id886445756?mt=8"
-                                        rel="noopener" target="_blank" class="ATag Z86-J"></a>
+                                        rel="noopener" target="_blank" class="ATag appStoreBadge"></a>
                                     <a href="https://play.google.com/store/apps/details?id=com.tubitv" rel="noopener"
-                                        target="_blank" class="ATag HGDJd"></a>
+                                        target="_blank" class="ATag googleBadge"></a>
                                 </div>
-                                <div class="_34g8g">
-                                    <div class="_1qFIf">
+                                <div class="finePrint">
+                                    <div class="copyright">
                                         <div>Copyright © 2021 Tubi, Inc.</div>
                                         <div>
                                             Tubi is a registered trademark of Tubi, Inc. <br />All rights reserved.
                                         </div>
                                     </div>
-                                    <div class="XJ_r0">Device ID: 37611f93-1966-4b56-b828-f5fb779a42b0</div>
+                                    <div class="additionalFinePrint">Device ID: 37611f93-1966-4b56-b828-f5fb779a42b0</div>
                                 </div>
-                                <div class="_2PMG5">
+                                <div class="signature">
                                     Made with
-                                    <svg class="_2rWrR" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
+                                    <svg class="svgIcon" preserveAspectRatio="xMidYMid meet" style="fill:currentcolor"
                                         viewBox="0 0 10 9">
                                         <path fill="currentColor" fill-rule="evenodd"
                                             d="M9.024 2.58C8.88 1.163 7.87 0 6.448 0c-.766 0-1.453.335-1.924.866C4.05.336 3.364 0 2.6 0 1.175 0 .165 1.162.023 2.58c-.11 1.086.132 2.537 1.197 3.91 1.106 1.424 2.946 2.318 2.946 2.318.227.115.48.103.694 0 0 0 1.86-.894 2.967-2.318C8.89 5.117 9.132 3.666 9.024 2.58">
@@ -422,7 +423,8 @@
                     </div>
                 </div>
             </div>
-            <div id="GoogleOneTap" class="_3K2eP"></div>
+            <div id="GoogleOneTap" class="oneTap"></div>
+            
         </div>
     </div>
     <script charSet="utf-8">

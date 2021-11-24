@@ -61,89 +61,93 @@ class App extends React.Component {
         let state = this.state;
         return (
             <Router>
-                <div className="app">
-                    <Header
-                        isLogged={state.isLogged}
-                        currUser={state.currUser}
-                        isStayFormLogin={state.isStayFormLogin}
-                        isStayFormRegister={state.isStayFormRegister}
-                        changeIsStayFormLogin={this.changeIsStayFormLogin}
-                        changeIsRegister={this.changeIsRegister}
-                        changeIsLogged={this.changeIsLogged}
-                        getSearchValue={this.getSearchValue}
-                    />
-
-                    <Switch>
-                        <Route
-                            path="/form-login/:status"
-                            component={({ history }) => (
-                                <FormLogin
-                                    history={history}
-                                    changeIsStayFormLogin={
-                                        this.changeIsStayFormLogin
-                                    }
-                                    changeIsRegister={this.changeIsRegister}
-                                    changeIsLogged={this.changeIsLogged}
-                                />
-                            )}
+                <div id="app" className="app">
+                    <div class="tubiNotifications">
+                        <div class="flexReverseOnMobile"></div>
+                    </div>
+                    <div class="appContent">
+                        <Header
+                            isLogged={state.isLogged}
+                            currUser={state.currUser}
+                            isStayFormLogin={state.isStayFormLogin}
+                            isStayFormRegister={state.isStayFormRegister}
+                            changeIsStayFormLogin={this.changeIsStayFormLogin}
+                            changeIsRegister={this.changeIsRegister}
+                            changeIsLogged={this.changeIsLogged}
+                            getSearchValue={this.getSearchValue}
                         />
-                        <Route
-                            exact
-                            path="/search"
-                            component={({ history }) => (
-                                <SearchResults
-                                    history={history}
-                                    searchValue={state.searchValue}
-                                />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/movies/:id"
-                            component={({ match }) => <Movies match={match} />}
-                        />
-                        <Route
-                            exact
-                            path="/react-tubi-tv/"
-                            component={({ history }) => (
-                                <Home
-                                    history={history}
-                                    isStayFormLogin={state.isStayFormLogin}
-                                    changeIsStayFormLogin={
-                                        this.changeIsStayFormLogin
-                                    }
-                                />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/react-tubi-tv/"
-                            component={({ history }) => (
-                                <Home
-                                    history={history}
-                                    isStayFormLogin={state.isStayFormLogin}
-                                    changeIsStayFormLogin={
-                                        this.changeIsStayFormLogin
-                                    }
-                                />
-                            )}
-                        />
-                        <Route
-                            exact
-                            path="/account/"
-                            component={({ history }) => (
-                                <Account
-                                    history={history}
-                                    isStayFormLogin={state.isStayFormLogin}
-                                    changeIsStayFormLogin={
-                                        this.changeIsStayFormLogin
-                                    }
-                                />
-                            )}
-                        />
-                    </Switch>
-
-                    <Footer />
+                        <Switch>
+                            <Route
+                                path="/form-login/:status"
+                                component={({ history }) => (
+                                    <FormLogin
+                                        history={history}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                        changeIsRegister={this.changeIsRegister}
+                                        changeIsLogged={this.changeIsLogged}
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/search"
+                                component={({ history }) => (
+                                    <SearchResults
+                                        history={history}
+                                        searchValue={state.searchValue}
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/movies/:id"
+                                component={({ match }) => (
+                                    <Movies match={match} />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/react-tubi-tv/"
+                                component={({ history }) => (
+                                    <Home
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/react-tubi-tv/"
+                                component={({ history }) => (
+                                    <Home
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path="/account/"
+                                component={({ history }) => (
+                                    <Account
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                    />
+                                )}
+                            />
+                        </Switch>
+                    </div>
                 </div>
             </Router>
         );
