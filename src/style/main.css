@@ -3338,7 +3338,7 @@ body {
     color: hsla(0,0%,100%,.8)
 }
 
-.web-row-header {
+.web-row.topNav {
     color: #fff;
     display: inline-flex;
     align-items: center;
@@ -3347,24 +3347,24 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    .web-row-header {
+    .web-row.topNav {
         height:32px;
         margin-top: 8px;
         width: 100%
     }
 }
 
-.web-row-header--link {
+.web-row.topNav--link {
     color: #fff;
     transition: color .3s ease;
     cursor: pointer
 }
 
-.web-row-header--link:hover {
+.web-row.topNav--link:hover {
     color: #ff501a
 }
 
-.web-row-header--link:active {
+.web-row.topNav--link:active {
     color: rgba(255,80,26,.8)
 }
 
@@ -4290,7 +4290,7 @@ html.is-ps5 {
     border-radius: 3px!important
 }
 
-.ab-in-app-message span.ab-message-header {
+.ab-in-app-message span.ab-message.topNav {
     font-size: 1.5rem
 }
 
@@ -4425,7 +4425,7 @@ html.is-ps5 {
     color: #eb9c00
 }
 
-.alertModal .header {
+.alertModal .topNav {
     margin-top: 3.2rem;
     margin-left: 2.93333rem;
     margin-right: 2.93333rem;
@@ -4668,7 +4668,7 @@ html.is-ps5 {
 .exitDone,.exitActive {
     opacity: 0
 }
-
+/* 
 .topNav {
     position: fixed;
     top: 0;
@@ -4701,14 +4701,14 @@ html.is-ps5 {
     .topNav {
         padding:0 40px
     }
-}
+} 
 
 @media screen and (max-width: 768px) {
     .topNav {
         padding:0 24px
     }
 }
-
+*/
 .topNav .closeText {
     font-weight: 900;
     font-style: normal;
@@ -4935,7 +4935,7 @@ html.is-ps5 {
         margin-top:72px
     }
 }
-
+/* 
 .browseMenu {
     z-index: 10001;
     position: fixed;
@@ -4993,7 +4993,7 @@ html.is-ps5 {
 
 .browseMenu::-webkit-scrollbar {
     display: none
-}
+} */
 
 .tabletTitle {
     display: none
@@ -5282,7 +5282,7 @@ html.is-ps5 {
     width: 3rem;
     height: 3rem
 }
-
+/* 
 .account {
     position: relative;
     font-weight: 900;
@@ -5314,7 +5314,7 @@ html.is-ps5 {
 
 .account.opened .chevronIcon {
     transform: rotate(-180deg)
-}
+} */
 
 .signIn,.register {
     font-weight: 900;
@@ -5592,7 +5592,7 @@ html.is-ps5 {
     font-size: 24px
 }
 
-.textInput {
+/* .textInput {
     border: none;
     outline: none;
     box-shadow: none;
@@ -5603,7 +5603,7 @@ html.is-ps5 {
     font-style: normal;
     font-size: 14px;
     line-height: 24px
-}
+} */
 
 .textInput.inverted {
     color: #10141f
@@ -5671,8 +5671,7 @@ html.is-ps5 {
     }
 }
 
-/* topNav */
-/* .header {
+.topNav {
     transition: transform .3s;
     z-index: 99;
     position: fixed;
@@ -5682,27 +5681,27 @@ html.is-ps5 {
     padding: 20px 0;
     font-size: 1rem;
     background: rgba(32,32,38,.8)
-} */
+}
 
-.header.withGradientBg {
+.topNav.withGradientBg {
     background: linear-gradient(rgba(0,0,0,.9) 1%,rgba(0,0,0,.8) 15%,rgba(0,0,0,.7) 30%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.3) 75%,transparent)
 }
 
-.header.slideUp {
+.topNav.slideUp {
     transform: translateY(-120px)
 }
 
-.header.hidden {
+.topNav.hidden {
     display: none
 }
 
-.header .overlayWrapper {
+.topNav .overlayWrapper {
     height: 100vh;
     position: absolute;
     pointer-events: none
 }
 
-.header .overlayWrapper .fullscreenOverlay {
+.topNav .overlayWrapper .fullscreenOverlay {
     position: fixed;
     left: 0;
     top: 0;
@@ -5719,24 +5718,24 @@ html.is-ps5 {
     -webkit-overflow-scrolling: touch
 }
 
-.header .overlayWrapper .overlayEnter {
+.topNav .overlayWrapper .overlayEnter {
     opacity: 0;
     transition: opacity .3s ease-in-out
 }
 
-.header .overlayWrapper .overlayEnter.overlayEnterActive {
+.topNav .overlayWrapper .overlayEnter.overlayEnterActive {
     opacity: .7
 }
 
-.header .overlayWrapper .overlayLeave {
+.topNav .overlayWrapper .overlayLeave {
     opacity: .7;
     transition: opacity .3s ease-in-out
 }
 
-.header .overlayWrapper .overlayLeave.overlayLeaveActive {
+.topNav .overlayWrapper .overlayLeave.overlayLeaveActive {
     opacity: 0
 }
-.header .flex-row {
+.topNav .container {
     display: flex;
     align-items: center;
     flex-flow: row;
@@ -5744,8 +5743,7 @@ html.is-ps5 {
     height: 100%
 }
 
-/* .topNav .container .leftNavItems */
-.header .flex-row .logo {
+.topNav .container .leftNavItems {
     flex-basis: 70%;
     height: 100%;
     display: flex;
@@ -5753,12 +5751,12 @@ html.is-ps5 {
 }
 
 @media (min-width: 960px) {
-    .header .flex-row .logo {
+    .topNav .container .leftNavItems {
         flex-basis:33.3%
     }
 }
 
-.header .flex-row .logo .menuAndLogoWrapper {
+.topNav .container .leftNavItems .menuAndLogoWrapper {
     position: relative;
     width: 99px;
     height: 100%;
@@ -5767,17 +5765,17 @@ html.is-ps5 {
     justify-content: space-between
 }
 
-.header .flex-row .logo .menuAndLogoWrapper.browseMenuAndLogoWrapper {
+.topNav .container .leftNavItems .menuAndLogoWrapper.browseMenuAndLogoWrapper {
     width: 100%;
     justify-content: flex-start
 }
 
-.header .flex-row .logo .menuAndLogoWrapper.mobileKidsMenuWrapper {
+.topNav .container .leftNavItems .menuAndLogoWrapper.mobileKidsMenuWrapper {
     width: 145px
 }
 
 /* containerMenuWrapper:browse-panel */
-.header .flex-row .logo .menuAndLogoWrapper .browse-panel {
+.topNav .container .leftNavItems .menuAndLogoWrapper .browse-panel {
     position: absolute;
     top: 60px;
     left: 0;
@@ -5787,41 +5785,41 @@ html.is-ps5 {
 }
 
 @media (min-width: 768px) {
-    .header .flex-row .logo .menuAndLogoWrapper .browse-panel {
+    .topNav .container .leftNavItems .menuAndLogoWrapper .browse-panel {
         width:calc(100vw - 90px);
         left: -20px
     }
 }
 
 @media (min-width: 768px) {
-    .header .flex-row .logo .menuAndLogoWrapper .browse-panel.containerBrowseMenuWrapper {
+    .topNav .container .leftNavItems .menuAndLogoWrapper .browse-panel.containerBrowseMenuWrapper {
         left:115px
     }
 }
 
 @media (min-width: 768px) {
-    .header .flex-row .logo .menuAndLogoWrapper .browse-panel.containerKidsBrowseMenuWrapper {
+    .topNav .container .leftNavItems .menuAndLogoWrapper .browse-panel.containerKidsBrowseMenuWrapper {
         left:155px
     }
 }
 
-.header .flex-row .logo .menuAndLogoWrapper .browse-panel.hide {
+.topNav .container .leftNavItems .menuAndLogoWrapper .browse-panel.hide {
     pointer-events: none
 }
 
-.header .flex-row .topnavSearchBox {
+.topNav .container .topnavSearchBox {
     flex-basis: 33.3%;
     display: none;
     color: #fff
 }
 
 @media (min-width: 960px) {
-    .header .flex-row .topnavSearchBox {
+    .topNav .container .topnavSearchBox {
         display:block
     }
 }
 
-.header .flex-row .rightNavItems {
+.topNav .container .rightNavItems {
     display: flex;
     align-items: center;
     height: 100%;
@@ -5829,67 +5827,66 @@ html.is-ps5 {
     flex-basis: 33%
 }
 
-.header a {
+.topNav .logo {
     z-index: 10000;
     position: relative;
     top: -1px
 }
-/* .topNav .logo.browseAndLogo { */
-.header a.browseAndLogo {
+.topNav .logo.browseAndLogo {
     width: 120px
 }
 
-.header a.browseAndKidsLogo {
+.topNav .logo.browseAndKidsLogo {
     width: 160px
 }
 
-.header a h1 {
+.topNav .logo h1 {
     margin: 0
 }
 
-.header a .logoIcon {
+.topNav .logo .logoIcon {
     display: block;
     height: 24px;
     width: 54px;
     color: #fff
 }
 
-.header a .kidsModeLogo {
+.topNav .logo .kidsModeLogo {
     width: 110px;
     height: 24px
 }
 
-.header.white-bg {
+.topNav.inverted {
     background: #fff;
     border-bottom: 1px solid rgba(38,38,45,.1);
 }
 
-.header.white-bg .logo a .logoIcon {
+.topNav.inverted .leftNavItems .logo .logoIcon {
     color: #26262d
 }
 
-.header.white-bg .topnavSearchBox {
+.topNav.inverted .topnavSearchBox {
     background-color: #f0f3f5;
     border: 1px solid rgba(32,32,38,.1)
 }
 
-.header.white-bg .topnavSearchBox svg {
+.topNav.inverted .topnavSearchBox svg {
     color: #26262d!important
 }
 
-.header.white-bg .topnavSearchBox input {
+.topNav.inverted .topnavSearchBox input {
     color: #26262d
 }
 
-.header.white-bg .topnavSearchBox input::-moz-placeholder {
+.topNav.inverted .topnavSearchBox input::-moz-placeholder {
     color: #26262d
 }
 
-.header.white-bg .topnavSearchBox input:-ms-input-placeholder {
+.topNav.inverted .topnavSearchBox input:-ms-input-placeholder {
     color: #26262d
 }
 
-.header.white-bg .topnavSearchBox input::placeholder {
+.topNav.inverted .topnavSearchBox input::placeholder {
     color: #26262d
 }
 
@@ -6984,7 +6981,7 @@ a.containerMenuLink:hover {
     padding: 48px 0
 }
 
-.form .logo {
+.form .leftNavItems {
     width: 75.6px;
     height: 32px;
     color: #fff
@@ -8260,7 +8257,7 @@ a.containerMenuLink:hover {
     margin: .5rem 10px 0 0
 }
 
-.containerSection .topRow .titleRow .logoLink .logo {
+.containerSection .topRow .titleRow .logoLink .leftNavItems {
     width: 36px;
     height: 36px;
     background-size: contain
@@ -9724,9 +9721,6 @@ div.ratingBadge {
     font-size: 11px;
     margin: 1rem 0 0
 }
-/* 
-xxx0", "xxx1
-*/
 .footer .bottomSection .signature {
     font-size: 9px;
     color: #fff;

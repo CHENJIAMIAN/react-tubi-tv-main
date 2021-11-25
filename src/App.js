@@ -1,6 +1,5 @@
 import React from 'react';
 import './style/App.css';
-// import './style/all.css'
 import Home from './components/Home.js';
 import Account from './components/Account.js';
 import Header from './components/Header.js';
@@ -61,7 +60,7 @@ class App extends React.Component {
         let state = this.state;
         return (
             <Router>
-                <div id="app" className="app">
+                <div id="app" class="app" style={{ background: '#26262D' }}>
                     <div class="tubiNotifications">
                         <div class="flexReverseOnMobile"></div>
                     </div>
@@ -109,7 +108,7 @@ class App extends React.Component {
                             />
                             <Route
                                 exact
-                                path="/react-tubi-tv/"
+                                path="/home/"
                                 component={({ history }) => (
                                     <Home
                                         history={history}
@@ -122,7 +121,7 @@ class App extends React.Component {
                             />
                             <Route
                                 exact
-                                path="/react-tubi-tv/"
+                                path="/home/"
                                 component={({ history }) => (
                                     <Home
                                         history={history}
@@ -148,6 +147,7 @@ class App extends React.Component {
                             />
                         </Switch>
                     </div>
+                    <div id="GoogleOneTap" class="oneTap"></div>
                 </div>
             </Router>
         );

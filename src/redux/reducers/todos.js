@@ -7,6 +7,9 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        case 'tb/ui/HIDE_TOP_NAV':{
+            return '我是 tb/ui/HIDE_TOP_NAV';
+        }
         case ADD_TODO: {
             const { id, content } = action.payload;
             return {

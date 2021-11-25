@@ -155,11 +155,11 @@
     background-color: #f0f3f5
 }
 
-.row {
+/* .row {
     justify-content: center;
     width: 100%;
     margin-bottom: 100px;
-}
+} */
 
 .newUserCreatePass .disclaimer,
 .newUserCreatePass .facebookAvatar {

@@ -28,14 +28,14 @@ class Movies extends React.Component {
                             <img src={film.url} alt="" />
                             <div className="left-content">
                                 <Link
-                                    to="/react-tubi-tv"
+                                    to="/home"
                                     className="add-to-list"
                                 >
                                     Add to My List
                                 </Link>
                                 <div className="share flex">
-                                    {/* <Link to="/react-tubi-tv/">Share</Link> */}
-                                    {/* <Link to="/react-tubi-tv/"><i className="fas fa-ellipsis-h"></i></Link> */}
+                                    {/* <Link to="/home/">Share</Link> */}
+                                    {/* <Link to="/home/"><i className="fas fa-ellipsis-h"></i></Link> */}
                                 </div>
                             </div>
                         </div>
@@ -64,13 +64,13 @@ class Movies extends React.Component {
                                 </p>
                                 <p>
                                     DIRECTOR
-                                    <Link to="/react-tubi-tv/">
+                                    <Link to="/home/">
                                         Kenio Waxman
                                     </Link>
                                 </p>
                                 <p>
                                     STARRING
-                                    <Link to="/react-tubi-tv/">
+                                    <Link to="/home/">
                                         Steven Seagal, Marlaina, MahVitaly
                                         Kravchenko
                                     </Link>
@@ -80,11 +80,11 @@ class Movies extends React.Component {
                     </div>
                     {/* Mobile */}
                     <div className="share-small hide">
-                        <Link to="/react-tubi-tv/" className="add-to-list">
+                        <Link to="/home/" className="add-to-list">
                             Add to My List
                         </Link>
-                        {/* <Link to="/react-tubi-tv/">Share</Link> */}
-                        {/* <Link to="/react-tubi-tv/"><i className="fas fa-ellipsis-h"></i></Link> */}
+                        {/* <Link to="/home/">Share</Link> */}
+                        {/* <Link to="/home/"><i className="fas fa-ellipsis-h"></i></Link> */}
                     </div>
                     <div className="dirc-small hide">
                         <p className="dirc">
@@ -95,11 +95,11 @@ class Movies extends React.Component {
                         </p>
                         <span>
                             DIRECTOR
-                            <Link to="/react-tubi-tv/">Kenio Waxman</Link>
+                            <Link to="/home/">Kenio Waxman</Link>
                         </span>
                         <span>
                             STARRING
-                            <Link to="/react-tubi-tv/">
+                            <Link to="/home/">
                                 Steven Seagal, Marlaina, MahVitaly Kravchenko
                             </Link>
                         </span>

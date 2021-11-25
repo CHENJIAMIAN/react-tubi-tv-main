@@ -115,7 +115,7 @@ class Hero extends React.Component {
                                             <h6>{hotFilm[filmIndex].type}</h6>
                                             <p>{hotFilm[filmIndex].time}</p>
                                         </div>
-                                        <Link to="/react-tubi-tv/">TV-PG</Link>
+                                        <Link to="/home/">TV-PG</Link>
                                     </div>
                                 </div>
 
