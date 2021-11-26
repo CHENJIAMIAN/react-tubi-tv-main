@@ -150,14 +150,14 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-.topic .list-film .item .info span {
+/* .topic .list-film .item .info span {
     padding: 3px 10px;
     font-size: 11px;
     background: #515157;
     border-radius: 2px;
     margin-right: 5px;
     margin-bottom: auto;
-}
+} */
 
 .topic .list-film .control {
     width: 100%;

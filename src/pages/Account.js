@@ -8,10 +8,10 @@ import 'src/style/web-auth.css';
 class Home extends React.Component {
     render() {
         return (
-            <div class="wrapper">
-                <div class="navbar">
+            <div className="wrapper">
+                <div className="navbar">
                     <div
-                        class="item active"
+                        className="item active"
                         data-index="0"
                         tabindex="0"
                         role="button"
@@ -20,7 +20,7 @@ class Home extends React.Component {
                         profile
                     </div>
                     <div
-                        class="item"
+                        className="item"
                         data-index="1"
                         tabindex="0"
                         role="button"
@@ -29,7 +29,7 @@ class Home extends React.Component {
                         parental controls
                     </div>
                     <div
-                        class="item"
+                        className="item"
                         data-index="2"
                         tabindex="0"
                         role="button"
@@ -38,7 +38,7 @@ class Home extends React.Component {
                         notifications
                     </div>
                     <div
-                        class="item"
+                        className="item"
                         data-index="3"
                         tabindex="0"
                         role="button"
@@ -47,75 +47,75 @@ class Home extends React.Component {
                         history &amp;my list
                     </div>
                 </div>
-                <div class="Container">
+                <div className="Container">
                     <div>
-                        <div class="Row row">
-                            <div class="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
-                                <div class="userProfile settingsContent">
-                                    <div class="overlayDimmer"></div>
+                        <div className="Row row">
+                            <div className="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
+                                <div className="userProfile settingsContent">
+                                    <div className="overlayDimmer"></div>
                                     <h1>My Account</h1>
-                                    <div class="userInfo">
-                                        <div class="photoSection">
+                                    <div className="userInfo">
+                                        <div className="photoSection">
                                             <img src="https://cdn.adrise.tv/tubitv-assets/img/default_profile_pic.png" />
                                         </div>
-                                        <div class="demSection">
-                                            <div class="Input Input--filled">
+                                        <div className="demSection">
+                                            <div className="Input Input--filled">
                                                 <input
                                                     type="text"
-                                                    class="Input__input"
+                                                    className="Input__input"
                                                     name="firstName"
                                                     value="s"
                                                     autoComplete="given-name"
                                                 />
-                                                <span class="Input__label">
+                                                <span className="Input__label">
                                                     First Name
                                                 </span>
                                             </div>
-                                            <div class="Input Input--filled">
+                                            <div className="Input Input--filled">
                                                 <input
                                                     type="email"
-                                                    class="Input__input"
+                                                    className="Input__input"
                                                     name="email"
                                                     value="xtjm1234@gmail.com"
                                                     autoComplete="email"
                                                 />
-                                                <span class="Input__label">
+                                                <span className="Input__label">
                                                     Email
                                                 </span>
                                             </div>
                                             <div
                                                 id="gender"
                                                 tabindex="0"
-                                                class="Input Select Input--fixed"
+                                                className="Input Select Input--fixed"
                                                 aria-haspopup="listbox"
                                                 role="button"
                                             >
-                                                <span class="Input__input"></span>
-                                                <span class="Input__label">
+                                                <span className="Input__input"></span>
+                                                <span className="Input__label">
                                                     Gender
                                                 </span>
-                                                <span class="Select__down-icon"></span>
+                                                <span className="Select__down-icon"></span>
                                             </div>
                                         </div>
-                                        <div class="saveBtn">
-                                            <button class="Button Button--large">
-                                                <div class="Button__bg"></div>
-                                                <div class="Button__content">
+                                        <div className="saveBtn">
+                                            <button className="Button Button--large">
+                                                <div className="Button__bg"></div>
+                                                <div className="Button__content">
                                                     Save
                                                 </div>
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="passwordSection">
+                                    <div className="passwordSection">
                                         <div>
                                             <h2>Change Password</h2>
                                         </div>
                                         <div>
-                                            <div class="inputContainer">
-                                                <div class="content">
+                                            <div className="inputContainer">
+                                                <div className="content">
                                                     <form novalidate="">
                                                         <div>
-                                                            <div class="text">
+                                                            <div className="text">
                                                                 It appears that
                                                                 you have created
                                                                 this account
@@ -132,11 +132,11 @@ class Home extends React.Component {
                                                                 }}
                                                             >
                                                                 <button
-                                                                    class="Button Button--large"
+                                                                    className="Button Button--large"
                                                                     type="button"
                                                                 >
-                                                                    <div class="Button__bg"></div>
-                                                                    <div class="Button__content">
+                                                                    <div className="Button__bg"></div>
+                                                                    <div className="Button__content">
                                                                         Set New
                                                                         Password
                                                                     </div>
@@ -148,12 +148,12 @@ class Home extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="delTop" class="accountDelMain">
-                                        <h2 class="sectionHead">
+                                    <div id="delTop" className="accountDelMain">
+                                        <h2 className="sectionHead">
                                             DELETE MY ACCOUNT
                                         </h2>
-                                        <div class="content">
-                                            <div class="sectionInfo">
+                                        <div className="content">
+                                            <div className="sectionInfo">
                                                 <p>
                                                     Deleting your account from
                                                     Tubi will remove your list
@@ -166,10 +166,10 @@ class Home extends React.Component {
                                                     processed.
                                                 </p>
                                             </div>
-                                            <div class="btnArea">
-                                                <button class="Button Button--large Button--inverse">
-                                                    <div class="Button__bg"></div>
-                                                    <div class="Button__content">
+                                            <div className="btnArea">
+                                                <button className="Button Button--large Button--inverse">
+                                                    <div className="Button__bg"></div>
+                                                    <div className="Button__content">
                                                         Delete Account
                                                     </div>
                                                 </button>

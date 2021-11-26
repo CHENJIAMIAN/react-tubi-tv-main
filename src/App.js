@@ -1,5 +1,5 @@
-import React from 'react';
 import 'src/style/App.css';
+import React from 'react';
 import Home from 'src/pages/Home.js';
 import Account from 'src/pages/Account.js';
 import Header from 'src/components/Header.js';
@@ -66,11 +66,11 @@ class App extends React.Component {
         let state = this.state;
         return (
             <Router>
-                <div id="app" class="app" style={{ background: '#26262D' }}>
-                    <div class="tubiNotifications">
-                        <div class="flexReverseOnMobile"></div>
+                <div id="app" className="app" style={{ background: '#26262D' }}>
+                    <div className="tubiNotifications">
+                        <div className="flexReverseOnMobile"></div>
                     </div>
-                    <div class="appContent">
+                    <div className="appContent">
                         <Header
                             isLogged={state.isLogged}
                             currUser={state.currUser}
@@ -153,7 +153,7 @@ class App extends React.Component {
                             />
                         </Switch>
                     </div>
-                    <div id="GoogleOneTap" class="oneTap"></div>
+                    <div id="GoogleOneTap" className="oneTap"></div>
                 </div>
             </Router>
         );

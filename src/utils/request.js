@@ -54,83 +54,109 @@ request.interceptors.response.use((response) => {
         503: '服务不可用，服务器暂时过载或维护。',
         504: '网关超时。',
     };
-    console.error(codeMaps[response.status]);
+    // console.error(codeMaps[response.status]);
     return response;
 });
 
-function getAPI(url, reqJson) {
-    request
-        .get(url)
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    request
-        .post(url, {
-            data: reqJson,
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+function getAPI(url, method, reqJson) {
+    switch (method) {
+        case 'GET':
+            return request.get(url);
+        // .then(function (response) {
+        //     console.log(response);
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
+        case 'POST':
+            return request.post(url, {
+                data: reqJson,
+            });
+        // .then(function (response) {
+        //     console.log(response);
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
+    }
 }
 
-addMyList({ a: 1 });
+// Clear-MyList
+export function clearMyList(reqJson) {
+    return getAPI('/user/clearMyList', 'POST', reqJson);
+}
+// Clear-History
+export function clearHistory(reqJson) {
+    return getAPI('/user/clearHistory', 'POST', reqJson);
+}
+// Delete-MyList
+export function deleteMyList(reqJson) {
+    return getAPI('/user/deleteMyList', 'POST', reqJson);
+}
+// Delete-History
+export function deleteHistory(reqJson) {
+    return getAPI('/user/deleteHistory', 'POST', reqJson);
+}
+// 标签Tag视频列表（分页）
+export function tagVideoByPage(reqJson) {
+    return getAPI('/tag/videoByPage', 'GET', reqJson);
+}
 // Add-MyList
 export function addMyList(reqJson) {
-    return getAPI('/user/addMyList', reqJson);
+    return getAPI('/user/addMyList', 'POST', reqJson);
 }
 // Add-History
 export function addHistory(reqJson) {
-    return getAPI('/user/addHistory', reqJson);
+    return getAPI('/user/addHistory', 'POST', reqJson);
 }
 // History
 export function userHistory(reqJson) {
-    return getAPI('/user/history', reqJson);
+    return getAPI('/user/history', 'GET', reqJson);
 }
 // MyList
 export function myList(reqJson) {
-    return getAPI('/user/myList', reqJson);
+    return getAPI('/user/myList', 'GET', reqJson);
 }
 // 个人信息
 export function userInfo(reqJson) {
-    return getAPI('/user/info', reqJson);
+    return getAPI('/user/info', 'GET', reqJson);
 }
 // 分类视频列表（分页）
-export function videoByPage(reqJson) {
-    return getAPI('/category/videoByPage', reqJson);
+export function categoryVideoByPage(reqJson) {
+    return getAPI('/category/videoByPage', 'GET', reqJson);
 }
 // 视频详情页
 export function queryById(reqJson) {
-    return getAPI('/video/queryById', reqJson);
+    return getAPI('/video/queryById', 'GET', reqJson);
 }
 // 所有分类
 export function categoryList(reqJson) {
-    return getAPI('/category/list', reqJson);
+    return getAPI('/category/list', 'GET', reqJson);
 }
 // 首页接口数据
 export function getData(reqJson) {
-    return getAPI('/index/getData', reqJson);
+    return getAPI('/index/getData', 'GET', reqJson);
 }
 // 登录接口
 export function userLogin(reqJson) {
-    return getAPI('/user/login', reqJson);
+    return getAPI('/user/login', 'POST', reqJson);
 }
 // 注册接口
 export function userRegister(reqJson) {
-    return getAPI('/user/register', reqJson);
+    return getAPI('/user/register', 'POST', reqJson);
 }
 /* 
+clearMyList
+clearHistory
+deleteMyList
+deleteHistory
+tagVideoByPage
 addMyList
 addHistory
 userHistory
 myList
 userInfo
-videoByPage
+categoryVideoByPage
 queryById
 categoryList
 getData
