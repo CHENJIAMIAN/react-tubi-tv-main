@@ -61,23 +61,19 @@ request.interceptors.response.use((response) => {
 function getAPI(url, method, reqJson) {
     switch (method) {
         case 'GET':
-            return request.get(url);
-        // .then(function (response) {
+            return request.get(url, {
+                params: reqJson,
+            });
+        // .then( (response)=> {
         //     console.log(response);
         // })
-        // .catch(function (error) {
+        // .catch( (error)=> {
         //     console.log(error);
         // });
         case 'POST':
             return request.post(url, {
                 data: reqJson,
             });
-        // .then(function (response) {
-        //     console.log(response);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
     }
 }
 
@@ -126,7 +122,7 @@ export function categoryVideoByPage(reqJson) {
     return getAPI('/category/videoByPage', 'GET', reqJson);
 }
 // 视频详情页
-export function queryById(reqJson) {
+export function videoQueryById(reqJson) {
     return getAPI('/video/queryById', 'GET', reqJson);
 }
 // 所有分类
@@ -157,7 +153,7 @@ userHistory
 myList
 userInfo
 categoryVideoByPage
-queryById
+videoQueryById
 categoryList
 getData
 userLogin

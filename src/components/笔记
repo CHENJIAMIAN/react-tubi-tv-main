@@ -1,0 +1,17 @@
+# length - index <= 4 ? hotFilm[index - 4].url :hotFilm[length -4 + index].url
+# length===8  index=01234567 
+# index===0 length-index=8 length-index>4  length+index-4=4
+# index===1 length-index=7 length-index>4  length+index-4=5
+# index===2 length-index=6 length-index>4  length+index-4=6
+# index===3 length-index=5 length-index>4  length+index-4=7
+# index===4 length-index=4 length-index<=4  index-4=0
+# index===5 length-index=3 length-index<=4  index-4=1
+# index===6 length-index=2 length-index<=4  index-4=2
+# index===7 length-index=1 length-index<=4  index-4=3
+
+# hero 图片滑动规则
+length - index <= 2 ? hotFilm[index - 1].url :hotFilm[length -1 + index].url
+length===3  index=012
+index===0 length-index=3 length-index>2   length+index-1=2
+index===1 length-index=2 length-index<=2  index-1=0
+index===2 length-index=1 length-index<=2  index-1=1
