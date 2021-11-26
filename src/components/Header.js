@@ -1,15 +1,8 @@
-import React from 'react';
-import '../style/header.css';
-import { Link } from 'react-router-dom';
 import cx from 'classnames';
-
-import { withRouter } from 'react-router-dom';
-
-import { bindActionCreators } from 'redux';
+import React from 'react';
 import { connect } from 'react-redux';
-import { dispatch, addTodo, toggleTodo, setFilter } from '../redux/actions';
-import { getTodosByVisibilityFilter } from '../redux/selectors';
-import options from 'src/Const.js';
+import { Link, withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { fromEvent } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -19,13 +12,15 @@ import {
     share,
     throttleTime,
 } from 'rxjs/operators';
+import options from 'src/utils/ConstantTypes.js';
+import { addTodo, dispatch, setFilter, toggleTodo } from '../redux/actions';
+import '../style/header.css';
 
 @connect(
     // mapStateToProps
     (state) => {
         const { visibilityFilter } = state;
-        const todos = getTodosByVisibilityFilter(state, visibilityFilter);
-        return { visibilityFilter, todos };
+        return { visibilityFilter };
     },
     // mapDispatchToProps object | function
     {
@@ -143,7 +138,13 @@ class Header extends React.Component {
         console.log('src/components/Header.js', this.props);
 
         return (
-            <header class={cx('topNav', 'inverted', atTop && 'withGradientBg')}>
+            <header
+                class={cx(
+                    'topNav',
+                    atTop ? 'withGradientBg' : 'slideUp',
+                    false && 'inverted'
+                )}
+            >
                 <div class="overlayWrapper"></div>
                 <div class="Container container">
                     <div class="leftNavItems">
@@ -360,10 +361,10 @@ class Header extends React.Component {
             </header>
         );
     }
+    componentDidUpdate(prevProps) {}
     componentDidMount() {
-        this.showAndHideHeaderWhenScroll();
-        // TODO:pathname哪里来的
-        this.checkScrollHandler(this.props.pathname);
+        // withRouter注入location等到props
+        this.checkScrollHandler(this.props.location.pathname);
         this.handleScroll();
     }
     componentWillUnmount() {
@@ -390,26 +391,20 @@ class Header extends React.Component {
     }
     handleScroll() {
         var _props = this.props;
-        var excludeSynced = _props.topNavVisible;
         var dispatch = _props.dispatch;
-        var dataEndIndex = _props.containerMenuVisible;
-        var largeOffset = _props.liveNewsMenuVisible;
-        var mediumOffset = _props.accountCardVisible;
         var yDistance = Math.round(window.pageYOffset);
-        if (!dataEndIndex && !mediumOffset && !largeOffset) {
-            var excludeNotSynced = yDistance > this.scrollOffsetY;
-            if (!excludeNotSynced && 0 === this.scrollOffsetY) {
-                return;
-            }
-            if (excludeSynced && excludeNotSynced && yDistance > 0) {
-                // 'tb/ui/HIDE_TOP_NAV'
-                // 'tb/ui/SHOW_TOP_NAV'
-                // store.dispatch
-                dispatch('tb/ui/HIDE_TOP_NAV');
-            } else {
-                if (!(excludeSynced || excludeNotSynced)) {
-                    dispatch('tb/ui/SHOW_TOP_NAV');
-                }
+        var excludeNotSynced = yDistance > this.scrollOffsetY;
+        if (!excludeNotSynced && 0 === this.scrollOffsetY) {
+            return;
+        }
+        if (excludeNotSynced && yDistance > 0) {
+            // 'tb/ui/HIDE_TOP_NAV'
+            // 'tb/ui/SHOW_TOP_NAV'
+            // store.dispatch
+            dispatch('tb/ui/HIDE_TOP_NAV');
+        } else {
+            if (!excludeNotSynced) {
+                dispatch('tb/ui/SHOW_TOP_NAV');
             }
         }
         this.scrollOffsetY = Math.max(0, yDistance);

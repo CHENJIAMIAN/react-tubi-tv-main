@@ -69,6 +69,7 @@
         "terser-webpack-plugin": "4.2.3",
         "ts-pnp": "1.2.0",
         "tslib": "^2.3.1",
+        "umi-request": "^1.4.0",
         "url-loader": "4.1.1",
         "web-vitals": "^1.1.2",
         "webpack": "4.44.2",

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Register from './Register.js'
-import SignIn from './SignIn.js'
+import Register from '../components/Register.js'
+import SignIn from '../components/SignIn.js'
 
 let account = [
     {

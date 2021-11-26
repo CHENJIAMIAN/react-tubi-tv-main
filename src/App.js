@@ -1,14 +1,20 @@
 import React from 'react';
-import './style/App.css';
-import Home from './components/Home.js';
-import Account from './components/Account.js';
-import Header from './components/Header.js';
-import FormLogin from './components/FormLogin.js';
-import SearchResults from './components/SearchResults.js';
-import Movies from './components/Movies.js';
+import 'src/style/App.css';
+import Home from 'src/pages/Home.js';
+import Account from 'src/pages/Account.js';
+import Header from 'src/components/Header.js';
+import FormLogin from 'src/pages/FormLogin.js';
+import SearchResults from 'src/pages/SearchResults.js';
+import Movies from 'src/pages/Movies.js';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Footer from './components/Footer';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    useParams,
+} from 'react-router-dom';
+
+import Footer from 'src/components/Footer';
 
 let initState = {
     isLogged: false,
@@ -151,6 +157,11 @@ class App extends React.Component {
                 </div>
             </Router>
         );
+    }
+    routerWillLeave(nextLocation) {
+        debugger;
+        //nextLocation 接下来要跳转的路由
+        //isChange 页面是否有更改
     }
 }
 

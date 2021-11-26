@@ -3,7 +3,7 @@ import '../style/hero.css'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
-import { hotFilm } from './data.js'
+import { hotFilm } from 'src/mock-data.js'
 import HeroFilm from './HeroFilm.js'
 
 import film1 from '../img/film1.jpg'

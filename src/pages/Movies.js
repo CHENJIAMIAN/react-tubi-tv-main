@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import duAm from '../video/film-du-am.mp4';
 import '../style/movies.css';
-import { films } from './data.js';
+import { films } from 'src/mock-data.js';
 import Footer from 'src/components/Footer.js';
 
 class Movies extends React.Component {

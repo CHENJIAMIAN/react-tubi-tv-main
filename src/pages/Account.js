@@ -1,7 +1,7 @@
 import React from 'react';
-import Hero from './Hero.js';
-import Main from './Main.js';
-import { films } from './data.js';
+import Hero from 'src/components/Hero.js';
+import Main from 'src/components/Main.js';
+import { films } from 'src/mock-data.js';
 import Footer from 'src/components/Footer.js';
 import 'src/style/web-auth.css';
 

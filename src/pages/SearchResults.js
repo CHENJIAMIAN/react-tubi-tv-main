@@ -1,7 +1,7 @@
 import React from 'react'
-import { films } from './data'
-import Film from './Film'
-import '../style/results.css'
+import { films } from 'src/mock-data.js'
+import Film from 'src/components/Film.js'
+import 'src/style/results.css'
 
 
 class SearchResults extends React.Component {
