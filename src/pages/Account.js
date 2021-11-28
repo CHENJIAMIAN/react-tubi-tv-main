@@ -1,56 +1,137 @@
 import React from 'react';
 import Hero from 'src/components/Hero.js';
 import Main from 'src/components/Main.js';
-import { films } from 'src/mock-data.js';
+import Film from 'src/components/Film.js';
+import HistoryQueueTableRow from 'src/components/HistoryQueueTableRow.js';
 import Footer from 'src/components/Footer.js';
 import 'src/style/web-auth.css';
+import { Link, withRouter } from 'react-router-dom';
+import {
+    userInfo,
+    myList,
+    userHistory,
+    clearMyList,
+    clearHistory,
+} from 'src/utils/request.js';
+import {
+    Select,
+    Form,
+    Input,
+    Checkbox,
+    message,
+    Button,
+    Space,
+    Radio,
+} from 'antd';
+
+const { Option } = Select;
 
 class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userInfo: null,
+            myList: [],
+            userHistory: [],
+            historyOrMyList: 'history',
+            showDeleteOverlay: false,
+        };
+    }
+    componentDidMount() {
+        if (this.props.isStayFormLogin) {
+            this.props.changeIsStayFormLogin(false);
+        }
+        userInfo()
+            .then((result) => {
+                this.setState({ userInfo: result.data });
+            })
+            .catch((err) => {});
+        myList()
+            .then((result) => {
+                this.setState({ myList: result.data });
+            })
+            .catch((err) => {});
+        userHistory()
+            .then((result) => {
+                this.setState({ userHistory: result.data });
+            })
+            .catch((err) => {});
+    }
+    componentWillUnmount() {
+        window.scrollTo({ top: 0 });
+    }
+
+    onFinish = (values) => {
+        console.log('Success:', values);
+    };
+
+    onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     render() {
+        const { type } = this.props.match.params;
+        const {
+            userInfo,
+            myList,
+            userHistory,
+            historyOrMyList,
+            showDeleteOverlay,
+        } = this.state;
+
         return (
             <div className="wrapper">
                 <div className="navbar">
-                    <div
-                        className="item active"
+                    <Link
+                        className={`item ${type === 'index' ? 'active' : ''} `}
                         data-index="0"
                         tabindex="0"
                         role="button"
                         aria-label="profile"
+                        to="/account/index"
                     >
                         profile
-                    </div>
-                    <div
-                        className="item"
+                    </Link>
+                    <Link
+                        className={`item ${
+                            type === 'parental' ? 'active' : ''
+                        } `}
                         data-index="1"
                         tabindex="0"
                         role="button"
                         aria-label="parental controls"
+                        to="/account/parental"
                     >
                         parental controls
-                    </div>
-                    <div
-                        className="item"
+                    </Link>
+                    <Link
+                        className={`item ${
+                            type === 'notifications' ? 'active' : ''
+                        } `}
                         data-index="2"
                         tabindex="0"
                         role="button"
                         aria-label="notifications"
+                        to="/account/notifications"
                     >
                         notifications
-                    </div>
-                    <div
-                        className="item"
+                    </Link>
+                    <Link
+                        className={`item ${
+                            type === 'history' ? 'active' : ''
+                        } `}
                         data-index="3"
                         tabindex="0"
                         role="button"
                         aria-label="history &amp; my list"
+                        to="/account/history"
                     >
                         history &amp;my list
-                    </div>
+                    </Link>
                 </div>
                 <div className="Container">
-                    <div>
-                        <div className="Row row">
-                            <div className="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
+                    <div className="Row row">
+                        <div className="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
+                            {type === 'index' && (
                                 <div className="userProfile settingsContent">
                                     <div className="overlayDimmer"></div>
                                     <h1>My Account</h1>
@@ -59,92 +140,151 @@ class Home extends React.Component {
                                             <img src="https://cdn.adrise.tv/tubitv-assets/img/default_profile_pic.png" />
                                         </div>
                                         <div className="demSection">
-                                            <div className="Input Input--filled">
-                                                <input
-                                                    type="text"
-                                                    className="Input__input"
-                                                    name="firstName"
-                                                    value="s"
-                                                    autoComplete="given-name"
-                                                />
-                                                <span className="Input__label">
-                                                    First Name
-                                                </span>
-                                            </div>
-                                            <div className="Input Input--filled">
-                                                <input
-                                                    type="email"
-                                                    className="Input__input"
-                                                    name="email"
-                                                    value="xtjm1234@gmail.com"
-                                                    autoComplete="email"
-                                                />
-                                                <span className="Input__label">
-                                                    Email
-                                                </span>
-                                            </div>
-                                            <div
-                                                id="gender"
-                                                tabindex="0"
-                                                className="Input Select Input--fixed"
-                                                aria-haspopup="listbox"
-                                                role="button"
-                                            >
-                                                <span className="Input__input"></span>
-                                                <span className="Input__label">
-                                                    Gender
-                                                </span>
-                                                <span className="Select__down-icon"></span>
-                                            </div>
+                                            {userInfo && (
+                                                <Form
+                                                    name="control-hooks"
+                                                    initialValues={userInfo}
+                                                    onFinish={this.onFinish}
+                                                    onFinishFailed={
+                                                        this.onFinishFailed
+                                                    }
+                                                    autoComplete="off"
+                                                >
+                                                    <Form.Item
+                                                        label="Mobile"
+                                                        name="mobile"
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message:
+                                                                    'Please input your mobile!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label="Email"
+                                                        name="email"
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message:
+                                                                    'Please input your email!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input />
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label="Gender"
+                                                        name="gender"
+                                                    >
+                                                        <Select
+                                                            style={{
+                                                                width: '100%',
+                                                            }}
+                                                        >
+                                                            <Option value={1}>
+                                                                Male
+                                                            </Option>
+                                                            <Option value={2}>
+                                                                Female
+                                                            </Option>
+                                                        </Select>
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        label="RegisterTime"
+                                                        name="createTime"
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message:
+                                                                    'Please input your registerTime!',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input disabled />
+                                                    </Form.Item>
+
+                                                    <Form.Item
+                                                        label="Type"
+                                                        name="type"
+                                                    >
+                                                        <Radio.Group>
+                                                            <Radio.Button
+                                                                value={0}
+                                                            >
+                                                                Normal
+                                                            </Radio.Button>
+                                                            <Radio.Button
+                                                                value={1}
+                                                            >
+                                                                Month
+                                                            </Radio.Button>
+                                                            <Radio.Button
+                                                                value={2}
+                                                            >
+                                                                Year
+                                                            </Radio.Button>
+                                                        </Radio.Group>
+                                                    </Form.Item>
+                                                    <Form.Item
+                                                        wrapperCol={{
+                                                            offset: 4,
+                                                            span: 4,
+                                                        }}
+                                                    >
+                                                        <Button
+                                                            className="saveBtn Button Button--large Button__bg Button__content"
+                                                            type="primary"
+                                                            htmlType="submit"
+                                                        >
+                                                            Save
+                                                        </Button>
+                                                    </Form.Item>
+                                                </Form>
+                                            )}
                                         </div>
-                                        <div className="saveBtn">
+                                        {/* <div className="saveBtn">
                                             <button className="Button Button--large">
                                                 <div className="Button__bg"></div>
                                                 <div className="Button__content">
                                                     Save
                                                 </div>
                                             </button>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div className="passwordSection">
-                                        <div>
-                                            <h2>Change Password</h2>
-                                        </div>
-                                        <div>
-                                            <div className="inputContainer">
-                                                <div className="content">
-                                                    <form novalidate="">
-                                                        <div>
-                                                            <div className="text">
-                                                                It appears that
-                                                                you have created
-                                                                this account
-                                                                using single
-                                                                sign-on. You’ll
-                                                                have to set a
-                                                                new password
-                                                                first.
+                                        <h2>Change Password</h2>
+
+                                        <div className="inputContainer">
+                                            <div className="content">
+                                                <form novalidate="">
+                                                    <div className="text">
+                                                        It appears that you have
+                                                        created this account
+                                                        using single sign-on.
+                                                        You’ll have to set a new
+                                                        password first.
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            'text-align':
+                                                                'center',
+                                                        }}
+                                                    >
+                                                        <button
+                                                            className="Button Button--large"
+                                                            type="button"
+                                                        >
+                                                            <div className="Button__bg"></div>
+                                                            <div className="Button__content">
+                                                                Set New Password
                                                             </div>
-                                                            <div
-                                                                style={{
-                                                                    'text-align':
-                                                                        'center',
-                                                                }}
-                                                            >
-                                                                <button
-                                                                    className="Button Button--large"
-                                                                    type="button"
-                                                                >
-                                                                    <div className="Button__bg"></div>
-                                                                    <div className="Button__content">
-                                                                        Set New
-                                                                        Password
-                                                                    </div>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +317,197 @@ class Home extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
+                            {type === 'parental' && (
+                                <div class="settingsContent parentalMain">
+                                    <h1>Parental Controls</h1>
+
+                                    <div class="text">
+                                        It appears that you have created this
+                                        account using single sign-on. You’ll
+                                        have to set a new password first.
+                                    </div>
+                                    <div
+                                        style={{
+                                            'text-align': ' left;',
+                                        }}
+                                    >
+                                        <button
+                                            class="Button Button--large"
+                                            type="button"
+                                        >
+                                            <div class="Button__bg"></div>
+                                            <div class="Button__content">
+                                                Set New Password
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            {type === 'notifications' && (
+                                <div class="settingsContent">
+                                    <h1>Notifications</h1>
+                                    <div class="head">
+                                        Select which type of communication you
+                                        would like to receive from Tubi.{' '}
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                value="Weekly newsletter"
+                                                checked=""
+                                            />
+                                            Weekly newsletter
+                                        </label>
+                                    </div>
+
+                                    <div class="btnArea">
+                                        <button class="Button Button--large">
+                                            <div class="Button__bg"></div>
+                                            <div class="Button__content">
+                                                Save
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            {type === 'history' && (
+                                <div class="historyMain settingsContent">
+                                    <h1>Continue Watching &amp; My List</h1>
+                                    <div class="text">
+                                        Manage your Watching History and List
+                                    </div>
+                                    <div class="contentArea">
+                                        <div class="tabsMain">
+                                            <ul class="tabs">
+                                                <li
+                                                    data-index="0"
+                                                    class={`tabHeader ${
+                                                        historyOrMyList ===
+                                                        'history'
+                                                            ? 'active'
+                                                            : ''
+                                                    }`}
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            historyOrMyList:
+                                                                'history',
+                                                        });
+                                                    }}
+                                                >
+                                                    CONTINUE WATCHING
+                                                </li>
+                                                <li
+                                                    data-index="1"
+                                                    class={`tabHeader ${
+                                                        historyOrMyList ===
+                                                        'mylist'
+                                                            ? 'active'
+                                                            : ''
+                                                    }`}
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            historyOrMyList:
+                                                                'mylist',
+                                                        });
+                                                    }}
+                                                >
+                                                    MY LIST
+                                                </li>
+                                            </ul>
+                                            <div class="panelContainer">
+                                                <div className="results-list">
+                                                    <div class="panelContainer">
+                                                        <div class="table">
+                                                            {historyOrMyList ===
+                                                                'history' &&
+                                                                userHistory.map(
+                                                                    (
+                                                                        item,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <HistoryQueueTableRow
+                                                                                type="history"
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                video={
+                                                                                    item
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            {historyOrMyList ===
+                                                                'mylist' &&
+                                                                myList.map(
+                                                                    (
+                                                                        item,
+                                                                        index
+                                                                    ) => {
+                                                                        return (
+                                                                            <HistoryQueueTableRow
+                                                                                type="mylist"
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                video={
+                                                                                    item
+                                                                                }
+                                                                            />
+                                                                        );
+                                                                    }
+                                                                )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btnArea">
+                                            <button class="Button Button--large largeBtn">
+                                                <div class="Button__bg"></div>
+                                                {historyOrMyList ===
+                                                    'mylist' && (
+                                                    <div
+                                                        class="Button__content"
+                                                        onClick={() => {
+                                                            clearMyList().then(
+                                                                (r) => {
+                                                                    message.success(
+                                                                        r.msg
+                                                                    );
+                                                                }
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete All Watch History
+                                                    </div>
+                                                )}
+                                                {historyOrMyList ===
+                                                    'history' && (
+                                                    <div
+                                                        class="Button__content"
+                                                        onClick={() => {
+                                                            clearHistory().then(
+                                                                (r) => {
+                                                                    message.success(
+                                                                        r.msg
+                                                                    );
+                                                                }
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete My List
+                                                    </div>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -185,64 +515,6 @@ class Home extends React.Component {
             </div>
         );
     }
-    componentDidMount() {
-        console.log('did mount');
-        if (this.props.isStayFormLogin) {
-            this.props.changeIsStayFormLogin(false);
-        }
-        // this.checkScrollHandler(this.props.pathname);
-        // this.handleScroll();
-    }
-    componentDidUpdate(e) {
-        // var t = this.props.pathname;
-        // t !== e.pathname &&
-        //     (this.checkNavVisibility(t), this.checkScrollHandler(t));
-    }
-    componentWillUnmount() {
-        window.scrollTo({ top: 0 });
-    }
-    // checkScrollHandler(e) {
-    //     var t = this,
-    //         n = m.STATIC_TOP_NAV_PATHNAMES.indexOf(Object(H.a)(e, 0)) > -1;
-    //     n && this.scrollObserver
-    //         ? this.scrollObserver.unsubscribe()
-    //         : n ||
-    //           (this.scrollObserver && !this.scrollObserver.isStopped) ||
-    //           (this.scrollObserver = Object(Dt.a)(window, 'scroll')
-    //               .pipe(Object(xt.a)(50))
-    //               .subscribe(function () {
-    //                   t.handleScroll();
-    //               }));
-    // }
-    // handleScroll() {
-    //     var _props = this.props;
-    //     var topNavVisible = _props.topNavVisible;
-    //     var dispatch = _props.dispatch;
-    //     var dataEndIndex = _props.containerMenuVisible;
-    //     var mediumOffset = _props.liveNewsMenuVisible;
-    //     var largeOffset = _props.accountCardVisible;
-    //     var maxPrimaryDepth = Math.round(window.pageYOffset);
-    //     if (!dataEndIndex && !largeOffset && !mediumOffset) {
-    //         var l = maxPrimaryDepth > this.scrollOffsetY;
-    //         if (!l && 0 === this.scrollOffsetY) {
-    //             return;
-    //         }
-    //         if (topNavVisible && l && maxPrimaryDepth > 0) {
-    //             dispatch(Object(c.o)(false));
-    //         } else {
-    //             if (!(topNavVisible || l)) {
-    //                 dispatch(Object(c.o)(true));
-    //             }
-    //         }
-    //     }
-    //     this.scrollOffsetY = Math.max(0, maxPrimaryDepth);
-    //     var top = 0 === this.scrollOffsetY;
-    //     if (this.state.atTop !== top) {
-    //         this.setState({
-    //             atTop: top,
-    //         });
-    //     }
-    // }
 }
 
-export default Home;
+export default withRouter(Home);

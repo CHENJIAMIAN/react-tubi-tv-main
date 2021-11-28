@@ -5,9 +5,12 @@ import Account from 'src/pages/Account.js';
 import Header from 'src/components/Header.js';
 import FormLogin from 'src/pages/FormLogin.js';
 import SearchResults from 'src/pages/SearchResults.js';
+import Category from 'src/pages/Category.js';
 import Movies from 'src/pages/Movies.js';
+import Pay from 'src/pages/Pay.js';
 
 import {
+    Redirect,
     BrowserRouter as Router,
     Route,
     Switch,
@@ -107,6 +110,13 @@ class App extends React.Component {
                             />
                             <Route
                                 exact
+                                path="/category/:name/:id"
+                                component={({ history, match }) => (
+                                    <Category history={history} match={match} />
+                                )}
+                            />
+                            <Route
+                                exact
                                 path="/movies/:id"
                                 component={({ match }) => (
                                     <Movies match={match} />
@@ -140,9 +150,32 @@ class App extends React.Component {
                             />
                             <Route
                                 exact
-                                path="/account/"
+                                path="/pay/"
                                 component={({ history }) => (
+                                    <Pay
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                    />
+                                )}
+                            />
+                            {/* <Route
+                                path="/account"
+                                component={({ history, match }) => (
                                     <Account
+                                        match={match}
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                    />
+                                )}
+                            /> */}
+                            <Route
+                                path="/account/:type"
+                                component={({ history, match }) => (
+                                    <Account
+                                        match={match}
                                         history={history}
                                         isStayFormLogin={state.isStayFormLogin}
                                         changeIsStayFormLogin={
@@ -151,6 +184,21 @@ class App extends React.Component {
                                     />
                                 )}
                             />
+                            <Redirect from="/*" to="/home" />
+                            {/* <Route
+                                path="*"
+                                component={({ history }) => (
+                                    <Home
+                                        history={history}
+                                        isStayFormLogin={state.isStayFormLogin}
+                                        changeIsStayFormLogin={
+                                            this.changeIsStayFormLogin
+                                        }
+                                    />
+                                )}
+                            >
+                                \
+                            </Route> */}
                         </Switch>
                     </div>
                     <div id="GoogleOneTap" className="oneTap"></div>

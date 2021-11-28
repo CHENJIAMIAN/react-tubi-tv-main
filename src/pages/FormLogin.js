@@ -3,23 +3,16 @@ import { Route, Switch } from 'react-router-dom';
 import Register from '../components/Register.js';
 import SignIn from '../components/SignIn.js';
 import Footer from 'src/components/Footer.js';
-
-let account = [
-    {
-        name: 'Nhat Demo Dep Trai Sat Gai',
-        email: 'demo123@gmail.com',
-        password: '123123',
-    },
-    {
-        name: 'Admin Dep Trai',
-        email: 'admin@gmail.com',
-        password: '123123',
-    },
-];
+import { userRegister } from 'src/utils/request.js';
+import { message } from 'antd';
 
 class FormLogin extends React.Component {
     addNewAccount = (acc) => {
-        account.push(acc);
+        userRegister(acc).then((response) => {
+            message.success(response.msg);
+            this.props.history.push('/form-login/sign');
+            this.props.changeIsRegister(false);
+        });
     };
 
     render() {
@@ -38,7 +31,6 @@ class FormLogin extends React.Component {
                         <Switch>
                             <Route exact path="/form-login/sign">
                                 <SignIn
-                                    account={account}
                                     history={this.props.history}
                                     changeIsRegister={
                                         this.props.changeIsRegister
@@ -51,7 +43,6 @@ class FormLogin extends React.Component {
                             </Route>
                             <Route path="/form-login/register">
                                 <Register
-                                    account={account}
                                     history={this.props.history}
                                     changeIsRegister={
                                         this.props.changeIsRegister

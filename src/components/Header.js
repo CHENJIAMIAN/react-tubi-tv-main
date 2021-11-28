@@ -16,6 +16,8 @@ import options from 'src/utils/ConstantTypes.js';
 import { addTodo, dispatch, setFilter, toggleTodo } from '../redux/actions';
 import '../style/header.css';
 
+import { categoryList } from 'src/utils/request.js';
+
 @connect(
     // mapStateToProps
     (state) => {
@@ -36,222 +38,252 @@ class Header extends React.Component {
         //存储状态
         this.state = {
             atTop: false,
+            categorys: [],
         };
     }
 
     routingFunction = (path) => {
         this.props.history.push({
-            pathname: path
+            pathname: path,
         });
-    }
+    };
 
     showAndHideHeaderWhenScroll = () => {
-        const HEADER_HEIGHT = 80
-        let beforeY = 0
-        let header = document.querySelector('.header')
+        const HEADER_HEIGHT = 80;
+        let beforeY = 0;
+        let header = document.querySelector('.header');
         window.addEventListener('scroll', () => {
-            let path = this.props.location.pathname
+            let path = this.props.location.pathname;
             if (path.indexOf('form-login') > -1) {
-                header.style.background = 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))'
-                return
+                header.style.background =
+                    'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
+                return;
             }
-            let nowY = window.scrollY
+            let nowY = window.scrollY;
             if (nowY > beforeY) {
-                header.style.top = -HEADER_HEIGHT + 'px'
-                beforeY = nowY
-                return
+                header.style.top = -HEADER_HEIGHT + 'px';
+                beforeY = nowY;
+                return;
             }
-            header.style.top = 0
-            beforeY = nowY
+            header.style.top = 0;
+            beforeY = nowY;
 
             if (window.pageYOffset !== 0) {
-                header.style.background = 'rgba(0, 0, 0, 0.6)'
-                return
+                header.style.background = 'rgba(0, 0, 0, 0.6)';
+                return;
             }
-            header.style.background = 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))'
-        })
-    }
+            header.style.background =
+                'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
+        });
+    };
 
     goFormLogin = (str) => {
-        let bool = str === 'register' ? true : false
-        this.props.changeIsStayFormLogin(true)
-        this.changeIsRegister(bool)
-    }
+        let bool = str === 'register' ? true : false;
+        this.props.changeIsStayFormLogin(true);
+        this.changeIsRegister(bool);
+    };
 
     changeIsRegister = (bool) => {
-        this.props.changeIsRegister(bool)
-    }
+        this.props.changeIsRegister(bool);
+    };
 
     searchHandle = (target) => {
         if (window.location.pathname !== '/search') {
-            target.value.length > 0 && this.routingFunction('/search')
+            target.value.length > 0 && this.routingFunction('/search');
         }
         if (window.location.pathname === '/search') {
-            target.value.length === 0 && this.routingFunction('/home/')
+            target.value.length === 0 && this.routingFunction('/home/');
             // return
         }
-        this.props.getSearchValue(target.value)
-    }
+        this.props.getSearchValue(target.value);
+    };
 
     showMenu = () => {
-        let menu = document.querySelector('.menu-content')
-        menu.style.display = "block"
-        menu.style.opacity = 0
-        let left = -60
-        let opacity = 0
+        let menu = document.querySelector('.menu-content');
+        menu.style.display = 'block';
+        menu.style.opacity = 0;
+        let left = -60;
+        let opacity = 0;
         let id = setInterval(() => {
-            left += 10
-            opacity += 0.2
+            left += 10;
+            opacity += 0.2;
             if (left <= 0) {
-                menu.style.left = left + "%"
-                menu.style.opacity = opacity
-                return
+                menu.style.left = left + '%';
+                menu.style.opacity = opacity;
+                return;
             }
-            clearInterval(id)
-        }, 30)
-    }
+            clearInterval(id);
+        }, 30);
+    };
 
     hideMenu = () => {
-        let menu = document.querySelector('.menu-content')
-        let left = 0
-        let opacity = 1
+        let menu = document.querySelector('.menu-content');
+        let left = 0;
+        let opacity = 1;
         let id = setInterval(() => {
-            left -= 10
-            opacity -= 0.1
+            left -= 10;
+            opacity -= 0.1;
             if (left > -60) {
-                menu.style.left = left + "%"
-                menu.style.opacity = opacity
-                return
+                menu.style.left = left + '%';
+                menu.style.opacity = opacity;
+                return;
             }
-            clearInterval(id)
-            menu.style.display = "none"
-        }, 30)
-    }
+            clearInterval(id);
+            menu.style.display = 'none';
+        }, 30);
+    };
 
     render() {
-        let isStayFormLogin = this.props.isStayFormLogin
-        let props = this.props
+        let isStayFormLogin = this.props.isStayFormLogin;
+        let props = this.props;
+        const { categorys } = this.state;
         return (
-            <header className="header flex" >
-                <div className="logo flex" >
-                    <Link to="/home/">
-                        <svg alt="Stream Full Length Series &amp; Movies"
-                            className="_2rWrR _3GE7h _2DIK5"
-                            preserveAspectRatio="xMidYMid meet"
-                            viewBox="0 0 105 44" >
-                            <path d="M55.5 12h-7v16a8 8 0 11-16 0V13a1 1 0 00-1-1h-7v16a16 16 0 0032 0V13a1 1 0 00-1-1zM24.1 40.96l-3.03-5.21a1 1 0 00-1.27-.42A8.05 8.05 0 018.54 28v-7a1 1 0 011-1H19.6a1 1 0 001-1v-6a1 1 0 00-1-1H9.54a1 1 0 01-1-1V1a1 1 0 00-1-1H.5v28c0 8.84 7.2 16 16.08 16 2.54 0 4.95-.59 7.1-1.64a1 1 0 00.42-1.4zM100.5 0a4 4 0 100 8 4 4 0 000-8zm3 12h-7v31a1 1 0 001 1h6a1 1 0 001-1V13a1 1 0 00-1-1zm-27 24a8 8 0 110-16 8 8 0 010 16zm0-24c-2.35 0-4.58.5-6.59 1.42a1 1 0 01-1.41-.92V1a1 1 0 00-1-1h-7v28a16 16 0 1016-16z"
-                                fill="currentcolor" > </path></svg >
-                    </Link>
-                    <Link 
-                        className="hide-small" 
-                        style={{ display: `${isStayFormLogin ? "none" : "block"}` }} 
-                        to="/home/" 
+            <header className="header flex">
+                <div className="logo flex">
+                    <Link to="/home/">Home</Link>
+                    <Link
+                        className="hide-small"
+                        style={{
+                            display: `${isStayFormLogin ? 'none' : 'block'}`,
+                        }}
+                        to="/home/"
                         onClick={this.showMenu}
-                    >Browse</Link>
+                    >
+                        Browse
+                    </Link>
                     <i
-                        style={{ display: `${props.isStayFormLogin ? "none" : ""}` }}
+                        style={{
+                            display: `${props.isStayFormLogin ? 'none' : ''}`,
+                        }}
                         className="fas fa-bars menu"
                         onClick={this.showMenu}
                     ></i>
-                </div >
-                <div className={`${isStayFormLogin ? "hide" : "search flex"} `} >
+                </div>
+                <div className={`${isStayFormLogin ? 'hide' : 'search flex'} `}>
                     <i className="fas fa-search"></i>
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder="Find movies and TV show"
-                        onChange={
-                            (e) => this.searchHandle(e.target)
-                        }
+                        onChange={(e) => this.searchHandle(e.target)}
                     />
                 </div>
-                <div className={`${isStayFormLogin ? "hide" : "login flex"} `} >
+                <div className={`${isStayFormLogin ? 'hide' : 'login flex'} `}>
                     <div className="register-wrap">
-                        {
-                            props.isLogged ?
-                                <div className="welcome flex">
-                                    <h1>{`Hi, ${props.currUser.name}`}</h1>
-                                    <i className="fas fa-sort-down sign-in"></i>
-                                    <div className="brige"></div>
-                                    <div className="account">
-                                        <Link to="/home/">Account Setting</Link>
-                                        <Link to="/home/">Parental Controls</Link>
-                                        <Link to="/home/">Help Center</Link>
-                                        <Link to="/home/">Activate Your Device</Link>
-                                        <Link
-                                            to="/home/"
-                                            className="sign-out"
-                                            onClick={() => props.changeIsLogged(null)}
-                                        >Sign Out</Link>
-                                    </div>
-                                </div> :
-                                <Link
-                                    to='/form-login/register'
-                                    className="register"
-                                    onClick={() => this.goFormLogin('register')}
-                                >Register</Link>
-                        }
+                        {props.isLogged ? (
+                            <div className="welcome flex">
+                                <h1>{`Hi, ${props.currUser.name}`}</h1>
+                                <i className="fas fa-sort-down sign-in"></i>
+                                <div className="brige"></div>
+                                <div className="account">
+                                    <Link to="/account/index">
+                                        Account Setting
+                                    </Link>
+                                    <Link to="/account/parental/">
+                                        Parental Controls
+                                    </Link>
+                                    {/* <Link to="/account/notifications/">Help Center</Link> */}
+                                    <Link to="/activate">
+                                        Activate Your Device
+                                    </Link>
+                                    <Link
+                                        to="/home/"
+                                        className="sign-out"
+                                        onClick={() =>
+                                            props.changeIsLogged(null)
+                                        }
+                                    >
+                                        Sign Out
+                                    </Link>
+                                </div>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/form-login/register"
+                                className="register"
+                                onClick={() => this.goFormLogin('register')}
+                            >
+                                Register
+                            </Link>
+                        )}
                     </div>
-                    <div className={`sign-wrap ${props.isLogged ? "hide" : ""}`}>
+                    <div
+                        className={`sign-wrap ${props.isLogged ? 'hide' : ''}`}
+                    >
                         <Link
-                            to='/form-login/sign'
+                            to="/form-login/sign"
                             onClick={() => this.goFormLogin('sign')}
-                        >Sign In </Link>
+                        >
+                            Sign In{' '}
+                        </Link>
                     </div>
                 </div>
 
-                <div className={`${props.isStayFormLogin ? "form-change" : "hide"}`} > {
-                    props.isStayFormRegister ? <Link
-                        to='/form-login/sign'
-                        onClick={
-                            () => this.changeIsRegister(false)
-                        }>Sign In </Link> : <Link
-                            to='/form-login/register'
-                            onClick={
-                                () => this.changeIsRegister(true)
-                            }>Register </Link>
-                }
+                <div
+                    className={`${
+                        props.isStayFormLogin ? 'form-change' : 'hide'
+                    }`}
+                >
+                    {' '}
+                    {props.isStayFormRegister ? (
+                        <Link
+                            to="/form-login/sign"
+                            onClick={() => this.changeIsRegister(false)}
+                        >
+                            Sign In{' '}
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/form-login/register"
+                            onClick={() => this.changeIsRegister(true)}
+                        >
+                            Register{' '}
+                        </Link>
+                    )}
                 </div>
                 <div className="menu-content">
-                    <div
-                        className="overlay"
-                        onClick={this.hideMenu}
-                    ></div>
+                    <div className="overlay" onClick={this.hideMenu}></div>
                     <div className="content">
                         <div className="search-mobile flex">
                             <i className="fas fa-search"></i>
-                            <input type="text"
+                            <input
+                                type="text"
                                 placeholder="Find movies"
                                 onChange={(e) => this.searchHandle(e.target)}
-                                onKeyUp={(e) => e.keyCode === 13 && this.hideMenu()}
+                                onKeyUp={(e) =>
+                                    e.keyCode === 13 && this.hideMenu()
+                                }
                             />
                         </div>
                         <div className="genres">
-                            <h2>GENRES</h2>
-                            <Link to="/home/">Action</Link>
-                            <Link to="/home/">Anime</Link>
-                            <Link to="/home/">Classics</Link>
-                            <Link to="/home/">Comendi</Link>
-                            <Link to="/home/">Crime TV</Link>
-                            <Link to="/home/">Horror</Link>
-                            <Link to="/home/">Docuseries</Link>
-                            <Link to="/home/">Drama</Link>
-                            <Link to="/home/">Kids Show</Link>
-                            <Link to="/home/">LifeStyle</Link>
-                            <Link to="/home/">Thriller</Link>
-
+                            <h2>Category</h2>
+                            {categorys.map((category) => (
+                                <Link
+                                    key={category.id}
+                                    onClick={this.hideMenu}
+                                    to={`/category/${category.name}/${category.id}`}
+                                >
+                                    {category.name}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
             </header>
-        )
+        );
     }
 
     componentDidMount() {
-        // withRouter注入location等到props
+        // withRouter注入 location 等到props
         this.showAndHideHeaderWhenScroll();
         this.checkScrollHandler(this.props.location.pathname);
         this.handleScroll();
+        categoryList().then((response) => {
+            this.setState({
+                categorys: response.data,
+            });
+        });
     }
-    
+
     componentWillUnmount() {
         this.scrollObserver.unsubscribe();
     }

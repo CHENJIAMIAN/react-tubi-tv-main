@@ -49,12 +49,12 @@
     border-radius: 5px;
 }
 
-.sign-in-page span {
+/* .sign-in-page span {
     padding-bottom: 5px;
     text-align: left;
     font-size: 11px;
     color: red;
-}
+} */
 
 .sign-in-page button {
     width: 100%;

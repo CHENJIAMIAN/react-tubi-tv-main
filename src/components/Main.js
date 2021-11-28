@@ -1,5 +1,5 @@
 import React from 'react';
-import Topic from './Topic.js';
+import Topic from 'src/components/Topic.js';
 
 class Main extends React.Component {
     constructor() {
@@ -10,7 +10,8 @@ class Main extends React.Component {
     }
 
     loadMore = () => {
-        const length = topic.length - 1
+        const {categoryList} = this.props
+        const length = categoryList.length - 1
         if (this.state.count === length) return;
         // Load het film roi => stop
         if (this.state.count + 2 > length) {

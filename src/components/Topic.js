@@ -14,10 +14,10 @@ class Topic extends React.Component {
 
     next = (categoryName) => {
         document.querySelector(
-            '.' + categoryName.toLowerCase() + ' .pre'
+            '.' + categoryName.replace(/\s+/g, "").toLowerCase() + ' .pre'
         ).style.display = 'flex';
         let list = document
-            .querySelector('.' + categoryName.toLowerCase())
+            .querySelector('.' + categoryName.replace(/\s+/g, "").toLowerCase())
             .querySelector('.list-wrap');
         let filmWidth = list.querySelector('.item').clientWidth;
         let maxWidth = this.props.videoList.length * filmWidth;
@@ -34,7 +34,7 @@ class Topic extends React.Component {
 
     pre = (categoryName) => {
         let list = document
-            .querySelector('.' + categoryName.toLowerCase())
+            .querySelector('.' + categoryName.replace(/\s+/g, "").toLowerCase())
             .querySelector('.list-wrap');
         let filmWidth = list.querySelector('.item').clientWidth;
         list.scrollTo({
@@ -45,7 +45,7 @@ class Topic extends React.Component {
         if (this.begin <= 0) {
             this.begin = 0;
             document.querySelector(
-                '.' + categoryName.toLowerCase() + ' .pre'
+                '.' + categoryName.replace(/\s+/g, "").toLowerCase() + ' .pre'
             ).style.display = 'none';
         }
     };
@@ -53,7 +53,7 @@ class Topic extends React.Component {
         let videoList = this.props.videoList;
         let categoryName = this.props.categoryName;
         return (
-            <section className={`topic ${categoryName.toLowerCase()}`}>
+            <section className={`topic ${categoryName.replace(/\s+/g, "").toLowerCase()}`}>
                 <div className="topic-wrap">
                     <div className="title flex">
                         <h2>{categoryName}</h2>

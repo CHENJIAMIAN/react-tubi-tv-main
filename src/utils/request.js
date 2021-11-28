@@ -1,4 +1,14 @@
 import { extend } from 'umi-request';
+import { message } from 'antd';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+    useHistory,
+    useLocation,
+} from 'react-router-dom';
 
 const errorHandler = function (error) {
     const codeMap = {
@@ -8,14 +18,12 @@ const errorHandler = function (error) {
     };
     if (error.response) {
         // 请求已发送但服务端返回状态码非 2xx 的响应
-        console.log(error.response.status);
-        console.log(error.response.headers);
-        console.log(error.data);
-        console.log(error.request);
-        console.log(codeMap[error.data.status]);
+        message.error(
+            `请求${error.request.url} 发生了错误:${JSON.stringify(error.data)}`
+        );
     } else {
         // 请求初始化时出错或者没有响应返回的异常
-        console.log(error.message);
+        message.error(error.message);
     }
 
     throw error; // 如果throw. 错误将继续抛出.
@@ -24,13 +32,14 @@ const errorHandler = function (error) {
     // return {some: 'data'};
 };
 
-const request = extend({
+export const request = extend({
     errorHandler,
     prefix: '/api',
-    timeout: 1000,
-    // headers: {
-    //     'Content-Type': 'multipart/form-data',
-    // },
+    timeout: 1000 * 10,
+    headers: {
+        // 'Content-Type': 'multipart/form-data',
+        token: localStorage.getItem('token'),
+    },
 });
 
 // request拦截器, 改变url 或 options.
@@ -47,14 +56,20 @@ request.interceptors.request.use(
 );
 
 // 提前对响应做异常处理
-request.interceptors.response.use((response) => {
+request.interceptors.response.use(async (response) => {
     // const contentType = response.headers.get('Content-Type');
     const codeMaps = {
         502: '网关错误。',
         503: '服务不可用，服务器暂时过载或维护。',
         504: '网关超时。',
     };
+    const data = await response.clone().json();
+    const { code, msg } = data;
     // console.error(codeMaps[response.status]);
+    code !== 0 && message.error(msg);
+    if (3001 === code || 3002 === code) {
+        window.location.href = '/form-login/sign';
+    }
     return response;
 });
 
@@ -72,11 +87,34 @@ function getAPI(url, method, reqJson) {
         // });
         case 'POST':
             return request.post(url, {
+                requestType: 'form',
                 data: reqJson,
             });
     }
 }
 
+// 支付下单接口
+export function orderAdd(reqJson) {
+    return getAPI('/order/add', 'POST', reqJson);
+}
+// 已发布根据国家ID获取支付通道信息
+export function orderPayInfo(reqJson) {
+    return getAPI('/order/payInfo', 'POST', reqJson);
+}
+// 搜索视频列表（分页）
+export function videoSearch(reqJson) {
+    return getAPI('/video/search', 'POST', reqJson);
+}
+
+// 个人播放权限检查
+export function userAuth(reqJson) {
+    return getAPI('/user/auth', 'POST', reqJson);
+}
+
+// 所有国家
+export function countryList(reqJson) {
+    return getAPI('/country/list', 'POST', reqJson);
+}
 // Clear-MyList
 export function clearMyList(reqJson) {
     return getAPI('/user/clearMyList', 'POST', reqJson);
@@ -95,7 +133,7 @@ export function deleteHistory(reqJson) {
 }
 // 标签Tag视频列表（分页）
 export function tagVideoByPage(reqJson) {
-    return getAPI('/tag/videoByPage', 'GET', reqJson);
+    return getAPI('/tag/videoByPage', 'POST', reqJson);
 }
 // Add-MyList
 export function addMyList(reqJson) {
@@ -107,31 +145,31 @@ export function addHistory(reqJson) {
 }
 // History
 export function userHistory(reqJson) {
-    return getAPI('/user/history', 'GET', reqJson);
+    return getAPI('/user/history', 'POST', reqJson);
 }
 // MyList
 export function myList(reqJson) {
-    return getAPI('/user/myList', 'GET', reqJson);
+    return getAPI('/user/myList', 'POST', reqJson);
 }
 // 个人信息
 export function userInfo(reqJson) {
-    return getAPI('/user/info', 'GET', reqJson);
+    return getAPI('/user/info', 'POST', reqJson);
 }
 // 分类视频列表（分页）
 export function categoryVideoByPage(reqJson) {
-    return getAPI('/category/videoByPage', 'GET', reqJson);
+    return getAPI('/category/videoByPage', 'POST', reqJson);
 }
 // 视频详情页
 export function videoQueryById(reqJson) {
-    return getAPI('/video/queryById', 'GET', reqJson);
+    return getAPI('/video/queryById', 'POST', reqJson);
 }
 // 所有分类
 export function categoryList(reqJson) {
-    return getAPI('/category/list', 'GET', reqJson);
+    return getAPI('/category/list', 'POST', reqJson);
 }
 // 首页接口数据
 export function getData(reqJson) {
-    return getAPI('/index/getData', 'GET', reqJson);
+    return getAPI('/index/getData', 'POST', reqJson);
 }
 // 登录接口
 export function userLogin(reqJson) {
@@ -142,20 +180,25 @@ export function userRegister(reqJson) {
     return getAPI('/user/register', 'POST', reqJson);
 }
 /* 
-clearMyList
-clearHistory
-deleteMyList
-deleteHistory
-tagVideoByPage
-addMyList
-addHistory
-userHistory
-myList
-userInfo
-categoryVideoByPage
-videoQueryById
-categoryList
-getData
-userLogin
-userRegister
+// orderAdd
+// orderPayInfo
+// videoSearch
+// userAuth
+// countryList
+// clearMyList
+// clearHistory
+// deleteMyList
+// deleteHistory
+tagVideoByPage //高山流水:这个跟category是一样的,先跳过,做别的先
+// addMyList
+// addHistory
+// userHistory
+// myList
+// userInfo
+// categoryVideoByPage
+// videoQueryById
+// categoryList
+// getData
+// userLogin
+// userRegister
 */

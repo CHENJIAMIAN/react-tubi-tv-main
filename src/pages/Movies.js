@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 import { films } from 'src/mock-data.js';
 import Footer from 'src/components/Footer.js';
 
-import { videoQueryById } from 'src/utils/request.js';
+import {
+    videoQueryById,
+    addHistory,
+    addMyList,
+    userAuth,
+} from 'src/utils/request.js';
+import Topic from 'src/components/Topic.js';
+import { message } from 'antd';
 
 class Movies extends React.Component {
     constructor() {
@@ -13,51 +20,31 @@ class Movies extends React.Component {
         this.state = {
             videoData: null,
             alsoLike: [],
+            userAuthType: 0,
         };
     }
     componentDidMount() {
         let props = this.props;
+        const vid = props.match.params.id;
 
-        videoQueryById({ vid: props.match.params.id }).then((response) => {
+        videoQueryById({ vid }).then((response) => {
             const { code, data, msg } = response;
             this.setState({
                 videoData: data.videoData,
                 alsoLike: data.alsoLike,
             });
-            /* 
-            {
-                "code": "响应码",
-                "msg": "响应描述",
-                "data": {
-                    "videoData": {
-                        "id": "视频ID",
-                        "title": "标题",
-                        "sdMark": "分辨率",
-                        "duration": "时长",
-                        "category": "分类",
-                        "introduction": "简介",
-                        "pic0": "小图",
-                        "pic1": "中图",
-                        "pic2": "大图",
-                        "videoUrl": "小视频",
-                        "videoHLS": "分段 x-mpegurl",
-                        "tags": "标签集合"
-                    },
-                    "alsoLike": [{
-                        "id": "视频ID",
-                        "title": "标题",
-                        "pic0": "小图",
-                        "pic1": "中图",
-                        "pic2": "大图"
-                    }]
-                }
-            }
-            */
+        });
+        addHistory({ vid }).then((response) => {});
+        userAuth({ vid }).then((response) => {
+            // TODO: 试看逻辑
+            this.setState({
+                userAuthType: response.type,
+            });
         });
     }
     render() {
         let props = this.props;
-        let { videoData } = this.state;
+        let { videoData, alsoLike } = this.state;
 
         return (
             videoData && (
@@ -77,7 +64,17 @@ class Movies extends React.Component {
                             <div className="content">
                                 <img src={videoData.pic1} alt="" />
                                 <div className="left-content">
-                                    <Link to="/home" className="add-to-list">
+                                    <Link
+                                        to="/home"
+                                        className="add-to-list"
+                                        onClick={() => {
+                                            addMyList({
+                                                vid: videoData.id,
+                                            }).then((r) => {
+                                                message.success(r.msg);
+                                            });
+                                        }}
+                                    >
                                         Add to My List
                                     </Link>
                                     <div className="share flex">
@@ -118,11 +115,26 @@ class Movies extends React.Component {
                                         </Link>
                                     </p>
                                 </div>
+                                <Topic
+                                    categoryName={'You May Also Like'}
+                                    videoList={alsoLike}
+                                />
+                                ;
                             </div>
                         </div>
                         {/* Mobile */}
                         <div className="share-small hide">
-                            <Link to="/home/" className="add-to-list">
+                            <Link
+                                to="/home/"
+                                className="add-to-list"
+                                onClick={() => {
+                                    addMyList({ vid: videoData.id }).then(
+                                        (r) => {
+                                            message.success(r.msg);
+                                        }
+                                    );
+                                }}
+                            >
                                 Add to My List
                             </Link>
                             {/* <Link to="/home/">Share</Link> */}
@@ -141,6 +153,11 @@ class Movies extends React.Component {
                                     Kravchenko
                                 </Link>
                             </span>
+                            <Topic
+                                categoryName={'You May Also Like'}
+                                videoList={alsoLike}
+                            />
+                            ;
                         </div>
                     </div>
                     <Footer />
