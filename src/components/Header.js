@@ -1,3 +1,4 @@
+import '../style/header.css';
 import cx from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -14,7 +15,7 @@ import {
 } from 'rxjs/operators';
 import options from 'src/utils/ConstantTypes.js';
 import { addTodo, dispatch, setFilter, toggleTodo } from '../redux/actions';
-import '../style/header.css';
+import { getQueryVariable } from 'src/utils/util.js';
 
 import { categoryList } from 'src/utils/request.js';
 
@@ -40,6 +41,10 @@ class Header extends React.Component {
             atTop: false,
             categorys: [],
         };
+
+        const channel = getQueryVariable('channel');
+        // 第一次进 页面存channel, 之后其他跳转在UNSAFE_componentWillReceiveProps去获取
+        localStorage.setItem('channel', channel);
     }
 
     routingFunction = (path) => {
@@ -330,6 +335,20 @@ class Header extends React.Component {
             this.setState({
                 atTop: top,
             });
+        }
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        // 判断跳转路由不等于当前路由
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            console.log(
+                '路由改变触发',
+                nextProps.location.pathname,
+                this.props.location.pathname
+            );
+            const channel = getQueryVariable('channel');
+            // 第一次进 页面存channel, 之后其他跳转在UNSAFE_componentWillReceiveProps去获取
+            channel && localStorage.setItem('channel', channel);
         }
     }
 }

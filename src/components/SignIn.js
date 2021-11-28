@@ -3,10 +3,11 @@ import '../style/formLogin.css';
 import { Link } from 'react-router-dom';
 import { userLogin, request } from 'src/utils/request.js';
 import { message } from 'antd';
+import { getQueryVariable } from 'src/utils/util.js';
 
 class SignIn extends React.Component {
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
 
         this.curr = null;
     }
@@ -72,7 +73,9 @@ class SignIn extends React.Component {
 
     loginSuccess = () => {
         this.props.changeIsLogged(this.curr);
-        this.props.history.push('/home/');
+
+        const path = getQueryVariable('redirect');
+        window.location.href = path;
     };
 
     render() {

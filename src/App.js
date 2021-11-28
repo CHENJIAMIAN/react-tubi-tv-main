@@ -10,14 +10,14 @@ import Movies from 'src/pages/Movies.js';
 import Pay from 'src/pages/Pay.js';
 
 import {
+    withRouter,
     Redirect,
     BrowserRouter as Router,
     Route,
     Switch,
     useParams,
 } from 'react-router-dom';
-
-import Footer from 'src/components/Footer';
+import { getQueryVariable } from 'src/utils/util.js';
 
 let initState = {
     isLogged: false,
@@ -87,9 +87,11 @@ class App extends React.Component {
                         <Switch>
                             <Route
                                 path="/form-login/:status"
-                                component={({ history }) => (
+                                component={({ history, location, match }) => (
                                     <FormLogin
                                         history={history}
+                                        location={location}
+                                        match={match}
                                         changeIsStayFormLogin={
                                             this.changeIsStayFormLogin
                                         }
@@ -205,11 +207,6 @@ class App extends React.Component {
                 </div>
             </Router>
         );
-    }
-    routerWillLeave(nextLocation) {
-        debugger;
-        //nextLocation 接下来要跳转的路由
-        //isChange 页面是否有更改
     }
 }
 

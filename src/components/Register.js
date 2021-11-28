@@ -27,7 +27,7 @@ class Register extends React.Component {
         let password = target.querySelector('.password').value;
         let repassword = target.querySelector('.repassword').value;
         let acc = {
-            channel: '123',
+            channel: localStorage.getItem('channel'),
             // name: name,
             gender: this.state.gender,
             email: email,

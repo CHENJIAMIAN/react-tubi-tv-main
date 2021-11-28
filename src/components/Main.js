@@ -41,11 +41,11 @@ class Main extends React.Component {
                     return <Topic categoryName={category.name} videoList={category.videoList} key={index} />;
                 })}
 
-                <div className="load-more">
+                {/* <div className="load-more">
                     <div onClick={this.loadMore}>
                         <button>Load More</button>
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }

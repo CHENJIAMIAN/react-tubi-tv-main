@@ -24,7 +24,6 @@ class Home extends React.Component {
         );
     }
     componentDidMount() {
-        console.log('did mount');
         if (this.props.isStayFormLogin) {
             this.props.changeIsStayFormLogin(false);
         }

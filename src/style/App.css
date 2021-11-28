@@ -21,7 +21,6 @@ input {
     border: none;
 }
 
-
 .flex {
     display: flex;
 }
@@ -234,7 +233,7 @@ input {
         width: 30px;
         padding-bottom: 5px;
     }
-    
+
     .about .tubi .social i {
         font-size: 14px;
         margin-right: 10px;
@@ -244,4 +243,9 @@ input {
     .about .tubi .logo {
         padding-bottom: 0px;
     }
+}
+
+.ReactVirtualized__Grid__innerScrollContainer {
+    display: flex;
+    flex-wrap: wrap;
 }

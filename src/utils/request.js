@@ -68,7 +68,7 @@ request.interceptors.response.use(async (response) => {
     // console.error(codeMaps[response.status]);
     code !== 0 && message.error(msg);
     if (3001 === code || 3002 === code) {
-        window.location.href = '/form-login/sign';
+        window.location.href = `/form-login/sign?redirect=${window.location.href}`;
     }
     return response;
 });

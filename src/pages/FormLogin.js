@@ -6,6 +6,8 @@ import Footer from 'src/components/Footer.js';
 import { userRegister } from 'src/utils/request.js';
 import { message } from 'antd';
 
+
+
 class FormLogin extends React.Component {
     addNewAccount = (acc) => {
         userRegister(acc).then((response) => {
