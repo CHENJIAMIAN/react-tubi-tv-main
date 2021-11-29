@@ -64,6 +64,8 @@
         "react-refresh": "^0.8.3",
         "react-router-dom": "^5.2.0",
         "react-virtualized": "^9.22.3",
+        "react-virtualized-auto-sizer": "^1.0.6",
+        "react-window": "^1.8.6",
         "redux-observable": "^2.0.0",
         "resolve": "1.18.1",
         "resolve-url-loader": "^3.1.2",
