@@ -349,7 +349,7 @@ class Home extends React.Component {
                                     <h1>Notifications</h1>
                                     <div class="head">
                                         Select which type of communication you
-                                        would like to receive from Tubi.{' '}
+                                        would like to receive from Tubi.
                                     </div>
 
                                     <div class="checkbox">

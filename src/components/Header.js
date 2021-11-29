@@ -94,13 +94,12 @@ class Header extends React.Component {
 
     searchHandle = (target) => {
         if (window.location.pathname !== '/search') {
-            target.value.length > 0 && this.routingFunction('/search');
+            target.value.length > 0 && this.routingFunction(`/search/${target.value}`);
         }
         if (window.location.pathname === '/search') {
             target.value.length === 0 && this.routingFunction('/home/');
             // return
         }
-        this.props.getSearchValue(target.value);
     };
 
     showMenu = () => {
@@ -218,7 +217,7 @@ class Header extends React.Component {
                             to="/form-login/sign"
                             onClick={() => this.goFormLogin('sign')}
                         >
-                            Sign In{' '}
+                            Sign In
                         </Link>
                     </div>
                 </div>
@@ -228,20 +227,19 @@ class Header extends React.Component {
                         props.isStayFormLogin ? 'form-change' : 'hide'
                     }`}
                 >
-                    {' '}
                     {props.isStayFormRegister ? (
                         <Link
                             to="/form-login/sign"
                             onClick={() => this.changeIsRegister(false)}
                         >
-                            Sign In{' '}
+                            Sign In
                         </Link>
                     ) : (
                         <Link
                             to="/form-login/register"
                             onClick={() => this.changeIsRegister(true)}
                         >
-                            Register{' '}
+                            Register
                         </Link>
                     )}
                 </div>

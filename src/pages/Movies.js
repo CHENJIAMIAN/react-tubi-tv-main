@@ -2,7 +2,6 @@ import '../style/movies.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { films } from 'src/mock-data.js';
 import Footer from 'src/components/Footer.js';
 
 import {
@@ -10,6 +9,8 @@ import {
     addHistory,
     addMyList,
     userAuth,
+    deleteMyList,
+    deleteHistory,
 } from 'src/utils/request.js';
 import Topic from 'src/components/Topic.js';
 import { message } from 'antd';
@@ -21,6 +22,7 @@ class Movies extends React.Component {
             videoData: null,
             alsoLike: [],
             userAuthType: 0,
+            addOrRemoveToMyListText: 'Add to My List',
         };
     }
     componentDidMount() {
@@ -44,7 +46,7 @@ class Movies extends React.Component {
     }
     render() {
         let props = this.props;
-        let { videoData, alsoLike } = this.state;
+        let { videoData, alsoLike, addOrRemoveToMyListText } = this.state;
 
         return (
             videoData && (
@@ -115,27 +117,38 @@ class Movies extends React.Component {
                                         </Link>
                                     </p>
                                 </div>
-                                <Topic
-                                    categoryName={'You May Also Like'}
-                                    videoList={alsoLike}
-                                />
-                                ;
                             </div>
                         </div>
                         {/* Mobile */}
                         <div className="share-small hide">
                             <Link
-                                to="/home/"
                                 className="add-to-list"
                                 onClick={() => {
-                                    addMyList({ vid: videoData.id }).then(
-                                        (r) => {
-                                            message.success(r.msg);
-                                        }
-                                    );
+                                    switch (addOrRemoveToMyListText) {
+                                        case 'Add to My List':
+                                            addMyList({
+                                                vid: videoData.id,
+                                            }).then((r) => {
+                                                this.setState({
+                                                    addOrRemoveToMyListText:
+                                                        'Remove from My List',
+                                                });
+                                            });
+                                            break;
+                                        case 'Remove from My List':
+                                            deleteMyList({
+                                                vid: videoData.id,
+                                            }).then((r) => {
+                                                this.setState({
+                                                    addOrRemoveToMyListText:
+                                                        'Add to My List',
+                                                });
+                                            });
+                                            break;
+                                    }
                                 }}
                             >
-                                Add to My List
+                                {addOrRemoveToMyListText}
                             </Link>
                             {/* <Link to="/home/">Share</Link> */}
                             {/* <Link to="/home/"><i className="fas fa-ellipsis-h"></i></Link> */}
@@ -156,8 +169,8 @@ class Movies extends React.Component {
                             <Topic
                                 categoryName={'You May Also Like'}
                                 videoList={alsoLike}
+                                noMoreIcon
                             />
-                            ;
                         </div>
                     </div>
                     <Footer />

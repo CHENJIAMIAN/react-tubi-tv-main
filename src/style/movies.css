@@ -95,7 +95,7 @@
 }
 
 .info-movie .right .name {
-    font-size: 64px;
+/*     font-size: 64px; */
     font-weight: 700;
     padding-bottom: 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -249,7 +249,7 @@
     }
 
     .share-small .add-to-list {
-        width: 47%;
+        width: 100%;
         margin-left: 0;
         background: white;
         color: black;

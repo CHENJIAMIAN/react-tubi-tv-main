@@ -24,10 +24,10 @@ let initState = {
     isStayFormLogin: false,
     isStayFormRegister: false,
     currUser: null,
-    searchValue: null,
 };
 
 let store = window.localStorage;
+
 
 class App extends React.Component {
     constructor() {
@@ -61,10 +61,6 @@ class App extends React.Component {
         this.setState({ state: newState }, () => null);
     };
 
-    getSearchValue = (str) => {
-        this.setState({ searchValue: str }, () => null);
-    };
-
     render() {
         let state = this.state;
         return (
@@ -82,7 +78,6 @@ class App extends React.Component {
                             changeIsStayFormLogin={this.changeIsStayFormLogin}
                             changeIsRegister={this.changeIsRegister}
                             changeIsLogged={this.changeIsLogged}
-                            getSearchValue={this.getSearchValue}
                         />
                         <Switch>
                             <Route
@@ -102,11 +97,12 @@ class App extends React.Component {
                             />
                             <Route
                                 exact
-                                path="/search"
-                                component={({ history }) => (
+                                path="/search/:keyword"
+                                component={({ history, location, match }) => (
                                     <SearchResults
                                         history={history}
-                                        searchValue={state.searchValue}
+                                        location={location}
+                                        match={match}
                                     />
                                 )}
                             />

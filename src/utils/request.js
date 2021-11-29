@@ -1,14 +1,5 @@
-import { extend } from 'umi-request';
 import { message } from 'antd';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
-    useHistory,
-    useLocation,
-} from 'react-router-dom';
+import { extend } from 'umi-request';
 
 const errorHandler = function (error) {
     const codeMap = {

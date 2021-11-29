@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/topic.css';
 import Film from './Film.js';
+import { Link, withRouter } from 'react-router-dom';
 
 class Topic extends React.Component {
     constructor() {
@@ -14,10 +15,10 @@ class Topic extends React.Component {
 
     next = (categoryName) => {
         document.querySelector(
-            '.' + categoryName.replace(/\s+/g, "").toLowerCase() + ' .pre'
+            '.' + categoryName.replace(/\s+/g, '').toLowerCase() + ' .pre'
         ).style.display = 'flex';
         let list = document
-            .querySelector('.' + categoryName.replace(/\s+/g, "").toLowerCase())
+            .querySelector('.' + categoryName.replace(/\s+/g, '').toLowerCase())
             .querySelector('.list-wrap');
         let filmWidth = list.querySelector('.item').clientWidth;
         let maxWidth = this.props.videoList.length * filmWidth;
@@ -34,7 +35,7 @@ class Topic extends React.Component {
 
     pre = (categoryName) => {
         let list = document
-            .querySelector('.' + categoryName.replace(/\s+/g, "").toLowerCase())
+            .querySelector('.' + categoryName.replace(/\s+/g, '').toLowerCase())
             .querySelector('.list-wrap');
         let filmWidth = list.querySelector('.item').clientWidth;
         list.scrollTo({
@@ -45,19 +46,30 @@ class Topic extends React.Component {
         if (this.begin <= 0) {
             this.begin = 0;
             document.querySelector(
-                '.' + categoryName.replace(/\s+/g, "").toLowerCase() + ' .pre'
+                '.' + categoryName.replace(/\s+/g, '').toLowerCase() + ' .pre'
             ).style.display = 'none';
         }
     };
     render() {
         let videoList = this.props.videoList;
-        let categoryName = this.props.categoryName;
+        let { categoryName, categoryId, noMoreIcon } = this.props;
         return (
-            <section className={`topic ${categoryName.replace(/\s+/g, "").toLowerCase()}`}>
+            <section
+                style={noMoreIcon && { padding: 0 }}
+                className={`topic ${categoryName
+                    .replace(/\s+/g, '')
+                    .toLowerCase()}`}
+            >
                 <div className="topic-wrap">
                     <div className="title flex">
                         <h2>{categoryName}</h2>
-                        <i className="fas fa-ellipsis-h"></i>
+                        {!noMoreIcon && (
+                            <Link
+                                to={`/category/${categoryName}/${categoryId}`}
+                            >
+                                <i className="fas fa-ellipsis-h"></i>
+                            </Link>
+                        )}
                     </div>
                     <div className="list-film flex">
                         <div className="control">
@@ -90,4 +102,4 @@ class Topic extends React.Component {
     }
 }
 
-export default Topic;
+export default withRouter(Topic);

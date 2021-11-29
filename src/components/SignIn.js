@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/formLogin.css';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { userLogin, request } from 'src/utils/request.js';
 import { message } from 'antd';
 import { getQueryVariable } from 'src/utils/util.js';
@@ -75,7 +75,11 @@ class SignIn extends React.Component {
         this.props.changeIsLogged(this.curr);
 
         const path = getQueryVariable('redirect');
-        window.location.href = path;
+        if (path) {
+            window.location.href = path;
+        } else {
+            this.props.history.push({ pathname: '/home' });
+        }
     };
 
     render() {
@@ -115,7 +119,6 @@ class SignIn extends React.Component {
                             to="/form-login/register"
                             onClick={() => props.changeIsRegister(true)}
                         >
-                            {' '}
                             Register
                         </Link>
                     </p>
@@ -129,4 +132,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

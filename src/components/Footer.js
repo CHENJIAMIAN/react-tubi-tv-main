@@ -310,7 +310,7 @@ class Footer extends React.Component {
                             <div className="copyright">
                                 <div>Copyright © 2021 Tubi, Inc.</div>
                                 <div>
-                                    Tubi is a registered trademark of Tubi, Inc.{' '}
+                                    Tubi is a registered trademark of Tubi, Inc.
                                     <br />
                                     All rights reserved.
                                 </div>
