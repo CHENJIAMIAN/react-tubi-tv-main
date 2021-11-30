@@ -15,17 +15,6 @@ class Film extends React.Component {
                     <Link to={`/movies/${video.id}`} className="play">
                         <i className="fas fa-play"></i>
                     </Link>
-                    <Link
-                        to="/home/"
-                        className="add-to-list"
-                        onClick={() => {
-                            addMyList({ vid: video.id }).then((r) => {
-                                message.success(r.msg);
-                            });
-                        }}
-                    >
-                        Add to My List
-                    </Link>
                 </div>
                 <Link to={`/movies/${video.id}`}>
                     <h3 className="name">{video.title} </h3>

@@ -1,6 +1,6 @@
 import '../style/movies.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import Footer from 'src/components/Footer.js';
 
@@ -13,7 +13,9 @@ import {
     deleteHistory,
 } from 'src/utils/request.js';
 import Topic from 'src/components/Topic.js';
-import { message } from 'antd';
+import { message, Modal, Button, Space } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+const { confirm } = Modal;
 
 class Movies extends React.Component {
     constructor() {
@@ -23,10 +25,20 @@ class Movies extends React.Component {
             alsoLike: [],
             userAuthType: 0,
             addOrRemoveToMyListText: 'Add to My List',
+            isTipToPay: false,
         };
+
+        this.myRef = React.createRef();
     }
-    componentDidMount() {
-        let props = this.props;
+
+    getMovie = (props) => {
+        this.setState({
+            videoData: null,
+            alsoLike: [],
+            userAuthType: 0,
+            addOrRemoveToMyListText: 'Add to My List',
+        });
+
         const vid = props.match.params.id;
 
         videoQueryById({ vid }).then((response) => {
@@ -36,24 +48,98 @@ class Movies extends React.Component {
                 alsoLike: data.alsoLike,
             });
         });
-        addHistory({ vid }).then((response) => {});
-        userAuth({ vid }).then((response) => {
-            // TODO: 试看逻辑
-            this.setState({
-                userAuthType: response.type,
-            });
-        });
+        const isLogined = localStorage.getItem('email');
+        isLogined && addHistory({ vid }).then((response) => {});
+    };
+    componentDidMount() {
+        this.getMovie(this.props);
     }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        // 判断跳转路由不等于当前路由
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            this.getMovie(nextProps);
+            window.scrollTo(0, 0);
+        }
+    }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log(
+    //         'src/pages/Movies.js',
+    //         'getDerivedStateFromProps',
+    //         this,
+    //         props,
+    //         state
+    //     );
+    //     return state || null;
+    // }
+
+    showConfirm = () => {
+        confirm({
+            title: 'You Need To Pay For This Video',
+            icon: <ExclamationCircleOutlined />,
+            onOk: () => {
+                this.props.history.push({
+                    pathname: '/pay',
+                });
+            },
+            ononCancelOk: () => {
+                console.log('Cancel');
+            },
+        });
+    };
+
     render() {
         let props = this.props;
-        let { videoData, alsoLike, addOrRemoveToMyListText } = this.state;
+        let { videoData, alsoLike, addOrRemoveToMyListText, isTipToPay } =
+            this.state;
+        const vid = props.match.params.id;
 
         return (
             videoData && (
                 <div className="movies">
                     <div className="play-movie">
                         <div className="movie-wrap">
-                            <video controls autoPlay>
+                            <video
+                                ref={this.myRef}
+                                controls
+                                controlslist="nodownload"
+                                onPlay={(e) => {
+                                    console.log('onPlay');
+                                    if (
+                                        localStorage.getItem('userType') == '0'
+                                    ) {
+                                        userAuth({ vid }).then((response) => {
+                                            // 类型 0试看 1通过
+                                            this.setState({
+                                                userAuthType:
+                                                    response.data.type,
+                                            });
+                                        });
+                                    }
+                                }}
+                                onTimeUpdate={(e) => {
+                                    // 如果只是试播放权限，允许播放 30秒。 30秒后弹出开通会员提醒
+                                    if (this.state.userAuthType != '0') return;
+                                    //用秒数来显示当前播放进度
+                                    const video = this.myRef.current;
+                                    var timeDisplay = Math.floor(
+                                        video.currentTime
+                                    );
+                                    console.log('onTimeUpdate', timeDisplay);
+                                    if (timeDisplay > 30) {
+                                        //视频暂停操作
+                                        video.pause();
+                                        //去除视频地址src内容
+                                        video.setAttribute('src', '');
+                                        //将视频隐藏掉
+                                        video.style.display = 'none';
+                                        //提示层显示
+                                        this.setState({ isTipToPay: true });
+                                        this.showConfirm();
+                                    }
+                                }}
+                            >
                                 <source
                                     src={videoData.videoUrl}
                                     type="video/mp4"
@@ -61,28 +147,46 @@ class Movies extends React.Component {
                             </video>
                         </div>
                     </div>
+                    {isTipToPay && (
+                        <div>
+                            该视频需要付费才可观看，如需继续观看，请点击下方购买按钮。如需重复观看请点击
+                        </div>
+                    )}
                     <div className="info-movie flex">
                         <div className="left">
                             <div className="content">
                                 <img src={videoData.pic1} alt="" />
                                 <div className="left-content">
-                                    <Link
-                                        to="/home"
+                                    <div
                                         className="add-to-list"
                                         onClick={() => {
-                                            addMyList({
-                                                vid: videoData.id,
-                                            }).then((r) => {
-                                                message.success(r.msg);
-                                            });
+                                            switch (addOrRemoveToMyListText) {
+                                                case 'Add to My List':
+                                                    addMyList({
+                                                        vid: videoData.id,
+                                                    }).then((r) => {
+                                                        this.setState({
+                                                            addOrRemoveToMyListText:
+                                                                'Remove from My List',
+                                                        });
+                                                    });
+                                                    break;
+                                                case 'Remove from My List':
+                                                    deleteMyList({
+                                                        vid: videoData.id,
+                                                    }).then((r) => {
+                                                        this.setState({
+                                                            addOrRemoveToMyListText:
+                                                                'Add to My List',
+                                                        });
+                                                    });
+                                                    break;
+                                            }
                                         }}
                                     >
                                         Add to My List
-                                    </Link>
-                                    <div className="share flex">
-                                        {/* <Link to="/home/">Share</Link> */}
-                                        {/* <Link to="/home/"><i className="fas fa-ellipsis-h"></i></Link> */}
                                     </div>
+                                    <div className="share flex"></div>
                                 </div>
                             </div>
                         </div>
@@ -91,9 +195,25 @@ class Movies extends React.Component {
                             <div className="content">
                                 <div className="row flex">
                                     <div className="time-type">
-                                        <p>{videoData.duration}</p>
+                                        <p>
+                                            {videoData.category}
+                                            <span class="dot">·</span>
+                                            {videoData.sdMark}
+                                            <span class="dot">·</span>
+                                            {videoData.duration}
+                                        </p>
                                         {videoData.tags.map((item, index) => (
-                                            <span key={index}>{item}</span>
+                                            <Link
+                                                to={`/tag/${item}`}
+                                                className="play"
+                                            >
+                                                <span
+                                                    className="tag"
+                                                    key={index}
+                                                >
+                                                    {item}
+                                                </span>
+                                            </Link>
                                         ))}
                                     </div>
                                     <div className="sub flex">
@@ -105,23 +225,12 @@ class Movies extends React.Component {
                                     <p className="dirc">
                                         {videoData.introduction}
                                     </p>
-                                    <p>
-                                        DIRECTOR
-                                        <Link to="/home/">Kenio Waxman</Link>
-                                    </p>
-                                    <p>
-                                        STARRING
-                                        <Link to="/home/">
-                                            Steven Seagal, Marlaina, MahVitaly
-                                            Kravchenko
-                                        </Link>
-                                    </p>
                                 </div>
                             </div>
                         </div>
                         {/* Mobile */}
                         <div className="share-small hide">
-                            <Link
+                            <div
                                 className="add-to-list"
                                 onClick={() => {
                                     switch (addOrRemoveToMyListText) {
@@ -149,23 +258,10 @@ class Movies extends React.Component {
                                 }}
                             >
                                 {addOrRemoveToMyListText}
-                            </Link>
-                            {/* <Link to="/home/">Share</Link> */}
-                            {/* <Link to="/home/"><i className="fas fa-ellipsis-h"></i></Link> */}
+                            </div>
                         </div>
                         <div className="dirc-small hide">
                             <p className="dirc">{videoData.introduction}</p>
-                            <span>
-                                DIRECTOR
-                                <Link to="/home/">Kenio Waxman</Link>
-                            </span>
-                            <span>
-                                STARRING
-                                <Link to="/home/">
-                                    Steven Seagal, Marlaina, MahVitaly
-                                    Kravchenko
-                                </Link>
-                            </span>
                             <Topic
                                 categoryName={'You May Also Like'}
                                 videoList={alsoLike}
@@ -183,4 +279,4 @@ class Movies extends React.Component {
     }
 }
 
-export default Movies;
+export default withRouter(Movies);

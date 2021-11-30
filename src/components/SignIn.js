@@ -22,13 +22,16 @@ class SignIn extends React.Component {
         if (this.isPassword) {
             userLogin({ email, password }).then((response) => {
                 console.log('token ' + response.data.token);
-                // response.data.type用户类型 0普通用户  1会员
+                // response.data.type 用户类型 0普通用户  1会员
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('userType', response.data.type);
+
                 request.extendOptions({
                     headers: {
                         token: response.data.token,
                     },
                 });
+                localStorage.setItem('email', email);
                 this.loginSuccess();
                 target.querySelector('input.email').value = '';
                 target.querySelector('input.password').value = '';

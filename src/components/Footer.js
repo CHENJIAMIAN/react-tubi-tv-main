@@ -7,17 +7,15 @@ class Footer extends React.Component {
             <div className="footer">
                 <div className="Container container">
                     <div className="Row topRow">
-                        <div className="iconAndPath">
-                            <a className="ATag homeLink" href="/home">
-                                Home
-                            </a>
-                        </div>
-                        <div className="breadcrumbWrapper"></div>
+                        <a className="homeLink" href="/home">
+                            Home
+                        </a>
+
                         <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 followUs">
                             <div className="followUsContainer">
                                 <div className="iconsRow">
                                     <a
-                                        href="https://www.facebook.com/tubitv"
+                                        href="https://www.facebook.com/XXX"
                                         rel="noopener"
                                         target="_blank"
                                         className="ATag facebookIcon"
@@ -36,7 +34,7 @@ class Footer extends React.Component {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://www.instagram.com/tubi"
+                                        href="https://www.instagram.com/XXX"
                                         rel="noopener"
                                         target="_blank"
                                         className="ATag instagramIcon"
@@ -57,7 +55,7 @@ class Footer extends React.Component {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://twitter.com/tubi"
+                                        href="https://twitter.com/XXX"
                                         rel="noopener"
                                         target="_blank"
                                         className="ATag twitterIcon"
@@ -76,7 +74,7 @@ class Footer extends React.Component {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://www.linkedin.com/company/tubi-tv/"
+                                        href="https://www.linkedin.com/company/XXX/"
                                         rel="noopener"
                                         target="_blank"
                                         className="ATag linkedInIcon"
@@ -94,229 +92,15 @@ class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="Row lineRow">
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 line"></div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2 line"></div>
-                    </div>
-                    <div className="Row listContainer">
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">COMPANY</li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        About Us
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com/company/careers/"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Careers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com/company/contact-us/"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Contact
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">SUPPORT</li>
-                                <li>
-                                    <a className="ATag" href="/static/support">
-                                        Contact Support
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="http://helpcenter.tubitv.com/web"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Help Center
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="ATag" href="/static/devices">
-                                        Supported Devices
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="ATag" href="/activate">
-                                        Activate Your Device
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">PARTNERS</li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com/partners/advertisewithus/"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Advertise with Us
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="ATag"
-                                        href="mailto:partnerships@tubi.tv"
-                                    >
-                                        Partner with Us
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">GET THE APPS</li>
-                                <li>
-                                    <a
-                                        href="https://itunes.apple.com/app/tubi-tv-watch-free-movies/id886445756?mt=8"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        iOS
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://play.google.com/store/apps/details?id=com.tubitv"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Android
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://channelstore.roku.com/details/41468/tubi-tv"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Roku
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://www.amazon.com/Tubi-Inc-Free-Movies-TV/dp/B075NTHVJW"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Amazon Fire
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">PRESS</li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com/press-releases/"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Press Releases
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://corporate.tubitv.com/press-releases/tubi-in-the-news/"
-                                        rel="noopener"
-                                        target="_self"
-                                        className="ATag"
-                                    >
-                                        Tubi in the News
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="Col Col--4 Col--lg-3 Col--xl-1-5 Col--xxl-2">
-                            <ul className="links">
-                                <li className="lh">LEGAL</li>
-                                <li>
-                                    <a className="ATag" href="/static/privacy">
-                                        Privacy Policy (Updated)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="ATag" href="/static/terms">
-                                        Terms of Use (Updated)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        className="ATag"
-                                        href="/privacy/donotsell"
-                                    >
-                                        Do Not Sell My Personal Information
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                     <div className="bottomSection">
-                        <div className="downloadLinks">
-                            <a
-                                href="https://itunes.apple.com/app/tubi-tv-watch-free-movies/id886445756?mt=8"
-                                rel="noopener"
-                                target="_blank"
-                                className="ATag appStoreBadge"
-                            >
-                                <img
-                                    src="//d0.tubitv.com/web-k8s/dist/img/fe61624a15f4.svg"
-                                    alt="App Store - Apple"
-                                ></img>
-                            </a>
-                            <a
-                                href="https://play.google.com/store/apps/details?id=com.tubitv"
-                                rel="noopener"
-                                target="_blank"
-                                className="ATag googleBadge"
-                            >
-                                <img
-                                    src="//d0.tubitv.com/web-k8s/dist/img/c7a700d8388d.svg"
-                                    alt="Google Play"
-                                ></img>
-                            </a>
-                        </div>
                         <div className="finePrint">
                             <div className="copyright">
-                                <div>Copyright © 2021 Tubi, Inc.</div>
+                                <div>Copyright © 2021 XXX, Inc.</div>
                                 <div>
-                                    Tubi is a registered trademark of Tubi, Inc.
+                                    XXX is a registered trademark of XXX, Inc.
                                     <br />
                                     All rights reserved.
                                 </div>
-                            </div>
-                            <div className="additionalFinePrint">
-                                Device ID: 37611f93-1966-4b56-b828-f5fb779a42b0
                             </div>
                         </div>
                         <div className="signature">

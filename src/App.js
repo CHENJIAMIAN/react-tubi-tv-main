@@ -8,6 +8,7 @@ import SearchResults from 'src/pages/SearchResults.js';
 import Category from 'src/pages/Category.js';
 import Movies from 'src/pages/Movies.js';
 import Pay from 'src/pages/Pay.js';
+import ListByTag from 'src/pages/ListByTag.js';
 
 import {
     withRouter,
@@ -26,14 +27,11 @@ let initState = {
     currUser: null,
 };
 
-let store = window.localStorage;
-
-
 class App extends React.Component {
     constructor() {
         super();
-        this.state = store.getItem('state')
-            ? JSON.parse(store.getItem('state'))
+        this.state = localStorage.getItem('state')
+            ? JSON.parse(localStorage.getItem('state'))
             : initState;
     }
 
@@ -41,14 +39,14 @@ class App extends React.Component {
     changeIsStayFormLogin = (bool) => {
         let state = this.state;
         state.isStayFormLogin = bool;
-        store.setItem('state', JSON.stringify(state));
+        localStorage.setItem('state', JSON.stringify(state));
         this.setState({ state: state }, () => null);
     };
 
     changeIsRegister = (bool) => {
         let state = this.state;
         state.isStayFormRegister = bool;
-        store.setItem('state', JSON.stringify(this.state));
+        localStorage.setItem('state', JSON.stringify(this.state));
         this.setState({ state: state }, () => null);
     };
 
@@ -57,8 +55,12 @@ class App extends React.Component {
         let newState = this.state;
         newState.isLogged = bool;
         newState.currUser = curr;
-        store.setItem('state', JSON.stringify(this.state));
+        localStorage.setItem('state', JSON.stringify(this.state));
         this.setState({ state: newState }, () => null);
+        if (!bool) {
+            localStorage.removeItem('email');
+            localStorage.removeItem('token');
+        }
     };
 
     render() {
@@ -96,7 +98,6 @@ class App extends React.Component {
                                 )}
                             />
                             <Route
-                                exact
                                 path="/search/:keyword"
                                 component={({ history, location, match }) => (
                                     <SearchResults
@@ -107,29 +108,23 @@ class App extends React.Component {
                                 )}
                             />
                             <Route
-                                exact
                                 path="/category/:name/:id"
                                 component={({ history, match }) => (
                                     <Category history={history} match={match} />
                                 )}
                             />
                             <Route
-                                exact
                                 path="/movies/:id"
                                 component={({ match }) => (
                                     <Movies match={match} />
                                 )}
                             />
                             <Route
-                                exact
-                                path="/home/"
-                                component={({ history }) => (
-                                    <Home
+                                path="/tag/:tag"
+                                component={({ history, match }) => (
+                                    <ListByTag
                                         history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
-                                        }
+                                        match={match}
                                     />
                                 )}
                             />
@@ -156,21 +151,8 @@ class App extends React.Component {
                                     />
                                 )}
                             />
-                            {/* <Route
-                                path="/account"
-                                component={({ history, match }) => (
-                                    <Account
-                                        match={match}
-                                        history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
-                                        }
-                                    />
-                                )}
-                            /> */}
                             <Route
-                                path="/account/:type"
+                                path="/account/:type?"
                                 component={({ history, match }) => (
                                     <Account
                                         match={match}
@@ -183,20 +165,6 @@ class App extends React.Component {
                                 )}
                             />
                             <Redirect from="/*" to="/home" />
-                            {/* <Route
-                                path="*"
-                                component={({ history }) => (
-                                    <Home
-                                        history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
-                                        }
-                                    />
-                                )}
-                            >
-                                \
-                            </Route> */}
                         </Switch>
                     </div>
                     <div id="GoogleOneTap" className="oneTap"></div>

@@ -14,7 +14,6 @@
     position: relative;
     width: 100%;
     padding-bottom: 52%;
-
 }
 
 .movies .play-movie .movie-wrap video {
@@ -95,7 +94,7 @@
 }
 
 .info-movie .right .name {
-/*     font-size: 64px; */
+    /*     font-size: 64px; */
     font-weight: 700;
     padding-bottom: 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -110,9 +109,12 @@
     padding-bottom: 40px;
 }
 
-.info-movie .right .time-type p,
-.info-movie .right .time-type span {
+.info-movie .right .time-type p, .info-movie .right .time-type .tag {
     font-size: 12px;
+}
+
+.info-movie .right .time-type .dot {
+    margin: 0 3px;
 }
 
 .info-movie .right .time-type p {
@@ -120,7 +122,7 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-.info-movie .right .time-type span {
+.info-movie .right .time-type .tag {
     padding: 3px 15px;
     background: #515157;
     margin-right: 5px;
@@ -168,8 +170,8 @@
     color: rgba(255, 255, 255, 0.5);
     opacity: 0.8;
     display: flex;
-    padding: 15px 0 30px;;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px 0 30px;
+    ; border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .info-movie .right .dirc p a {
@@ -181,7 +183,6 @@
     opacity: 1;
 }
 
-
 @media screen and (max-width: 1169px) {
     .info-movie .left {
         width: 23%;
@@ -189,7 +190,6 @@
 }
 
 /* =================================== */
-
 @media screen and (max-width: 959px) {
     .movies .info-movie {
         position: relative;
@@ -229,7 +229,7 @@
     .movies .right div.dirc {
         display: none;
     }
-    
+
     .share-small {
         display: flex;
         width: 100%;
@@ -237,7 +237,7 @@
         padding-top: 25px;
     }
 
-    .share-small a {
+    .share-small .add-to-list {
         padding: 9px 0;
         border: 1px solid white;
         text-align: center;
@@ -254,7 +254,7 @@
         background: white;
         color: black;
     }
-    
+
     .share-small .add-to-list:hover {
         background: #ff501a;
         color: white;
@@ -270,11 +270,9 @@
         min-width: 45px;
     }
 
-    .share-small a:nth-child(2):hover,
-    .share-small a:nth-child(3):hover{
+    .share-small a:nth-child(2):hover, .share-small a:nth-child(3):hover {
         opacity: 0.6;
     }
-
 
     .dirc-small {
         display: block;
@@ -301,16 +299,12 @@
         color: white;
         font-size: 11px;
     }
-
-
-
 }
 
 /* ================================== */
-
 @media screen and (max-width: 767px) {
     .movies .play-movie {
-        padding: 100px 20px 0;
+        padding: 70px 20px 0;
     }
 
     .movies .info-movie {
@@ -328,7 +322,8 @@
     .info-movie .right {
         padding: 0 15px 20px;
     }
-    .info-movie .right .name{
+
+    .info-movie .right .name {
         font-size: 23px;
     }
 
@@ -346,14 +341,18 @@
         width: 30%;
         min-width: 30%;
     }
- 
+
     .info-movie .right .time-type p {
         font-size: 10px;
     }
 
-    .info-movie .right .time-type span {
+    .info-movie .right .time-type .tag {
         padding: 2px 7px 3px;
         font-size: 9px;
+    }
+
+    .info-movie .right .time-type .dot {
+        margin: 0 3px;
     }
 
     .info-movie .right .sub p:first-child {
@@ -365,6 +364,7 @@
         border-radius: 12px;
         padding: 0 8px;
     }
+
     .info-movie .right .sub p {
         font-size: 12px;
         margin: auto;
@@ -377,6 +377,7 @@
         line-height: 10px;
         padding: 0 4px;
     }
+
     .info-movie .right .sub p {
         font-size: 10px;
     }
@@ -402,7 +403,7 @@
         padding-top: 15px;
     }
 
-    .share-small a {
+    .share-small .add-to-list {
         font-size: 11px;
         padding: 6px 0;
         display: flex;

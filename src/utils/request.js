@@ -57,9 +57,12 @@ request.interceptors.response.use(async (response) => {
     const data = await response.clone().json();
     const { code, msg } = data;
     // console.error(codeMaps[response.status]);
-    code !== 0 && message.error(msg);
-    if (3001 === code || 3002 === code) {
-        window.location.href = `/form-login/sign?redirect=${window.location.href}`;
+    if (code !== 0) {
+        message.error(msg);
+        if (3001 === code || 3002 === code) {
+            window.location.href = `/form-login/sign?redirect=${window.location.href}`;
+        }
+        throw msg;
     }
     return response;
 });
@@ -84,6 +87,18 @@ function getAPI(url, method, reqJson) {
     }
 }
 
+// 更新用户信息
+export function changeInfo(reqJson) {
+    return getAPI('/user/changeInfo', 'POST', reqJson);
+}
+// 已发布PayOrder
+export function myOrder(reqJson) {
+    return getAPI('/user/myOrder', 'POST', reqJson);
+}
+// 修改密码
+export function changePassword(reqJson) {
+    return getAPI('/user/changePassword', 'POST', reqJson);
+}
 // 支付下单接口
 export function orderAdd(reqJson) {
     return getAPI('/order/add', 'POST', reqJson);
@@ -171,6 +186,9 @@ export function userRegister(reqJson) {
     return getAPI('/user/register', 'POST', reqJson);
 }
 /* 
+changeInfo
+myOrder
+// changePassword
 // orderAdd
 // orderPayInfo
 // videoSearch
@@ -180,7 +198,7 @@ export function userRegister(reqJson) {
 // clearHistory
 // deleteMyList
 // deleteHistory
-tagVideoByPage //高山流水:这个跟category是一样的,先跳过,做别的先
+// tagVideoByPage
 // addMyList
 // addHistory
 // userHistory

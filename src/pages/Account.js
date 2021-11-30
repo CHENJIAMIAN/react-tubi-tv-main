@@ -12,6 +12,7 @@ import {
     userHistory,
     clearMyList,
     clearHistory,
+    changePassword,
 } from 'src/utils/request.js';
 import {
     Select,
@@ -33,8 +34,8 @@ class Home extends React.Component {
             userInfo: null,
             myList: [],
             userHistory: [],
-            historyOrMyList: 'history',
-            showDeleteOverlay: false,
+            showChangPassword: false,
+            newPassword: '',
         };
     }
     componentDidMount() {
@@ -43,6 +44,12 @@ class Home extends React.Component {
         }
         userInfo()
             .then((result) => {
+                // 日期格式化
+                Object.assign(result.data, {
+                    createTime: new Date(
+                        result.data.createTime
+                    ).toLocaleString(),
+                });
                 this.setState({ userInfo: result.data });
             })
             .catch((err) => {});
@@ -70,50 +77,42 @@ class Home extends React.Component {
     };
     render() {
         const { type } = this.props.match.params;
-        const {
-            userInfo,
-            myList,
-            userHistory,
-            historyOrMyList,
-            showDeleteOverlay,
-        } = this.state;
+        const { userInfo, myList, userHistory, showChangPassword } = this.state;
 
         return (
             <div className="wrapper">
                 <div className="navbar">
                     <Link
-                        className={`item ${type === 'index' ? 'active' : ''} `}
+                        className={`item ${!type ? 'active' : ''} `}
                         data-index="0"
                         tabindex="0"
                         role="button"
                         aria-label="profile"
-                        to="/account/index"
+                        to="/account"
                     >
                         profile
                     </Link>
                     <Link
                         className={`item ${
-                            type === 'parental' ? 'active' : ''
+                            type === 'payrecord' ? 'active' : ''
                         } `}
                         data-index="1"
                         tabindex="0"
                         role="button"
-                        aria-label="parental controls"
-                        to="/account/parental"
+                        aria-label="payrecord"
+                        to="/account/payrecord"
                     >
-                        parental controls
+                        PayRecord
                     </Link>
                     <Link
-                        className={`item ${
-                            type === 'notifications' ? 'active' : ''
-                        } `}
+                        className={`item ${type === 'mylist' ? 'active' : ''} `}
                         data-index="2"
                         tabindex="0"
                         role="button"
-                        aria-label="notifications"
-                        to="/account/notifications"
+                        aria-label="mylist"
+                        to="/account/mylist"
                     >
-                        notifications
+                        MyList
                     </Link>
                     <Link
                         className={`item ${
@@ -122,16 +121,16 @@ class Home extends React.Component {
                         data-index="3"
                         tabindex="0"
                         role="button"
-                        aria-label="history &amp; my list"
+                        aria-label="history"
                         to="/account/history"
                     >
-                        history &amp;my list
+                        History
                     </Link>
                 </div>
                 <div className="Container">
                     <div className="Row row">
                         <div className="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
-                            {type === 'index' && (
+                            {!type && (
                                 <div className="userProfile settingsContent">
                                     <div className="overlayDimmer"></div>
                                     <h1>My Account</h1>
@@ -194,8 +193,9 @@ class Home extends React.Component {
                                                         </Select>
                                                     </Form.Item>
                                                     <Form.Item
-                                                        label="RegisterTime"
+                                                        label="Registration Time"
                                                         name="createTime"
+                                                        name="createTimeStr"
                                                         rules={[
                                                             {
                                                                 required: true,
@@ -212,21 +212,30 @@ class Home extends React.Component {
                                                         name="type"
                                                     >
                                                         <Radio.Group>
-                                                            <Radio.Button
-                                                                value={0}
-                                                            >
-                                                                Normal
-                                                            </Radio.Button>
-                                                            <Radio.Button
-                                                                value={1}
-                                                            >
-                                                                Month
-                                                            </Radio.Button>
-                                                            <Radio.Button
-                                                                value={2}
-                                                            >
-                                                                Year
-                                                            </Radio.Button>
+                                                            {userInfo.type ===
+                                                                0 && (
+                                                                <Radio.Button
+                                                                    value={0}
+                                                                >
+                                                                    Normal
+                                                                </Radio.Button>
+                                                            )}
+                                                            {userInfo.type ===
+                                                                1 && (
+                                                                <Radio.Button
+                                                                    value={1}
+                                                                >
+                                                                    Month
+                                                                </Radio.Button>
+                                                            )}
+                                                            {userInfo.type ===
+                                                                2 && (
+                                                                <Radio.Button
+                                                                    value={2}
+                                                                >
+                                                                    Year
+                                                                </Radio.Button>
+                                                            )}
                                                         </Radio.Group>
                                                     </Form.Item>
                                                     <Form.Item
@@ -260,217 +269,114 @@ class Home extends React.Component {
 
                                         <div className="inputContainer">
                                             <div className="content">
-                                                <form novalidate="">
-                                                    <div className="text">
-                                                        It appears that you have
-                                                        created this account
-                                                        using single sign-on.
-                                                        You’ll have to set a new
-                                                        password first.
-                                                    </div>
-                                                    <div
-                                                        style={{
-                                                            'text-align':
-                                                                'center',
+                                                {showChangPassword && (
+                                                    <Form autoComplete="off">
+                                                        <Form.Item>
+                                                            <Input.Password
+                                                                placeholder="input new password"
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
+                                                                    this.setState(
+                                                                        {
+                                                                            newPassword:
+                                                                                e
+                                                                                    .target
+                                                                                    .value,
+                                                                        }
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </Form.Item>
+                                                    </Form>
+                                                )}
+                                                <div
+                                                    style={{
+                                                        'text-align': ' left;',
+                                                    }}
+                                                >
+                                                    <button
+                                                        class="Button Button--large"
+                                                        type="button"
+                                                        onClick={() => {
+                                                            const {
+                                                                newPassword,
+                                                                showChangPassword,
+                                                            } = this.state;
+                                                            if (
+                                                                showChangPassword &&
+                                                                newPassword.length >
+                                                                    0
+                                                            ) {
+                                                                // 即将变成false
+                                                                changePassword({
+                                                                    password:
+                                                                        newPassword,
+                                                                }).then((r) => {
+                                                                    message.success(
+                                                                        r.msg
+                                                                    );
+                                                                });
+                                                            } else {
+                                                                // 即将变成true
+                                                            }
+                                                            this.setState({
+                                                                newPassword: '',
+                                                                showChangPassword:
+                                                                    !showChangPassword,
+                                                            });
                                                         }}
                                                     >
-                                                        <button
-                                                            className="Button Button--large"
-                                                            type="button"
-                                                        >
-                                                            <div className="Button__bg"></div>
-                                                            <div className="Button__content">
-                                                                Set New Password
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="delTop" className="accountDelMain">
-                                        <h2 className="sectionHead">
-                                            DELETE MY ACCOUNT
-                                        </h2>
-                                        <div className="content">
-                                            <div className="sectionInfo">
-                                                <p>
-                                                    Deleting your account from
-                                                    Tubi will remove your list
-                                                    and history and unlink the
-                                                    devices associated with it.
-                                                </p>
-                                                <p>
-                                                    Please allow up to 48 hours
-                                                    before your request is
-                                                    processed.
-                                                </p>
-                                            </div>
-                                            <div className="btnArea">
-                                                <button className="Button Button--large Button--inverse">
-                                                    <div className="Button__bg"></div>
-                                                    <div className="Button__content">
-                                                        Delete Account
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            {type === 'parental' && (
-                                <div class="settingsContent parentalMain">
-                                    <h1>Parental Controls</h1>
-
-                                    <div class="text">
-                                        It appears that you have created this
-                                        account using single sign-on. You’ll
-                                        have to set a new password first.
-                                    </div>
-                                    <div
-                                        style={{
-                                            'text-align': ' left;',
-                                        }}
-                                    >
-                                        <button
-                                            class="Button Button--large"
-                                            type="button"
-                                        >
-                                            <div class="Button__bg"></div>
-                                            <div class="Button__content">
-                                                Set New Password
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                            {type === 'notifications' && (
-                                <div class="settingsContent">
-                                    <h1>Notifications</h1>
-                                    <div class="head">
-                                        Select which type of communication you
-                                        would like to receive from Tubi.
-                                    </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                value="Weekly newsletter"
-                                                checked=""
-                                            />
-                                            Weekly newsletter
-                                        </label>
-                                    </div>
-
-                                    <div class="btnArea">
-                                        <button class="Button Button--large">
-                                            <div class="Button__bg"></div>
-                                            <div class="Button__content">
-                                                Save
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                            {type === 'history' && (
-                                <div class="historyMain settingsContent">
-                                    <h1>Continue Watching &amp; My List</h1>
-                                    <div class="text">
-                                        Manage your Watching History and List
-                                    </div>
-                                    <div class="contentArea">
-                                        <div class="tabsMain">
-                                            <ul class="tabs">
-                                                <li
-                                                    data-index="0"
-                                                    class={`tabHeader ${
-                                                        historyOrMyList ===
-                                                        'history'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            historyOrMyList:
-                                                                'history',
-                                                        });
-                                                    }}
-                                                >
-                                                    CONTINUE WATCHING
-                                                </li>
-                                                <li
-                                                    data-index="1"
-                                                    class={`tabHeader ${
-                                                        historyOrMyList ===
-                                                        'mylist'
-                                                            ? 'active'
-                                                            : ''
-                                                    }`}
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            historyOrMyList:
-                                                                'mylist',
-                                                        });
-                                                    }}
-                                                >
-                                                    MY LIST
-                                                </li>
-                                            </ul>
-                                            <div class="panelContainer">
-                                                <div className="results-list">
-                                                    <div class="panelContainer">
-                                                        <div class="table">
-                                                            {historyOrMyList ===
-                                                                'history' &&
-                                                                userHistory.map(
-                                                                    (
-                                                                        item,
-                                                                        index
-                                                                    ) => {
-                                                                        return (
-                                                                            <HistoryQueueTableRow
-                                                                                type="history"
-                                                                                key={
-                                                                                    index
-                                                                                }
-                                                                                video={
-                                                                                    item
-                                                                                }
-                                                                            />
-                                                                        );
-                                                                    }
-                                                                )}
-                                                            {historyOrMyList ===
-                                                                'mylist' &&
-                                                                myList.map(
-                                                                    (
-                                                                        item,
-                                                                        index
-                                                                    ) => {
-                                                                        return (
-                                                                            <HistoryQueueTableRow
-                                                                                type="mylist"
-                                                                                key={
-                                                                                    index
-                                                                                }
-                                                                                video={
-                                                                                    item
-                                                                                }
-                                                                            />
-                                                                        );
-                                                                    }
-                                                                )}
+                                                        <div class="Button__bg"></div>
+                                                        <div class="Button__content">
+                                                            {!showChangPassword
+                                                                ? 'Set New Password'
+                                                                : 'Save'}
                                                         </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {type === 'payrecord' && (
+                                <div class="settingsContent parentalMain">
+                                    <h1>PayRecord</h1>
+                                </div>
+                            )}
+                            {type === 'mylist' && (
+                                <div class="settingsContent">
+                                    <h1>My List</h1>
+                                    <div class="contentArea">
+                                        <div class="panelContainer">
+                                            <div className="results-list">
+                                                <div class="panelContainer">
+                                                    <div class="table">
+                                                        {myList.map(
+                                                            (item, index) => {
+                                                                return (
+                                                                    <HistoryQueueTableRow
+                                                                        type="mylist"
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        video={
+                                                                            item
+                                                                        }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="btnArea">
                                             <button class="Button Button--large largeBtn">
                                                 <div class="Button__bg"></div>
-                                                {historyOrMyList ===
-                                                    'mylist' && (
+                                                {
                                                     <div
                                                         class="Button__content"
                                                         onClick={() => {
@@ -485,9 +391,44 @@ class Home extends React.Component {
                                                     >
                                                         Delete All Watch History
                                                     </div>
-                                                )}
-                                                {historyOrMyList ===
-                                                    'history' && (
+                                                }
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {type === 'history' && (
+                                <div class="historyMain settingsContent">
+                                    <h1>History</h1>
+                                    <div class="contentArea">
+                                        <div class="panelContainer">
+                                            <div className="results-list">
+                                                <div class="panelContainer">
+                                                    <div class="table">
+                                                        {userHistory.map(
+                                                            (item, index) => {
+                                                                return (
+                                                                    <HistoryQueueTableRow
+                                                                        type="history"
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        video={
+                                                                            item
+                                                                        }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="btnArea">
+                                            <button class="Button Button--large largeBtn">
+                                                <div class="Button__bg"></div>
+                                                {
                                                     <div
                                                         class="Button__content"
                                                         onClick={() => {
@@ -502,7 +443,7 @@ class Home extends React.Component {
                                                     >
                                                         Delete My List
                                                     </div>
-                                                )}
+                                                }
                                             </button>
                                         </div>
                                     </div>

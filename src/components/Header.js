@@ -1,5 +1,5 @@
 import '../style/header.css';
-import cx from 'classnames';
+import classnames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -54,32 +54,40 @@ class Header extends React.Component {
     };
 
     showAndHideHeaderWhenScroll = () => {
-        const HEADER_HEIGHT = 80;
-        let beforeY = 0;
-        let header = document.querySelector('.header');
-        window.addEventListener('scroll', () => {
-            let path = this.props.location.pathname;
-            if (path.indexOf('form-login') > -1) {
+        const isWhite = this.props.location.pathname.includes('/account');
+
+        if (!isWhite) {
+            const HEADER_HEIGHT = 80;
+            let beforeY = 0;
+            let header = document.querySelector('.header');
+            window.addEventListener('scroll', () => {
+                let path = this.props.location.pathname;
+                if (path.indexOf('form-login') > -1) {
+                    header.style.background =
+                        'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
+                    return;
+                }
+                let nowY = window.scrollY;
+                if (nowY > beforeY) {
+                    header.style.top = -HEADER_HEIGHT + 'px';
+                    beforeY = nowY;
+                    return;
+                }
+                header.style.top = 0;
+                beforeY = nowY;
+
+                if (window.pageYOffset !== 0) {
+                    header.style.background = 'rgba(0, 0, 0, 0.6)';
+                    return;
+                }
                 header.style.background =
                     'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
-                return;
-            }
-            let nowY = window.scrollY;
-            if (nowY > beforeY) {
-                header.style.top = -HEADER_HEIGHT + 'px';
-                beforeY = nowY;
-                return;
-            }
-            header.style.top = 0;
-            beforeY = nowY;
-
-            if (window.pageYOffset !== 0) {
-                header.style.background = 'rgba(0, 0, 0, 0.6)';
-                return;
-            }
-            header.style.background =
-                'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
-        });
+            });
+        } else {
+            // 白色条
+            let search = document.querySelector('.search');
+            search.style.visibility = 'hidden';
+        }
     };
 
     goFormLogin = (str) => {
@@ -93,8 +101,10 @@ class Header extends React.Component {
     };
 
     searchHandle = (target) => {
+        debugger
         if (window.location.pathname !== '/search') {
-            target.value.length > 0 && this.routingFunction(`/search/${target.value}`);
+            target.value.length > 0 &&
+                this.routingFunction(`/search/${target.value}`);
         }
         if (window.location.pathname === '/search') {
             target.value.length === 0 && this.routingFunction('/home/');
@@ -138,11 +148,25 @@ class Header extends React.Component {
     };
 
     render() {
-        let isStayFormLogin = this.props.isStayFormLogin;
-        let props = this.props;
+        const {
+            isStayFormLogin,
+            location,
+            isStayFormRegister,
+            isLogged,
+            changeIsLogged,
+        } = this.props;
         const { categorys } = this.state;
+        const isWhite = location.pathname.includes('/account');
+
         return (
-            <header className="header flex">
+            <header
+                className={classnames(
+                    { 'header flex topNav': !isWhite },
+                    {
+                        'topNav inverted withGradientBg': isWhite,
+                    }
+                )}
+            >
                 <div className="logo flex">
                     <Link to="/home/">Home</Link>
                     <Link
@@ -157,7 +181,7 @@ class Header extends React.Component {
                     </Link>
                     <i
                         style={{
-                            display: `${props.isStayFormLogin ? 'none' : ''}`,
+                            display: `${isStayFormLogin ? 'none' : ''}`,
                         }}
                         className="fas fa-bars menu"
                         onClick={this.showMenu}
@@ -173,28 +197,19 @@ class Header extends React.Component {
                 </div>
                 <div className={`${isStayFormLogin ? 'hide' : 'login flex'} `}>
                     <div className="register-wrap">
-                        {props.isLogged ? (
+                        {isLogged ? (
                             <div className="welcome flex">
-                                <h1>{`Hi, ${props.currUser.name}`}</h1>
+                                <h1
+                                    title={localStorage.getItem('email')}
+                                >{`Hi, ${localStorage.getItem('email')}`}</h1>
                                 <i className="fas fa-sort-down sign-in"></i>
                                 <div className="brige"></div>
                                 <div className="account">
-                                    <Link to="/account/index">
-                                        Account Setting
-                                    </Link>
-                                    <Link to="/account/parental/">
-                                        Parental Controls
-                                    </Link>
-                                    {/* <Link to="/account/notifications/">Help Center</Link> */}
-                                    <Link to="/activate">
-                                        Activate Your Device
-                                    </Link>
+                                    <Link to="/account">Account Setting</Link>
                                     <Link
                                         to="/home/"
                                         className="sign-out"
-                                        onClick={() =>
-                                            props.changeIsLogged(null)
-                                        }
+                                        onClick={() => changeIsLogged(null)}
                                     >
                                         Sign Out
                                     </Link>
@@ -210,9 +225,7 @@ class Header extends React.Component {
                             </Link>
                         )}
                     </div>
-                    <div
-                        className={`sign-wrap ${props.isLogged ? 'hide' : ''}`}
-                    >
+                    <div className={`sign-wrap ${isLogged ? 'hide' : ''}`}>
                         <Link
                             to="/form-login/sign"
                             onClick={() => this.goFormLogin('sign')}
@@ -222,12 +235,8 @@ class Header extends React.Component {
                     </div>
                 </div>
 
-                <div
-                    className={`${
-                        props.isStayFormLogin ? 'form-change' : 'hide'
-                    }`}
-                >
-                    {props.isStayFormRegister ? (
+                <div className={`${isStayFormLogin ? 'form-change' : 'hide'}`}>
+                    {isStayFormRegister ? (
                         <Link
                             to="/form-login/sign"
                             onClick={() => this.changeIsRegister(false)}
@@ -340,8 +349,9 @@ class Header extends React.Component {
         // 判断跳转路由不等于当前路由
         if (nextProps.location.pathname !== this.props.location.pathname) {
             console.log(
-                '路由改变触发',
+                'UNSAFE_componentWillReceiveProps 路由改变触发',
                 nextProps.location.pathname,
+                nextProps,
                 this.props.location.pathname
             );
             const channel = getQueryVariable('channel');

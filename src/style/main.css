@@ -15,6 +15,7 @@ h1 {
     /* font-size: 2em;
     margin: .67em 0 */
 }
+
 /*
 hr {
     box-sizing: content-box;
@@ -206,6 +207,7 @@ ul {
     margin: 0;
     padding: 0;
 }
+
 /* 
 .H1,.H2,.H3,.H4,.H5,.H6 {
     font-weight: 700;
@@ -256,12 +258,10 @@ body {
     font-family: Vaud,Helvetica Neue,sans-serif;
     font-size: 12px
 } */
-
 /* .ATag,
 body {
     font-weight: 400;
 } */
-
 .ATag {
     display: inline-block;
     position: relative;
@@ -4353,11 +4353,11 @@ body {
     font-family: Ubuntu Mono;
     src: url(//d0.tubitv.com/web-k8s/dist/96aae57f1127.ttf) format('truetype');
 }
+
 /* 
 html {
     font-size: 12px;
 } */
-
 html.is-ps5 {
     line-height: normal;
 }
@@ -4780,6 +4780,7 @@ html.is-ps5 {
 .exitActive {
     opacity: 0;
 }
+
 /* 
 .topNav {
     position: fixed;
@@ -5017,7 +5018,6 @@ html.is-ps5 {
     background: rgba(28, 31, 41, 0.8);
     z-index: 9999;
 } */
-
 .overlay.tabletLeftMenuOverlay {
     z-index: 10000;
 }
@@ -5048,6 +5048,7 @@ html.is-ps5 {
         margin-top: 72px;
     }
 }
+
 /* 
 .browseMenu {
     z-index: 10001;
@@ -5107,7 +5108,6 @@ html.is-ps5 {
 .browseMenu::-webkit-scrollbar {
     display: none
 } */
-
 .tabletTitle {
     display: none;
 }
@@ -5210,7 +5210,6 @@ html.is-ps5 {
     color: #9699a3;
     margin-bottom: 16px;
 } */
-
 .containerLink {
     font-size: 14px;
     line-height: 20px;
@@ -5395,6 +5394,7 @@ html.is-ps5 {
     width: 3rem;
     height: 3rem;
 }
+
 /* 
 .account {
     position: relative;
@@ -5428,7 +5428,6 @@ html.is-ps5 {
 .account.opened .chevronIcon {
     transform: rotate(-180deg)
 } */
-
 .signIn,
 .register {
     font-weight: 900;
@@ -5455,7 +5454,6 @@ html.is-ps5 {
     border-radius: 8px;
     padding: 12px 24px;
 } */
-
 .signIn {
     color: #fff;
     margin-left: 20px;
@@ -5714,91 +5712,6 @@ html.is-ps5 {
     font-size: 24px;
 }
 
-/* .textInput {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    color: #fff;
-    width: 100%;
-    background: transparent;
-    font-weight: 900;
-    font-style: normal;
-    font-size: 14px;
-    line-height: 24px
-} */
-
-.textInput.inverted {
-    color: #10141f;
-}
-
-.textInput::-moz-placeholder {
-    padding: 0 8px;
-    color: #9699a3;
-    -moz-transition: color 0.2s ease;
-    transition: color 0.2s ease;
-}
-
-.textInput:-ms-input-placeholder {
-    padding: 0 8px;
-    color: #9699a3;
-    -ms-transition: color 0.2s ease;
-    transition: color 0.2s ease;
-}
-
-.textInput::placeholder {
-    padding: 0 8px;
-    color: #9699a3;
-    transition: color 0.2s ease;
-}
-
-.textInput.inverted::-moz-placeholder {
-    color: #10141f;
-}
-
-.textInput.inverted:-ms-input-placeholder {
-    color: #10141f;
-}
-
-.textInput.inverted::placeholder {
-    color: #10141f;
-}
-
-.textInput.open::-moz-placeholder,
-.textInput:focus::-moz-placeholder {
-    color: transparent;
-}
-
-.textInput.open:-ms-input-placeholder,
-.textInput:focus:-ms-input-placeholder {
-    color: transparent;
-}
-
-.textInput.open::placeholder,
-.textInput:focus::placeholder {
-    color: transparent;
-}
-
-.textInput::-webkit-search-cancel-button,
-.textInput::-webkit-search-decoration,
-.textInput::-webkit-search-results-button,
-.textInput::-webkit-search-results-decoration {
-    display: none;
-}
-
-@media screen and (max-width: 768px) {
-    .textInput::-moz-placeholder {
-        color: transparent;
-    }
-
-    .textInput:-ms-input-placeholder {
-        color: transparent;
-    }
-
-    .textInput::placeholder {
-        color: transparent;
-    }
-}
-
 .topNav {
     transition: transform 0.3s;
     z-index: 99;
@@ -5871,6 +5784,7 @@ html.is-ps5 {
 .topNav .overlayWrapper .overlayLeave.overlayLeaveActive {
     opacity: 0;
 }
+
 .topNav .container {
     display: flex;
     align-items: center;
@@ -5972,10 +5886,10 @@ html.is-ps5 {
 }
 
 .topNav .logo {
-    z-index: 10000;
     position: relative;
     top: -1px;
 }
+
 .topNav .logo.browseAndLogo {
     width: 120px;
 }
@@ -6003,7 +5917,522 @@ html.is-ps5 {
 .topNav.inverted {
     background: #fff;
     border-bottom: 1px solid rgba(38, 38, 45, 0.1);
+    display: flex;
 }
+
+.topNav .logo {
+    width: 30%;
+    align-items: center;
+    padding-left:20px;
+}
+
+.topNav .logo .menu {
+    display: none;
+}
+
+.topNav .logo a {
+    color:black;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 60px;
+}
+
+.topNav .logo svg {
+    width: 80px;
+    height: 22px;
+    color: white;
+}
+
+.menu-content {
+    position: fixed;
+    top: 0;
+    left: -60%;
+    width: 25%;
+    height: 100vh;
+}
+
+.menu-content .content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: white;
+    padding: 0 30px;
+    padding-top: 40px;
+    overflow: scroll;
+}
+
+.menu-content .content::-webkit-scrollbar {
+    display: none;
+}
+
+.menu-content .content {
+    scrollbar-width: none;
+}
+
+.menu-content .search-mobile {
+    width: 100%;
+    display: flex;
+    position: relative;
+    display: none;
+}
+
+.menu-content .search-mobile input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 7px 10px;
+    padding-left: 40px;
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+.menu-content .search-mobile i {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    padding: 8px;
+}
+
+.menu-content .genres {
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+}
+
+.menu-content .genres h2 {
+    padding-bottom: 10px;
+}
+
+.menu-content .genres a {
+    display: block;
+    color: black;
+    padding: 4px 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.menu-content .genres a:hover {
+    color: #ff501a;
+}
+
+.menu-content .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.topNav .search {
+    width: 40%;
+    padding: 0 20px;
+    position: relative;
+}
+
+/* .topNav .search input {
+    display: block;
+    width: 100%;
+    height: 38px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    text-align: center;
+    margin: auto 0;
+} */
+
+.topNav .search input::placeholder {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+
+.topNav .search i {
+    position: absolute;
+    top: 50%;
+    left: 35px;
+    transform: translateY(-50%);
+    color: #26262d;
+}
+
+.topNav .search i:hover {
+    cursor: pointer;
+}
+
+.topNav .login {
+    width: 30%;
+    justify-content: flex-end;
+    align-items: center;
+    margin: auto 0;
+    padding-right: 5px;
+}
+
+.topNav .login .register-wrap {
+    height: 50px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topNav .login > a {
+    display: inline-block;
+    height: 40px;
+    padding: 0 40px;
+    line-height: 40px;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+
+.topNav .login .register-wrap > a {
+    display: inline-block;
+    height: 40px;
+    padding: 0 40px;
+    line-height: 40px;
+    background: white;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: black;
+    border-radius: 3px;
+}
+
+.topNav .login .register-wrap > a:hover {
+    height: 44px;
+    padding: 0 44px;
+    line-height: 44px;
+}
+
+.topNav .login .sign-wrap {
+    margin-left: 5px;
+}
+
+.topNav .login .sign-wrap > a {
+    padding-right: 10px;
+    padding-left: 30px;
+    font-weight: 600;
+}
+
+.topNav .login .welcome {
+    position: relative;
+}
+
+.topNav .login .welcome:hover {
+    cursor: pointer;
+}
+
+.topNav .login .welcome h1 {
+    white-space: nowrap;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topNav .login .welcome i {
+    padding-left: 5px;
+    z-index: 2;
+}
+
+.topNav .login .welcome .brige {
+    width: 240px;
+    height: 20px;
+    position: absolute;
+    top: 100%;
+    right: -10%;
+}
+
+.topNav .login .welcome:hover .account {
+    display: block;
+    opacity: 1;
+}
+
+.topNav .login .welcome .account {
+    position: absolute;
+    width: 240px;
+    top: calc(100% + 20px);
+    right: -10%;
+    padding: 5px 20px;
+    background: white;
+    border-radius: 3px;
+    display: none;
+    opacity: 0;
+    animation: hide 0.5s;
+}
+
+@keyframes hide {
+    from {
+        display: none;
+        opacity: 0;
+    }
+    to {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.topNav .login .welcome .account a {
+    display: block;
+    color: black;
+    opacity: 0.7;
+    padding: 5px 0;
+}
+
+.topNav .login .welcome .account a:hover {
+    opacity: 1;
+}
+
+.topNav .login .welcome .account .sign-out {
+    padding-bottom: 10px;
+    margin-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.topNav .form-change {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto 0;
+}
+
+.topNav .form-change a {
+    display: block;
+    width: 136px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.menu-content {
+    display: none;
+}
+
+.topNav .login .welcome h1 {
+    font-size: 1rem;
+}
+
+/* =============================== */
+
+@media screen and (max-width: 959px) {
+    .topNav .logo {
+        width: 30%;
+        padding-left:20px;
+    }
+    .topNav .logo a {
+        font-size: 13px;
+    }
+    .topNav .search {
+        display: none;
+    }
+
+    .menu-content {
+        width: 40%;
+    }
+
+    .menu-content .search-mobile {
+        display: block;
+    }
+
+    .topNav .search i {
+        left: 25px;
+    }
+
+    .topNav .search input::placeholder {
+        font-size: 11px;
+    }
+
+    .topNav .login {
+        width: 70%;
+    }
+
+    .topNav .login .register-wrap > a {
+        padding: 0 25px;
+    }
+
+    .topNav .login .sign-wrap > a {
+        padding-left: 0;
+    }
+
+    /* .topNav .login a {
+        width: 120px;
+    } */
+}
+
+/* ====================================== */
+@media screen and (max-width: 767px) {
+    .topNav .login {
+        margin-right: 0px;
+    }
+
+    .topNav .logo a {
+        margin-right: 20px;
+    }
+}
+
+/* ======================================= */
+
+@media screen and (max-width: 639px) {
+    .hide-small {
+        display: none !important;
+    }
+
+    .topNav .logo {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .topNav .logo .menu {
+        display: block;
+        padding-right: 8px;
+        font-size: 18px;
+    }
+
+    .topNav .logo .menu:hover {
+        cursor: pointer;
+    }
+
+    .topNav .logo {
+        width: 30%;
+    }
+
+    .topNav .logo a {
+        margin-right: 0;
+    }
+
+    .topNav .login {
+        width: 70%;
+    }
+
+    .topNav .login .register-wrap {
+        width: 100px;
+    }
+
+    .topNav .login .register-wrap > a {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+    }
+
+    .topNav .login .register-wrap > a:hover {
+        height: 34px;
+        padding: 0 16px;
+        line-height: 34px;
+    }
+
+    .topNav .login .sign-wrap {
+        margin-left: 0;
+    }
+
+    .topNav .login .sign-wrap > a {
+        padding-left: 8px;
+    }
+
+    .topNav .login .welcome {
+        margin-right: 50px;
+    }
+
+    .topNav .login .welcome h1 {
+        font-size: 14px;
+    }
+
+    .menu-content {
+        position: fixed;
+        top: 0;
+        left: -60%;
+        width: 50%;
+        height: 100vh;
+    }
+
+    .menu-content .content {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background: white;
+        padding: 0 30px;
+        padding-top: 40px;
+        overflow: scroll;
+    }
+
+    .menu-content .content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-content .content {
+        scrollbar-width: none;
+    }
+
+    .menu-content .search-mobile {
+        width: 100%;
+        display: flex;
+        position: relative;
+    }
+
+    .menu-content .search-mobile input {
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 7px 10px;
+        padding-left: 40px;
+        border-radius: 50px;
+        font-size: 14px;
+    }
+
+    .menu-content .search-mobile i {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        padding: 8px;
+    }
+
+    .menu-content .genres {
+        margin-top: 20px;
+    }
+
+    .menu-content .genres h2 {
+        padding-bottom: 10px;
+    }
+
+    .menu-content .genres a {
+        display: block;
+        color: black;
+        padding: 4px 0;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .menu-content .genres a:hover {
+        color: #ff501a;
+    }
+
+    .menu-content .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* ========================= */
+
+@media screen and (max-width: 419px) {
+    .menu-content {
+        width: 70%;
+    }
+
+    .menu-content .search-mobile input {
+        font-size: 12px;
+    }
+
+    .menu-content .genres a {
+        font-size: 13px;
+    }
+}
+
 
 .topNav.inverted .leftNavItems .logo .logoIcon {
     color: #26262d;
@@ -6369,7 +6798,6 @@ a.containerMenuLink:hover {
     background: hsla(0, 0%, 100%, 0.3);
     -webkit-appearance: none;
 }
-
 .textInput:active,
 .textInput:focus {
     font-size: 14px;
@@ -6378,34 +6806,43 @@ a.containerMenuLink:hover {
 .textInput:active::-moz-placeholder,
 .textInput:focus::-moz-placeholder {
     opacity: 0;
+    color: #26262d;
+
 }
 
 .textInput:active:-ms-input-placeholder,
 .textInput:focus:-ms-input-placeholder {
     opacity: 0;
+    color: #26262d;
+
 }
 
 .textInput:active::placeholder,
 .textInput:focus::placeholder {
     opacity: 0;
+    color: #26262d;
+
 }
 
 .textInput::-moz-placeholder {
-    color: #fff;
+    color: #26262d;
+
     -moz-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
     min-width: 260px;
 }
 
 .textInput:-ms-input-placeholder {
-    color: #fff;
+    color: #26262d;
+
     -ms-transition: opacity 0.2s ease-in-out;
     transition: opacity 0.2s ease-in-out;
     min-width: 260px;
 }
 
 .textInput::placeholder {
-    color: #fff;
+    color: #26262d;
+
     transition: opacity 0.2s ease-in-out;
     min-width: 260px;
 }
@@ -6467,7 +6904,6 @@ a.containerMenuLink:hover {
     color: #f89838;
     margin-right: 20px;
 } */
-
 @media (min-width: 768px) {
     .account {
         margin-right: 0;
@@ -7576,12 +8012,10 @@ a.containerMenuLink:hover {
     height: 100%;
     display: flex
 } */
-
 /* .wrapper {
     will-change: transform;
     transform: translateX(-100%)
 } */
-
 /* .item {
     width: 100%;
     height: 100%;
@@ -7591,7 +8025,6 @@ a.containerMenuLink:hover {
     align-items: center;
     text-align: center
 } */
-
 .item .itemImage {
     margin: 48px 0 24px;
     width: 100%;
@@ -7834,7 +8267,6 @@ a.containerMenuLink:hover {
 /* .home {
     padding-top: 96px
 } */
-
 .home.webRefresh {
     padding-top: 0;
 }
@@ -8014,12 +8446,12 @@ a.containerMenuLink:hover {
     background-size: cover;
     background-position: 50%;
 }
+
 /* 
 .container,.featureImage {
     width: 100%;
     height: 100%
 } */
-
 /* .container {
     position: relative;
     display: flex;
@@ -8028,7 +8460,6 @@ a.containerMenuLink:hover {
     color: #fff;
     z-index: 1
 } */
-
 .container .titleRow {
     width: 100%;
 }
@@ -9984,6 +10415,7 @@ div.ratingBadge {
     font-size: 11px;
     margin: 1rem 0 0;
 }
+
 .footer .bottomSection .signature {
     font-size: 9px;
     color: #fff;
@@ -11211,7 +11643,6 @@ div.ratingBadge {
     font-size: 1.7em;
     padding: 20px
 } */
-
 .playbackButton {
     margin: 0 1.33333rem;
 }
@@ -12572,7 +13003,7 @@ div.ratingBadge {
     z-index: 1;
     left: 0;
     border-bottom: 1px solid rgba(38, 38, 45, 0.1);
-    justify-content: flex-start;
+    justify-content: center;
     top: 80px;
     overflow: scroll;
 }
