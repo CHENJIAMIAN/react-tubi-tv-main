@@ -304,12 +304,7 @@ class Home extends React.Component {
                                                             )}
                                                         </Radio.Group>
                                                     </Form.Item>
-                                                    <Form.Item
-                                                        wrapperCol={{
-                                                            offset: 4,
-                                                            span: 4,
-                                                        }}
-                                                    >
+                                                    <Form.Item>
                                                         {/* <Button
                                                             className="saveBtn Button Button--large Button__bg Button__content"
                                                             type="primary"
@@ -444,10 +439,6 @@ class Home extends React.Component {
                                                 dataSource={data}
                                                 renderItem={(item) => (
                                                     <List.Item key={item.id}>
-                                                        {/* amount: 5000
-orderNo: "211130173325880005"
-orderTime: "2021-11-30 17:33:25"
-status: 0 */}
                                                         <List.Item.Meta
                                                             title={
                                                                 'OrderNo:' +

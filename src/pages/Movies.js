@@ -13,8 +13,9 @@ import {
     deleteHistory,
 } from 'src/utils/request.js';
 import Topic from 'src/components/Topic.js';
-import { message, Modal, Button, Space } from 'antd';
+import { message, Modal, Button, Space, Drawer } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Pay from 'src/pages/Pay.js';
 const { confirm } = Modal;
 
 class Movies extends React.Component {
@@ -26,6 +27,8 @@ class Movies extends React.Component {
             userAuthType: 0,
             addOrRemoveToMyListText: 'Add to My List',
             isTipToPay: false,
+            //
+            visible: false,
         };
 
         this.myRef = React.createRef();
@@ -43,6 +46,7 @@ class Movies extends React.Component {
 
         videoQueryById({ vid }).then((response) => {
             const { code, data, msg } = response;
+
             this.setState({
                 videoData: data.videoData,
                 alsoLike: data.alsoLike,
@@ -74,10 +78,12 @@ class Movies extends React.Component {
     //     return state || null;
     // }
 
-    showConfirm = () => {
+    showPayConfirm = () => {
         confirm({
             title: 'You Need To Pay For This Video',
             icon: <ExclamationCircleOutlined />,
+            content: <Pay />,
+            footer: {},
             onOk: () => {
                 this.props.history.push({
                     pathname: '/pay',
@@ -89,15 +95,48 @@ class Movies extends React.Component {
         });
     };
 
+    showLoginConfirm = () => {
+        confirm({
+            title: 'You should sign-in to continue',
+            icon: <ExclamationCircleOutlined />,
+            onOk: () => {
+                this.props.history.push({
+                    pathname: '/form-login/sign',
+                });
+            },
+            ononCancelOk: () => {
+                console.log('Cancel');
+            },
+        });
+    };
+
     render() {
         let props = this.props;
-        let { videoData, alsoLike, addOrRemoveToMyListText, isTipToPay } =
-            this.state;
+        let {
+            videoData,
+            alsoLike,
+            addOrRemoveToMyListText,
+            isTipToPay,
+            visible,
+        } = this.state;
         const vid = props.match.params.id;
 
         return (
             videoData && (
                 <div className="movies">
+                    <Drawer
+                        title="Pay"
+                        placement={'bottom'}
+                        closable={false}
+                        onClose={() => {
+                            this.setState({
+                                visible: false,
+                            });
+                        }}
+                        visible={visible}
+                    >
+                        <Pay />
+                    </Drawer>
                     <div className="play-movie">
                         <div className="movie-wrap">
                             <video
@@ -106,37 +145,66 @@ class Movies extends React.Component {
                                 controlslist="nodownload"
                                 onPlay={(e) => {
                                     console.log('onPlay');
-                                    if (
-                                        localStorage.getItem('userType') == '0'
-                                    ) {
-                                        userAuth({ vid }).then((response) => {
-                                            // 类型 0试看 1通过
-                                            this.setState({
-                                                userAuthType:
-                                                    response.data.type,
-                                            });
+
+                                    userAuth({ vid }).then((response) => {
+                                        // 类型 0试看 1通过
+                                        this.setState({
+                                            userAuthType: response.data.type,
                                         });
+                                    });
+
+                                    // 1. 用户点击播放
+                                    const isLogined =
+                                        localStorage.getItem('email');
+
+                                    // 2. 如果用户已登录 且 type大于0 直接播放
+                                    if (
+                                        isLogined &&
+                                        localStorage.getItem('userType') != '0'
+                                    ) {
+                                        return;
                                     }
                                 }}
                                 onTimeUpdate={(e) => {
-                                    // 如果只是试播放权限，允许播放 30秒。 30秒后弹出开通会员提醒
-                                    if (this.state.userAuthType != '0') return;
+                                    const isLogined =
+                                        localStorage.getItem('email');
+
+                                    // 2. 如果用户已登录 且 type大于0 直接播放
+                                    if (
+                                        isLogined &&
+                                        this.state.userAuthType != '0'
+                                    )
+                                        return;
+
                                     //用秒数来显示当前播放进度
                                     const video = this.myRef.current;
                                     var timeDisplay = Math.floor(
                                         video.currentTime
                                     );
+
                                     console.log('onTimeUpdate', timeDisplay);
-                                    if (timeDisplay > 30) {
-                                        //视频暂停操作
-                                        video.pause();
-                                        //去除视频地址src内容
-                                        video.setAttribute('src', '');
-                                        //将视频隐藏掉
-                                        video.style.display = 'none';
-                                        //提示层显示
-                                        this.setState({ isTipToPay: true });
-                                        this.showConfirm();
+                                    if (timeDisplay > 2) {
+                                        // 4. 用户已登录，试播30秒后弹出框用户选择支付
+                                        if (isLogined) {
+                                            //视频暂停操作
+                                            video.pause();
+                                            //去除视频地址src内容
+                                            video.setAttribute('src', '');
+                                            //将视频隐藏掉
+                                            video.style.display = 'none';
+                                            //提示层显示
+                                            this.setState({ isTipToPay: true });
+                                            // this.showPayConfirm();
+                                            this.setState({
+                                                visible: true,
+                                            });
+                                        } else {
+                                            // 3. 用户未登录，试播30秒弹出提示用户到登录页面登录
+                                            video.pause();
+                                            video.setAttribute('src', '');
+                                            video.style.display = 'none';
+                                            this.showLoginConfirm();
+                                        }
                                     }
                                 }}
                             >
@@ -148,8 +216,17 @@ class Movies extends React.Component {
                         </div>
                     </div>
                     {isTipToPay && (
-                        <div>
-                            该视频需要付费才可观看，如需继续观看，请点击下方购买按钮。如需重复观看请点击
+                        <div style={{ textAlign: 'center' }}>
+                            <a
+                                style={{ color: 'white',}}
+                                onClick={() => {
+                                    this.setState({
+                                        visible: true,
+                                    });
+                                }}
+                            >
+                                This video requires payment to watch.
+                            </a>
                         </div>
                     )}
                     <div className="info-movie flex">

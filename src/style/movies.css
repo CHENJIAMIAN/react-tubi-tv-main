@@ -234,7 +234,7 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding-top: 25px;
+        padding-top: 0;
     }
 
     .share-small .add-to-list {

@@ -53,41 +53,44 @@ class Header extends React.Component {
         });
     };
 
+    scrollListener = () => {
+        const header = this.header;
+        if (!header) return;
+        let path = props.location.pathname;
+        if (path.indexOf('form-login') > -1) {
+            header.style.background =
+                'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
+            return;
+        }
+        let nowY = window.scrollY;
+        if (nowY > beforeY) {
+            header.style.top = -HEADER_HEIGHT + 'px';
+            beforeY = nowY;
+            return;
+        }
+        header.style.top = 0;
+        beforeY = nowY;
+
+        if (window.pageYOffset !== 0) {
+            header.style.background = 'rgba(0, 0, 0, 0.6)';
+            return;
+        }
+        header.style.background =
+            'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
+    };
+
     showAndHideHeaderWhenScroll = (props) => {
         const isWhite = props.location.pathname.includes('/account');
         let search = document.querySelector('.search');
 
         if (!isWhite) {
-            if(search) search.style.visibility = 'initial';
+            if (search) search.style.visibility = 'initial';
             const HEADER_HEIGHT = 80;
             let beforeY = 0;
-            let header = document.querySelector('.header');
-            window.addEventListener('scroll', () => {
-                let path = props.location.pathname;
-                if (path.indexOf('form-login') > -1) {
-                    header.style.background =
-                        'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
-                    return;
-                }
-                let nowY = window.scrollY;
-                if (nowY > beforeY) {
-                    header.style.top = -HEADER_HEIGHT + 'px';
-                    beforeY = nowY;
-                    return;
-                }
-                header.style.top = 0;
-                beforeY = nowY;
-
-                if (window.pageYOffset !== 0) {
-                    header.style.background = 'rgba(0, 0, 0, 0.6)';
-                    return;
-                }
-                header.style.background =
-                    'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
-            });
+            window.addEventListener('scroll', this.scrollListener);
         } else {
             // 白色条
-            if(search) search.style.visibility = 'hidden';
+            if (search) search.style.visibility = 'hidden';
         }
     };
 
@@ -284,6 +287,8 @@ class Header extends React.Component {
     }
 
     componentDidMount() {
+        let header = document.querySelector('.header');
+        this.header = header;
         // withRouter注入 location 等到props
         this.showAndHideHeaderWhenScroll(this.props);
         this.checkScrollHandler(this.props.location.pathname);
@@ -297,6 +302,7 @@ class Header extends React.Component {
 
     componentWillUnmount() {
         this.scrollObserver.unsubscribe();
+        window.removeEventListener('scroll', this.scrollListener);
     }
     checkScrollHandler(path) {
         var _self = this;

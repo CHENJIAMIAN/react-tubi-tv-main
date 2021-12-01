@@ -143,16 +143,6 @@ class App extends React.Component {
                                 )}
                             />
                             <Route
-                                exact
-                                path="/pay/"
-                                component={({ history }) => (
-                                    <Pay
-                                        history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                    />
-                                )}
-                            />
-                            <Route
                                 path="/account/:type?"
                                 component={({ history, match }) => (
                                     <Account
