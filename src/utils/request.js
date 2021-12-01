@@ -186,7 +186,7 @@ export function userRegister(reqJson) {
     return getAPI('/user/register', 'POST', reqJson);
 }
 /* 
-changeInfo
+// changeInfo
 myOrder
 // changePassword
 // orderAdd

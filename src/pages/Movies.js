@@ -197,9 +197,9 @@ class Movies extends React.Component {
                                     <div className="time-type">
                                         <p>
                                             {videoData.category}
-                                            <span class="dot">·</span>
+                                            <span className="dot">·</span>
                                             {videoData.sdMark}
-                                            <span class="dot">·</span>
+                                            <span className="dot">·</span>
                                             {videoData.duration}
                                         </p>
                                         {videoData.tags.map((item, index) => (

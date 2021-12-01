@@ -138,8 +138,8 @@ class SearchResults extends React.Component {
         );
         return (
             <div className="results">
-                <div class="containerTitle">
-                    <h1 class="title">{categoryName}</h1>
+                <div className="containerTitle">
+                    <h1 className="title">{categoryName}</h1>
                     {films.length > 0 && (
                         <WindowScroller>{infiniteLoader}</WindowScroller>
                     )}

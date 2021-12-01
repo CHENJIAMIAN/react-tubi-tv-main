@@ -7,6 +7,7 @@ import Footer from 'src/components/Footer.js';
 import 'src/style/web-auth.css';
 import { Link, withRouter } from 'react-router-dom';
 import {
+    changeInfo,
     userInfo,
     myList,
     userHistory,
@@ -24,6 +25,7 @@ import {
     Space,
     Radio,
 } from 'antd';
+import default_profile_pic from 'src/img/default_profile_pic.png';
 
 const { Option } = Select;
 
@@ -68,13 +70,6 @@ class Home extends React.Component {
         window.scrollTo({ top: 0 });
     }
 
-    onFinish = (values) => {
-        console.log('Success:', values);
-    };
-
-    onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
     render() {
         const { type } = this.props.match.params;
         const { userInfo, myList, userHistory, showChangPassword } = this.state;
@@ -85,7 +80,7 @@ class Home extends React.Component {
                     <Link
                         className={`item ${!type ? 'active' : ''} `}
                         data-index="0"
-                        tabindex="0"
+                        tabIndex="0"
                         role="button"
                         aria-label="profile"
                         to="/account"
@@ -97,7 +92,7 @@ class Home extends React.Component {
                             type === 'payrecord' ? 'active' : ''
                         } `}
                         data-index="1"
-                        tabindex="0"
+                        tabIndex="0"
                         role="button"
                         aria-label="payrecord"
                         to="/account/payrecord"
@@ -107,7 +102,7 @@ class Home extends React.Component {
                     <Link
                         className={`item ${type === 'mylist' ? 'active' : ''} `}
                         data-index="2"
-                        tabindex="0"
+                        tabIndex="0"
                         role="button"
                         aria-label="mylist"
                         to="/account/mylist"
@@ -119,7 +114,7 @@ class Home extends React.Component {
                             type === 'history' ? 'active' : ''
                         } `}
                         data-index="3"
-                        tabindex="0"
+                        tabIndex="0"
                         role="button"
                         aria-label="history"
                         to="/account/history"
@@ -136,17 +131,36 @@ class Home extends React.Component {
                                     <h1>My Account</h1>
                                     <div className="userInfo">
                                         <div className="photoSection">
-                                            <img src="https://cdn.adrise.tv/tubitv-assets/img/default_profile_pic.png" />
+                                            <img src={default_profile_pic} />
                                         </div>
                                         <div className="demSection">
                                             {userInfo && (
                                                 <Form
                                                     name="control-hooks"
                                                     initialValues={userInfo}
-                                                    onFinish={this.onFinish}
-                                                    onFinishFailed={
-                                                        this.onFinishFailed
-                                                    }
+                                                    onFinish={(values) => {
+                                                        console.log(
+                                                            'Success:',
+                                                            values
+                                                        );
+                                                        const { mobile } =
+                                                            values;
+                                                        changeInfo({
+                                                            mobile,
+                                                        }).then((r) => {
+                                                            message.success(
+                                                                r.msg
+                                                            );
+                                                        });
+                                                    }}
+                                                    onFinishFailed={(
+                                                        errorInfo
+                                                    ) => {
+                                                        console.log(
+                                                            'Failed:',
+                                                            errorInfo
+                                                        );
+                                                    }}
                                                     autoComplete="off"
                                                 >
                                                     <Form.Item
@@ -244,25 +258,28 @@ class Home extends React.Component {
                                                             span: 4,
                                                         }}
                                                     >
-                                                        <Button
+                                                        {/* <Button
                                                             className="saveBtn Button Button--large Button__bg Button__content"
                                                             type="primary"
                                                             htmlType="submit"
                                                         >
                                                             Save
-                                                        </Button>
+                                                        </Button> */}
+                                                        <div className="saveBtn">
+                                                            <button
+                                                                className="Button Button--large"
+                                                                htmltype="submit"
+                                                            >
+                                                                <div className="Button__bg"></div>
+                                                                <div className="Button__content">
+                                                                    Save
+                                                                </div>
+                                                            </button>
+                                                        </div>
                                                     </Form.Item>
                                                 </Form>
                                             )}
                                         </div>
-                                        {/* <div className="saveBtn">
-                                            <button className="Button Button--large">
-                                                <div className="Button__bg"></div>
-                                                <div className="Button__content">
-                                                    Save
-                                                </div>
-                                            </button>
-                                        </div> */}
                                     </div>
                                     <div className="passwordSection">
                                         <h2>Change Password</h2>
@@ -292,11 +309,11 @@ class Home extends React.Component {
                                                 )}
                                                 <div
                                                     style={{
-                                                        'text-align': ' left;',
+                                                        textAlign: ' left',
                                                     }}
                                                 >
                                                     <button
-                                                        class="Button Button--large"
+                                                        className="Button Button--large"
                                                         type="button"
                                                         onClick={() => {
                                                             const {
@@ -327,8 +344,8 @@ class Home extends React.Component {
                                                             });
                                                         }}
                                                     >
-                                                        <div class="Button__bg"></div>
-                                                        <div class="Button__content">
+                                                        <div className="Button__bg"></div>
+                                                        <div className="Button__content">
                                                             {!showChangPassword
                                                                 ? 'Set New Password'
                                                                 : 'Save'}
@@ -341,18 +358,18 @@ class Home extends React.Component {
                                 </div>
                             )}
                             {type === 'payrecord' && (
-                                <div class="settingsContent parentalMain">
+                                <div className="settingsContent parentalMain">
                                     <h1>PayRecord</h1>
                                 </div>
                             )}
                             {type === 'mylist' && (
-                                <div class="settingsContent">
+                                <div className="settingsContent">
                                     <h1>My List</h1>
-                                    <div class="contentArea">
-                                        <div class="panelContainer">
+                                    <div className="contentArea">
+                                        <div className="panelContainer">
                                             <div className="results-list">
-                                                <div class="panelContainer">
-                                                    <div class="table">
+                                                <div className="panelContainer">
+                                                    <div className="table">
                                                         {myList.map(
                                                             (item, index) => {
                                                                 return (
@@ -373,12 +390,12 @@ class Home extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div class="btnArea">
-                                            <button class="Button Button--large largeBtn">
-                                                <div class="Button__bg"></div>
+                                        <div className="btnArea">
+                                            <button className="Button Button--large largeBtn">
+                                                <div className="Button__bg"></div>
                                                 {
                                                     <div
-                                                        class="Button__content"
+                                                        className="Button__content"
                                                         onClick={() => {
                                                             clearMyList().then(
                                                                 (r) => {
@@ -398,13 +415,13 @@ class Home extends React.Component {
                                 </div>
                             )}
                             {type === 'history' && (
-                                <div class="historyMain settingsContent">
+                                <div className="historyMain settingsContent">
                                     <h1>History</h1>
-                                    <div class="contentArea">
-                                        <div class="panelContainer">
+                                    <div className="contentArea">
+                                        <div className="panelContainer">
                                             <div className="results-list">
-                                                <div class="panelContainer">
-                                                    <div class="table">
+                                                <div className="panelContainer">
+                                                    <div className="table">
                                                         {userHistory.map(
                                                             (item, index) => {
                                                                 return (
@@ -425,12 +442,12 @@ class Home extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div class="btnArea">
-                                            <button class="Button Button--large largeBtn">
-                                                <div class="Button__bg"></div>
+                                        <div className="btnArea">
+                                            <button className="Button Button--large largeBtn">
+                                                <div className="Button__bg"></div>
                                                 {
                                                     <div
-                                                        class="Button__content"
+                                                        className="Button__content"
                                                         onClick={() => {
                                                             clearHistory().then(
                                                                 (r) => {

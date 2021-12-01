@@ -53,15 +53,17 @@ class Header extends React.Component {
         });
     };
 
-    showAndHideHeaderWhenScroll = () => {
-        const isWhite = this.props.location.pathname.includes('/account');
+    showAndHideHeaderWhenScroll = (props) => {
+        const isWhite = props.location.pathname.includes('/account');
+        let search = document.querySelector('.search');
 
         if (!isWhite) {
+            search.style.visibility = 'initial';
             const HEADER_HEIGHT = 80;
             let beforeY = 0;
             let header = document.querySelector('.header');
             window.addEventListener('scroll', () => {
-                let path = this.props.location.pathname;
+                let path = props.location.pathname;
                 if (path.indexOf('form-login') > -1) {
                     header.style.background =
                         'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
@@ -85,7 +87,6 @@ class Header extends React.Component {
             });
         } else {
             // 白色条
-            let search = document.querySelector('.search');
             search.style.visibility = 'hidden';
         }
     };
@@ -95,13 +96,11 @@ class Header extends React.Component {
         this.props.changeIsStayFormLogin(true);
         this.changeIsRegister(bool);
     };
-
     changeIsRegister = (bool) => {
         this.props.changeIsRegister(bool);
     };
 
     searchHandle = (target) => {
-        debugger
         if (window.location.pathname !== '/search') {
             target.value.length > 0 &&
                 this.routingFunction(`/search/${target.value}`);
@@ -286,7 +285,7 @@ class Header extends React.Component {
 
     componentDidMount() {
         // withRouter注入 location 等到props
-        this.showAndHideHeaderWhenScroll();
+        this.showAndHideHeaderWhenScroll(this.props);
         this.checkScrollHandler(this.props.location.pathname);
         this.handleScroll();
         categoryList().then((response) => {
@@ -357,6 +356,7 @@ class Header extends React.Component {
             const channel = getQueryVariable('channel');
             // 第一次进 页面存channel, 之后其他跳转在UNSAFE_componentWillReceiveProps去获取
             channel && localStorage.setItem('channel', channel);
+            this.showAndHideHeaderWhenScroll(nextProps);
         }
     }
 }

@@ -23,7 +23,7 @@ export default function HistoryQueueTableRow(props) {
 
     return (
         <div
-            class="historyQueueTableRow"
+            className="historyQueueTableRow"
             onMouseOver={() => {
                 console.log('onMouseOver');
                 setShowDeleteOverlay(true);
@@ -33,29 +33,29 @@ export default function HistoryQueueTableRow(props) {
                 setShowDeleteOverlay(false);
             }}
         >
-            <a class="ATag link" href={`/movie/${video.id}`}>
-                <img class="poster" src={pic0} />
+            <a className="ATag link" href={`/movie/${video.id}`}>
+                <img className="poster" src={pic0} />
             </a>
-            <div class="contentData">
-                <div class="H5 contentTitle">{title}</div>
-                <div class="Row subInfo">
-                    <div class="Col Col--9">
+            <div className="contentData">
+                <div className="H5 contentTitle">{title}</div>
+                <div className="Row subInfo">
+                    <div className="Col Col--9">
                         <div>{duration}</div>
 
                         <span>{category} </span>
                         {/* <span>Drama</span> */}
                     </div>
-                    <div class="Col Col--3 ratingCol">
-                        <span class="rating">TV-MA</span>
+                    <div className="Col Col--3 ratingCol">
+                        <span className="rating">TV-MA</span>
                     </div>
                 </div>
             </div>
             {showDeleteOverlay && (
-                <div class="deleteOverlay">
-                    <button class="Button Button--secondary">
-                        <div class="Button__bg"></div>
+                <div className="deleteOverlay">
+                    <button className="Button Button--secondary">
+                        <div className="Button__bg"></div>
                         <div
-                            class="Button__content"
+                            className="Button__content"
                             onClick={() => {
                                 switch (type) {
                                     case 'history':
