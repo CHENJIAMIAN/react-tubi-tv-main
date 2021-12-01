@@ -58,7 +58,7 @@ class Header extends React.Component {
         let search = document.querySelector('.search');
 
         if (!isWhite) {
-            search.style.visibility = 'initial';
+            if(search) search.style.visibility = 'initial';
             const HEADER_HEIGHT = 80;
             let beforeY = 0;
             let header = document.querySelector('.header');
@@ -87,7 +87,7 @@ class Header extends React.Component {
             });
         } else {
             // 白色条
-            search.style.visibility = 'hidden';
+            if(search) search.style.visibility = 'hidden';
         }
     };
 

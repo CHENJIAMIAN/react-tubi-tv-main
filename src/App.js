@@ -36,6 +36,7 @@ class App extends React.Component {
     }
 
     // Khong luu tren local duioc
+    // 用于控制是否显示头部的搜索和登录(登录注册页面不显示), 当goFormLogin时,即到注册登录页面时,isStayFormLogin为true
     changeIsStayFormLogin = (bool) => {
         let state = this.state;
         state.isStayFormLogin = bool;

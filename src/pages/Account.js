@@ -7,6 +7,7 @@ import Footer from 'src/components/Footer.js';
 import 'src/style/web-auth.css';
 import { Link, withRouter } from 'react-router-dom';
 import {
+    myOrder,
     changeInfo,
     userInfo,
     myList,
@@ -24,8 +25,13 @@ import {
     Button,
     Space,
     Radio,
+    List,
+    Avatar,
+    Skeleton,
+    Divider,
 } from 'antd';
 import default_profile_pic from 'src/img/default_profile_pic.png';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const { Option } = Select;
 
@@ -38,6 +44,13 @@ class Home extends React.Component {
             userHistory: [],
             showChangPassword: false,
             newPassword: '',
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            loading: false,
+            data: [],
+            pageNo: 1,
+            pageSize: 10,
+            total: 10,
+            /*list infinite end---------------------------------------------------------------------------------------*/
         };
     }
     componentDidMount() {
@@ -65,14 +78,53 @@ class Home extends React.Component {
                 this.setState({ userHistory: result.data });
             })
             .catch((err) => {});
+        /*list infinite start---------------------------------------------------------------------------------------*/
+        this.loadMoreData();
+        /*list infinite end---------------------------------------------------------------------------------------*/
     }
     componentWillUnmount() {
         window.scrollTo({ top: 0 });
     }
 
+    /*list infinite start---------------------------------------------------------------------------------------*/
+    loadMoreData = () => {
+        const { loading, pageNo, pageSize } = this.state;
+        if (loading) {
+            return;
+        }
+        this.setState({
+            loading: true,
+        });
+        myOrder({ pageNo, pageSize })
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    data: [...this.state.data, ...res.data],
+                    pageNo: this.state.pageNo + 1,
+                    total: res.total,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    loading: false,
+                });
+            });
+    };
+    /*list infinite end---------------------------------------------------------------------------------------*/
+
     render() {
         const { type } = this.props.match.params;
-        const { userInfo, myList, userHistory, showChangPassword } = this.state;
+        const {
+            userInfo,
+            myList,
+            userHistory,
+            showChangPassword,
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            data,
+            loading,
+            total,
+            /*list infinite end---------------------------------------------------------------------------------------*/
+        } = this.state;
 
         return (
             <div className="wrapper">
@@ -124,7 +176,7 @@ class Home extends React.Component {
                 </div>
                 <div className="Container">
                     <div className="Row row">
-                        <div className="Col Col--9 Col--lg-6 Col--xxl-4 resetCol">
+                        <div className="Col Col--12 Col--lg-6 Col--xxl-4 resetCol">
                             {!type && (
                                 <div className="userProfile settingsContent">
                                     <div className="overlayDimmer"></div>
@@ -360,6 +412,69 @@ class Home extends React.Component {
                             {type === 'payrecord' && (
                                 <div className="settingsContent parentalMain">
                                     <h1>PayRecord</h1>
+                                    <div
+                                        id="scrollableDiv"
+                                        style={{
+                                            height: 400,
+                                            overflow: 'auto',
+                                            padding: '0 16px',
+                                            border: '1px solid rgba(140, 140, 140, 0.35)',
+                                        }}
+                                    >
+                                        <InfiniteScroll
+                                            dataLength={data.length}
+                                            next={this.loadMoreData}
+                                            hasMore={data.length < total}
+                                            loader={
+                                                <Skeleton
+                                                    avatar
+                                                    paragraph={{ rows: 1 }}
+                                                    active
+                                                />
+                                            }
+                                            endMessage={
+                                                <Divider plain>
+                                                    It is all, nothing more 🤐
+                                                </Divider>
+                                            }
+                                            scrollableTarget="scrollableDiv"
+                                        >
+                                            <List
+                                                itemLayout="vertical"
+                                                dataSource={data}
+                                                renderItem={(item) => (
+                                                    <List.Item key={item.id}>
+                                                        {/* amount: 5000
+orderNo: "211130173325880005"
+orderTime: "2021-11-30 17:33:25"
+status: 0 */}
+                                                        <List.Item.Meta
+                                                            title={
+                                                                'OrderNo:' +
+                                                                item.orderNo
+                                                            }
+                                                            description={
+                                                                item.orderTime
+                                                            }
+                                                        />
+                                                        <div>
+                                                            Amount:
+                                                            {item.amount}
+                                                        </div>
+                                                        <div>
+                                                            Status:
+                                                            {item.status == 0 &&
+                                                                'To Be Paid'}
+                                                            {item.status == 1 &&
+                                                                'Pay Successful'}
+                                                            {item.status == 2 &&
+                                                                'Pay Failed'}
+                                                        </div>
+                                                    </List.Item>
+                                                )}
+                                            />
+                                        </InfiniteScroll>
+                                    </div>
                                 </div>
                             )}
                             {type === 'mylist' && (

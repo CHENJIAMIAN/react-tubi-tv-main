@@ -187,7 +187,7 @@ export function userRegister(reqJson) {
 }
 /* 
 // changeInfo
-myOrder
+// myOrder
 // changePassword
 // orderAdd
 // orderPayInfo
