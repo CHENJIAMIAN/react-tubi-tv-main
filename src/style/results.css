@@ -18,7 +18,7 @@
     line-height: 1;
     color: white;
     font-weight: 700;
-    padding-bottom: 70px;
+    padding-bottom: 0;
 }
 
 .results span.note {
@@ -54,6 +54,7 @@
     padding-top: 10px;
     transition: all 0.2s;
     padding-bottom: 20px;
+    margin-bottom:0;
 }
 
 .results .item h3:hover {
@@ -96,20 +97,23 @@
 
 @media screen and (max-width: 959px) {
     .results .item {
-        width: 33.33333%;
-        max-width: 33.33333%;
-        margin-bottom: 25px;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0px;
+/*  xiugaiguo        */
     }
 }
 
 @media screen and (max-width: 767px) {
     .results {
         padding: 0 20px;
-        padding-top: 120px;
+        padding-top: 60px;
     }
 
     .results p.search-key {
         font-size: 42px;
+        margin-bottom:1rem;
+/*          xiugaiguo*/
     }
 
     .results .item h3 {

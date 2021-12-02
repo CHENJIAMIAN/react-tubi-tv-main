@@ -32,9 +32,9 @@ class SignIn extends React.Component {
                     },
                 });
                 localStorage.setItem('email', email);
-                this.loginSuccess();
                 target.querySelector('input.email').value = '';
                 target.querySelector('input.password').value = '';
+                this.loginSuccess();
             });
         }
     };
@@ -75,8 +75,6 @@ class SignIn extends React.Component {
     };
 
     loginSuccess = () => {
-        this.props.changeIsLogged(this.curr);
-
         const path = getQueryVariable('redirect');
         if (path) {
             window.location.href = path;
@@ -120,7 +118,6 @@ class SignIn extends React.Component {
                         Create new Account!
                         <Link
                             to="/form-login/register"
-                            onClick={() => props.changeIsRegister(true)}
                         >
                             Register
                         </Link>
@@ -131,7 +128,7 @@ class SignIn extends React.Component {
     }
     componentWillUnmount() {
         window.location.pathname.indexOf('form-login') === -1 &&
-            this.props.changeIsStayFormLogin(false);
+            this.props.changeIsHidePartOfHeader(false);
     }
 }
 

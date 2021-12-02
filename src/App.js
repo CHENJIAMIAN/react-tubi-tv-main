@@ -20,67 +20,37 @@ import {
 } from 'react-router-dom';
 import { getQueryVariable } from 'src/utils/util.js';
 
-let initState = {
-    isLogged: false,
-    isStayFormLogin: false,
-    isStayFormRegister: false,
-    currUser: null,
-};
-
 class App extends React.Component {
     constructor() {
         super();
-        this.state = localStorage.getItem('state')
-            ? JSON.parse(localStorage.getItem('state'))
-            : initState;
+        this.state = {
+            isHidePartOfHeader: false,
+            currUser: null,
+        };
     }
 
     // Khong luu tren local duioc
     // 用于控制是否显示头部的搜索和登录(登录注册页面不显示), 当goFormLogin时,即到注册登录页面时,isStayFormLogin为true
-    changeIsStayFormLogin = (bool) => {
-        let state = this.state;
-        state.isStayFormLogin = bool;
-        localStorage.setItem('state', JSON.stringify(state));
-        this.setState({ state: state }, () => null);
+    changeIsHidePartOfHeader = (bool) => {
+        this.setState({ isHidePartOfHeader: bool }, () => null);
     };
 
-    changeIsRegister = (bool) => {
-        let state = this.state;
-        state.isStayFormRegister = bool;
-        localStorage.setItem('state', JSON.stringify(this.state));
-        this.setState({ state: state }, () => null);
-    };
-
-    changeIsLogged = (curr) => {
-        let bool = curr === null ? false : true;
-        let newState = this.state;
-        newState.isLogged = bool;
-        newState.currUser = curr;
-        localStorage.setItem('state', JSON.stringify(this.state));
-        this.setState({ state: newState }, () => null);
-        if (!bool) {
-            localStorage.removeItem('email');
-            localStorage.removeItem('token');
-        }
-    };
 
     render() {
         let state = this.state;
         return (
             <Router>
-                <div id="app" className="app" style={{ background: '#26262D' }}>
+                <div id="app" className="app">
                     <div className="tubiNotifications">
                         <div className="flexReverseOnMobile"></div>
                     </div>
                     <div className="appContent">
                         <Header
-                            isLogged={state.isLogged}
                             currUser={state.currUser}
-                            isStayFormLogin={state.isStayFormLogin}
-                            isStayFormRegister={state.isStayFormRegister}
-                            changeIsStayFormLogin={this.changeIsStayFormLogin}
-                            changeIsRegister={this.changeIsRegister}
-                            changeIsLogged={this.changeIsLogged}
+                            isHidePartOfHeader={state.isHidePartOfHeader}
+                            changeIsHidePartOfHeader={
+                                this.changeIsHidePartOfHeader
+                            }
                         />
                         <Switch>
                             <Route
@@ -90,11 +60,9 @@ class App extends React.Component {
                                         history={history}
                                         location={location}
                                         match={match}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
+                                        changeIsHidePartOfHeader={
+                                            this.changeIsHidePartOfHeader
                                         }
-                                        changeIsRegister={this.changeIsRegister}
-                                        changeIsLogged={this.changeIsLogged}
                                     />
                                 )}
                             />
@@ -135,9 +103,11 @@ class App extends React.Component {
                                 component={({ history }) => (
                                     <Home
                                         history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
+                                        isHidePartOfHeader={
+                                            state.isHidePartOfHeader
+                                        }
+                                        changeIsHidePartOfHeader={
+                                            this.changeIsHidePartOfHeader
                                         }
                                     />
                                 )}
@@ -148,9 +118,11 @@ class App extends React.Component {
                                     <Account
                                         match={match}
                                         history={history}
-                                        isStayFormLogin={state.isStayFormLogin}
-                                        changeIsStayFormLogin={
-                                            this.changeIsStayFormLogin
+                                        isHidePartOfHeader={
+                                            state.isHidePartOfHeader
+                                        }
+                                        changeIsHidePartOfHeader={
+                                            this.changeIsHidePartOfHeader
                                         }
                                     />
                                 )}

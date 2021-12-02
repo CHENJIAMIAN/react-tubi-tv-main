@@ -77,71 +77,88 @@ class Hero extends React.Component {
         const carousel = this.props.carousel;
         let length = carousel.length;
         let currentIndex = this.state.currentIndex;
-        let bgImage = {
-            backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url('${carousel[currentIndex].pic2}')`,
-        };
         return (
-            <section id="hero" className="hero" style={bgImage}>
-                <div className="hero-wrap">
-                    <div
-                        className="hero-content"
-                        onClick={(e) => this.heroContentHandleClick(e.target)}
-                    >
-                        <div className="name-film flex">
-                            <div className="play flex">
-                                <i className="fas fa-play"></i>
+            length > 0 && (
+                <section
+                    id="hero"
+                    className="hero"
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url('${carousel[currentIndex].pic2}')`,
+                    }}
+                >
+                    <div className="hero-wrap">
+                        <div
+                            className="hero-content"
+                            onClick={(e) =>
+                                this.heroContentHandleClick(e.target)
+                            }
+                        >
+                            <div className="name-film flex">
+                                <div className="play flex">
+                                    <i className="fas fa-play"></i>
+                                </div>
+                                <Link
+                                    to={`/movies/${carousel[currentIndex].id}`}
+                                >
+                                    <h1>{carousel[currentIndex].title}</h1>
+                                </Link>
                             </div>
-                            <Link to={`/movies/${carousel[currentIndex].id}`}>
-                                <h1>{carousel[currentIndex].title}</h1>
-                            </Link>
-                        </div>
-                        <div className="slide-film flex">
-                            <div className="slide-left flex">
-                                <div className="current-film flex">
-                                    <div className="row flex">
-                                        {/* <div className="img1 test">1</div>
+                            <div className="slide-film flex">
+                                <div className="slide-left flex">
+                                    <div className="current-film flex">
+                                        <div className="row flex">
+                                            {/* <div className="img1 test">1</div>
                                         <div className="img2 test">2</div> */}
-                                        <HeroFilm film={carousel[length - 1]} />
-                                        <HeroFilm
-                                            film={carousel[0]}
-                                            active={'active'}
-                                        />
-                                    </div>
-                                    <div className="film-info flex">
-                                        <div className="left">
-                                            <h6>
-                                                {carousel[currentIndex].category}
-                                            </h6>
-                                            <p>
-                                                {carousel[currentIndex].duration}
-                                            </p>
+                                            <HeroFilm
+                                                film={carousel[length - 1]}
+                                            />
+                                            <HeroFilm
+                                                film={carousel[0]}
+                                                active={'active'}
+                                            />
                                         </div>
-                                        <Link to="/home/">TV-PG</Link>
+                                        <div className="film-info flex">
+                                            <div className="left">
+                                                <h6>
+                                                    {
+                                                        carousel[currentIndex]
+                                                            .category
+                                                    }
+                                                </h6>
+                                                <p>
+                                                    {
+                                                        carousel[currentIndex]
+                                                            .duration
+                                                    }
+                                                </p>
+                                            </div>
+                                            <Link to="/home/">TV-PG</Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="watch-now">
-                                <div className="link-wrap">
-                                    <Link
-                                        to={`/movies/${carousel[currentIndex].id}`}
-                                        // videoUrl: "http://vjs.zencdn.net/v/oceans.mp4"
-                                    >
-                                        Watch Now <span>FREE</span>
-                                    </Link>
+                                <div className="watch-now">
+                                    <div className="link-wrap">
+                                        <Link
+                                            to={`/movies/${carousel[currentIndex].id}`}
+                                            // videoUrl: "http://vjs.zencdn.net/v/oceans.mp4"
+                                        >
+                                            Watch Now <span>FREE</span>
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="slide-right flex">
-                                <div className="right-content flex">
-                                    {/* <div className="img3 test" >3</div>
+                                <div className="slide-right flex">
+                                    <div className="right-content flex">
+                                        {/* <div className="img3 test" >3</div>
                                     <div className="img4 test" >4</div> */}
-                                    <HeroFilm film={carousel[1]} />
-                                    <HeroFilm film={carousel[2]} />
+                                        <HeroFilm film={carousel[1]} />
+                                        <HeroFilm film={carousel[2]} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )
         );
     }
 

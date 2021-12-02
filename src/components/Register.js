@@ -189,35 +189,17 @@ class Register extends React.Component {
                         You have account!
                         <Link
                             to="/form-login/sign"
-                            onClick={() => props.changeIsRegister(false)}
                         >
                             Sign In
                         </Link>
                     </p>
                 </div>
-                {/* <div className="create-success">
-                    <Link 
-                        to='/form-login/sign'
-                        className="overlay"
-                        onClick={() => props.changeIsRegister(false)}
-                    ></Link>
-                    <div className="content">
-                        <i className="fas fa-check-circle"></i>
-                        <h2>Success!</h2>
-                        <Link 
-                            to="/form-login/sign"
-                            onClick={() => props.changeIsRegister(false)}
-                        >Sign In</Link>
-                    </div>
-                </div> */}
             </div>
         );
     }
-    // Bug khong setState khi chay will mount
-
     componentWillUnmount() {
         window.location.pathname.indexOf('form-login') === -1 &&
-            this.props.changeIsStayFormLogin(false);
+            this.props.changeIsHidePartOfHeader(false);
     }
 }
 

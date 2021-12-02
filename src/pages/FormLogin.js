@@ -13,7 +13,6 @@ class FormLogin extends React.Component {
         userRegister(acc).then((response) => {
             message.success(response.msg);
             this.props.history.push('/form-login/sign');
-            this.props.changeIsRegister(false);
         });
     };
 
@@ -34,23 +33,16 @@ class FormLogin extends React.Component {
                             <Route exact path="/form-login/sign">
                                 <SignIn
                                     history={this.props.history}
-                                    changeIsRegister={
-                                        this.props.changeIsRegister
+                                    changeIsHidePartOfHeader={
+                                        this.props.changeIsHidePartOfHeader
                                     }
-                                    changeIsStayFormLogin={
-                                        this.props.changeIsStayFormLogin
-                                    }
-                                    changeIsLogged={this.props.changeIsLogged}
                                 />
                             </Route>
                             <Route path="/form-login/register">
                                 <Register
                                     history={this.props.history}
-                                    changeIsRegister={
-                                        this.props.changeIsRegister
-                                    }
-                                    changeIsStayFormLogin={
-                                        this.props.changeIsStayFormLogin
+                                    changeIsHidePartOfHeader={
+                                        this.props.changeIsHidePartOfHeader
                                     }
                                     addNewAccount={this.addNewAccount}
                                 />

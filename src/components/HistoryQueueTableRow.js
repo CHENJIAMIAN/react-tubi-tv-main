@@ -3,9 +3,9 @@ import { deleteMyList, deleteHistory } from 'src/utils/request.js';
 import { message } from 'antd';
 
 export default function HistoryQueueTableRow(props) {
-    const { video, type } = props;
+    const { video, type,deleteSuccess } = props;
 
-    const [showDeleteOverlay, setShowDeleteOverlay] = useState(false);
+    // const [showDeleteOverlay, setShowDeleteOverlay] = useState(false);
     const {
         id,
         title,
@@ -24,14 +24,14 @@ export default function HistoryQueueTableRow(props) {
     return (
         <div
             className="historyQueueTableRow"
-            onMouseOver={() => {
-                console.log('onMouseOver');
-                setShowDeleteOverlay(true);
-            }}
-            onMouseLeave={() => {
-                console.log('onMouseLeave');
-                setShowDeleteOverlay(false);
-            }}
+            // onMouseOver={() => {
+            //     console.log('onMouseOver');
+            //     setShowDeleteOverlay(true);
+            // }}
+            // onMouseLeave={() => {
+            //     console.log('onMouseLeave');
+            //     setShowDeleteOverlay(false);
+            // }}
         >
             <a className="ATag link" href={`/movie/${video.id}`}>
                 <img className="poster" src={pic0} />
@@ -46,11 +46,32 @@ export default function HistoryQueueTableRow(props) {
                         {/* <span>Drama</span> */}
                     </div>
                     <div className="Col Col--3 ratingCol">
-                        <span className="rating">TV-MA</span>
+                        <a
+                            className="rating"
+                            onClick={() => {
+                                switch (type) {
+                                    case 'history':
+                                        deleteHistory({ vid: id }).then((r) => {
+                                            message.success(r.msg);
+                                            deleteSuccess('history');
+                                        });
+                                        break;
+                                    case 'mylist':
+                                        deleteMyList({ vid: id }).then((r) => {
+                                            message.success(r.msg);
+                                            deleteSuccess('mylist');
+                                        });
+                                        break;
+                                }
+                                return () => {};
+                            }}
+                        >
+                            Delete
+                        </a>
                     </div>
                 </div>
             </div>
-            {showDeleteOverlay && (
+            {/* {showDeleteOverlay && (
                 <div className="deleteOverlay">
                     <button className="Button Button--secondary">
                         <div className="Button__bg"></div>
@@ -76,7 +97,7 @@ export default function HistoryQueueTableRow(props) {
                         </div>
                     </button>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

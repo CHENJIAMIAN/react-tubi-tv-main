@@ -32,6 +32,7 @@ import {
 } from 'antd';
 import default_profile_pic from 'src/img/default_profile_pic.png';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import PayRecordItem from 'src/components/PayRecordItem.js';
 
 const { Option } = Select;
 
@@ -40,22 +41,36 @@ class Home extends React.Component {
         super(props);
         this.state = {
             userInfo: null,
-            myList: [],
-            userHistory: [],
             showChangPassword: false,
             newPassword: '',
             /*list infinite start---------------------------------------------------------------------------------------*/
-            loading: false,
-            data: [],
-            pageNo: 1,
-            pageSize: 10,
-            total: 10,
+            myOrderLoading: false,
+            myOrderList: [],
+            myOrderPageNo: 1,
+            myOrderPageSize: 10,
+            myOrderTotal: 10,
+            /*list infinite end---------------------------------------------------------------------------------------*/
+
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            myListLoading: false,
+            myList: [],
+            myListPageNo: 1,
+            myListPageSize: 10,
+            myListTotal: 10,
+            /*list infinite end---------------------------------------------------------------------------------------*/
+
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            userHistoryLoading: false,
+            userHistory: [],
+            userHistoryPageNo: 1,
+            userHistoryPageSize: 10,
+            userHistoryTotal: 10,
             /*list infinite end---------------------------------------------------------------------------------------*/
         };
     }
     componentDidMount() {
-        if (this.props.isStayFormLogin) {
-            this.props.changeIsStayFormLogin(false);
+        if (this.props.isHidePartOfHeader) {
+            this.props.changeIsHidePartOfHeader(false);
         }
         userInfo()
             .then((result) => {
@@ -68,18 +83,14 @@ class Home extends React.Component {
                 this.setState({ userInfo: result.data });
             })
             .catch((err) => {});
-        myList()
-            .then((result) => {
-                this.setState({ myList: result.data });
-            })
-            .catch((err) => {});
-        userHistory()
-            .then((result) => {
-                this.setState({ userHistory: result.data });
-            })
-            .catch((err) => {});
         /*list infinite start---------------------------------------------------------------------------------------*/
-        this.loadMoreData();
+        this.loadMoreDataMyOrder();
+        /*list infinite end---------------------------------------------------------------------------------------*/
+        /*list infinite start---------------------------------------------------------------------------------------*/
+        this.loadMoreDataMyList();
+        /*list infinite end---------------------------------------------------------------------------------------*/
+        /*list infinite start---------------------------------------------------------------------------------------*/
+        this.loadMoreDataUserHistory();
         /*list infinite end---------------------------------------------------------------------------------------*/
     }
     componentWillUnmount() {
@@ -87,42 +98,136 @@ class Home extends React.Component {
     }
 
     /*list infinite start---------------------------------------------------------------------------------------*/
-    loadMoreData = () => {
-        const { loading, pageNo, pageSize } = this.state;
-        if (loading) {
+    loadMoreDataMyOrder = () => {
+        const {
+            myOrderLoading,
+            myOrderPageNo: pageNo,
+            myOrderPageSize: pageSize,
+        } = this.state;
+        if (myOrderLoading) {
             return;
         }
         this.setState({
-            loading: true,
+            myOrderLoading: true,
         });
         myOrder({ pageNo, pageSize })
             .then((res) => {
                 this.setState({
-                    loading: false,
-                    data: [...this.state.data, ...res.data],
-                    pageNo: this.state.pageNo + 1,
-                    total: res.total,
+                    myOrderLoading: false,
+                    myOrderList: [...this.state.myOrderList, ...res.data],
+                    myOrderPageNo: this.state.myOrderPageNo + 1,
+                    myOrderTotal: res.total,
                 });
             })
             .catch(() => {
                 this.setState({
-                    loading: false,
+                    myOrderLoading: false,
                 });
             });
     };
     /*list infinite end---------------------------------------------------------------------------------------*/
 
+    /*list infinite start---------------------------------------------------------------------------------------*/
+    loadMoreDataMyList = () => {
+        const {
+            myListLoading,
+            myListPageNo: pageNo,
+            myListPageSize: pageSize,
+        } = this.state;
+        if (myListLoading) {
+            return;
+        }
+        this.setState({
+            myListLoading: true,
+        });
+        myList({ pageNo, pageSize })
+            .then((res) => {
+                this.setState({
+                    myListLoading: false,
+                    myList: [...this.state.myList, ...res.data],
+                    myListPageNo: this.state.myListPageNo + 1,
+                    myListTotal: res.total,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    myListLoading: false,
+                });
+            });
+    };
+    /*list infinite end---------------------------------------------------------------------------------------*/
+
+    /*list infinite start---------------------------------------------------------------------------------------*/
+    loadMoreDataUserHistory = () => {
+        const {
+            userHistoryLoading,
+            userHistoryPageNo: pageNo,
+            userHistoryPageSize: pageSize,
+        } = this.state;
+        if (userHistoryLoading) {
+            return;
+        }
+        this.setState({
+            userHistoryLoading: true,
+        });
+        userHistory({ pageNo, pageSize })
+            .then((res) => {
+                this.setState({
+                    userHistoryLoading: false,
+                    userHistory: [...this.state.userHistory, ...res.data],
+                    userHistoryPageNo: this.state.userHistoryPageNo + 1,
+                    userHistoryTotal: res.total,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    userHistoryLoading: false,
+                });
+            });
+    };
+    /*list infinite end---------------------------------------------------------------------------------------*/
+
+    deleteSuccess = (type) => {
+        switch (type) {
+            case 'mylist':
+                myList()
+                    .then((result) => {
+                        this.setState({
+                            myList: result.data,
+                        });
+                    })
+                    .catch((err) => {});
+                break;
+            case 'history':
+                userHistory()
+                    .then((result) => {
+                        this.setState({ userHistory: result.data });
+                    })
+                    .catch((err) => {});
+                break;
+        }
+    };
+
     render() {
+        console.log('src/pages/Account.js render');
         const { type } = this.props.match.params;
         const {
             userInfo,
-            myList,
-            userHistory,
             showChangPassword,
             /*list infinite start---------------------------------------------------------------------------------------*/
-            data,
-            loading,
-            total,
+            myOrderList,
+            myOrderLoading,
+            myOrderTotal,
+            /*list infinite end---------------------------------------------------------------------------------------*/
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            myList,
+            myListLoading,
+            myListTotal,
+            /*list infinite end---------------------------------------------------------------------------------------*/
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            userHistory,
+            userHistoryLoading,
+            userHistoryTotal,
             /*list infinite end---------------------------------------------------------------------------------------*/
         } = this.state;
 
@@ -180,7 +285,6 @@ class Home extends React.Component {
                             {!type && (
                                 <div className="userProfile settingsContent">
                                     <div className="overlayDimmer"></div>
-                                    <h1>My Account</h1>
                                     <div className="userInfo">
                                         <div className="photoSection">
                                             <img src={default_profile_pic} />
@@ -406,20 +510,21 @@ class Home extends React.Component {
                             )}
                             {type === 'payrecord' && (
                                 <div className="settingsContent parentalMain">
-                                    <h1>PayRecord</h1>
                                     <div
                                         id="scrollableDiv"
                                         style={{
-                                            height: 400,
+                                            height: 'calc(100vh - 200px)',
                                             overflow: 'auto',
                                             padding: '0 16px',
-                                            border: '1px solid rgba(140, 140, 140, 0.35)',
                                         }}
                                     >
                                         <InfiniteScroll
-                                            dataLength={data.length}
-                                            next={this.loadMoreData}
-                                            hasMore={data.length < total}
+                                            dataLength={myOrderList.length}
+                                            next={this.loadMoreDataMyOrder}
+                                            hasMore={
+                                                myOrderList.length <
+                                                myOrderTotal
+                                            }
                                             loader={
                                                 <Skeleton
                                                     avatar
@@ -434,33 +539,17 @@ class Home extends React.Component {
                                             }
                                             scrollableTarget="scrollableDiv"
                                         >
+                                            {/* {myOrderList.map((item, index) => {
+                                                <PayRecordItem item={item} />;
+                                            })} */}
                                             <List
                                                 itemLayout="vertical"
-                                                dataSource={data}
+                                                dataSource={myOrderList}
                                                 renderItem={(item) => (
                                                     <List.Item key={item.id}>
-                                                        <List.Item.Meta
-                                                            title={
-                                                                'OrderNo:' +
-                                                                item.orderNo
-                                                            }
-                                                            description={
-                                                                item.orderTime
-                                                            }
+                                                        <PayRecordItem
+                                                            item={item}
                                                         />
-                                                        <div>
-                                                            Amount:
-                                                            {item.amount}
-                                                        </div>
-                                                        <div>
-                                                            Status:
-                                                            {item.status == 0 &&
-                                                                'To Be Paid'}
-                                                            {item.status == 1 &&
-                                                                'Pay Successful'}
-                                                            {item.status == 2 &&
-                                                                'Pay Failed'}
-                                                        </div>
                                                     </List.Item>
                                                 )}
                                             />
@@ -470,27 +559,85 @@ class Home extends React.Component {
                             )}
                             {type === 'mylist' && (
                                 <div className="settingsContent">
-                                    <h1>My List</h1>
                                     <div className="contentArea">
                                         <div className="panelContainer">
                                             <div className="results-list">
                                                 <div className="panelContainer">
                                                     <div className="table">
-                                                        {myList.map(
-                                                            (item, index) => {
-                                                                return (
-                                                                    <HistoryQueueTableRow
-                                                                        type="mylist"
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        video={
-                                                                            item
-                                                                        }
+                                                        <div
+                                                            id="scrollableDiv"
+                                                            style={{
+                                                                height: 'calc(100vh - 312px)',
+                                                                overflow:
+                                                                    'auto',
+                                                                padding:
+                                                                    '0 16px',
+                                                            }}
+                                                        >
+                                                            <InfiniteScroll
+                                                                dataLength={
+                                                                    myList.length
+                                                                }
+                                                                next={
+                                                                    this
+                                                                        .loadMoreDataMyList
+                                                                }
+                                                                hasMore={
+                                                                    myList.length <
+                                                                    myListTotal
+                                                                }
+                                                                loader={
+                                                                    <Skeleton
+                                                                        avatar
+                                                                        paragraph={{
+                                                                            rows: 1,
+                                                                        }}
+                                                                        active
                                                                     />
-                                                                );
-                                                            }
-                                                        )}
+                                                                }
+                                                                endMessage={
+                                                                    <Divider
+                                                                        plain
+                                                                    >
+                                                                        It is
+                                                                        all,
+                                                                        nothing
+                                                                        more 🤐
+                                                                    </Divider>
+                                                                }
+                                                                scrollableTarget="scrollableDiv"
+                                                            >
+                                                                <List
+                                                                    itemLayout="vertical"
+                                                                    dataSource={
+                                                                        myList
+                                                                    }
+                                                                    renderItem={(
+                                                                        item
+                                                                    ) => (
+                                                                        <List.Item
+                                                                            key={
+                                                                                item.id
+                                                                            }
+                                                                        >
+                                                                            <HistoryQueueTableRow
+                                                                                deleteSuccess={
+                                                                                    this
+                                                                                        .deleteSuccess
+                                                                                }
+                                                                                type="mylist"
+                                                                                key={
+                                                                                    item.id
+                                                                                }
+                                                                                video={
+                                                                                    item
+                                                                                }
+                                                                            />
+                                                                        </List.Item>
+                                                                    )}
+                                                                />
+                                                            </InfiniteScroll>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -522,27 +669,86 @@ class Home extends React.Component {
                             )}
                             {type === 'history' && (
                                 <div className="historyMain settingsContent">
-                                    <h1>History</h1>
                                     <div className="contentArea">
                                         <div className="panelContainer">
                                             <div className="results-list">
                                                 <div className="panelContainer">
                                                     <div className="table">
-                                                        {userHistory.map(
-                                                            (item, index) => {
-                                                                return (
-                                                                    <HistoryQueueTableRow
-                                                                        type="history"
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        video={
-                                                                            item
-                                                                        }
+                                                        <div
+                                                            id="scrollableDiv"
+                                                            style={{
+                                                                height: 'calc(100vh - 312px)',
+                                                                overflow:
+                                                                    'auto',
+                                                                padding:
+                                                                    '0 16px',
+                                                            }}
+                                                        >
+                                                            <InfiniteScroll
+                                                                dataLength={
+                                                                    userHistory.length
+                                                                }
+                                                                next={
+                                                                    this
+                                                                        .loadMoreDataUserHistory
+                                                                }
+                                                                hasMore={
+                                                                    userHistory.length <
+                                                                    userHistoryTotal
+                                                                }
+                                                                loader={
+                                                                    <Skeleton
+                                                                        avatar
+                                                                        paragraph={{
+                                                                            rows: 1,
+                                                                        }}
+                                                                        active
                                                                     />
-                                                                );
-                                                            }
-                                                        )}
+                                                                }
+                                                                endMessage={
+                                                                    <Divider
+                                                                        plain
+                                                                    >
+                                                                        It is
+                                                                        all,
+                                                                        nothing
+                                                                        more 🤐
+                                                                    </Divider>
+                                                                }
+                                                                scrollableTarget="scrollableDiv"
+                                                            >
+                                                                <List
+                                                                    itemLayout="vertical"
+                                                                    dataSource={
+                                                                        userHistory
+                                                                    }
+                                                                    renderItem={(
+                                                                        item,
+                                                                        index
+                                                                    ) => (
+                                                                        <List.Item
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            <HistoryQueueTableRow
+                                                                                deleteSuccess={
+                                                                                    this
+                                                                                        .deleteSuccess
+                                                                                }
+                                                                                type="history"
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                                video={
+                                                                                    item
+                                                                                }
+                                                                            />
+                                                                        </List.Item>
+                                                                    )}
+                                                                />
+                                                            </InfiniteScroll>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -575,7 +781,6 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
         );
     }

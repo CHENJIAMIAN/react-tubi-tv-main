@@ -8,24 +8,22 @@ class Home extends React.Component {
     constructor() {
         super();
         this.state = {
-            indexData: {},
+            indexData: { carousel: [], categoryList: [] },
         };
     }
     render() {
         const { indexData } = this.state;
         return (
             <div className="home">
-                {indexData.carousel && <Hero carousel={indexData.carousel} />}
-                {indexData.categoryList && (
-                    <Main categoryList={indexData.categoryList} />
-                )}
+                <Hero carousel={indexData.carousel} />
+                <Main categoryList={indexData.categoryList} />
                 <Footer />
             </div>
         );
     }
     componentDidMount() {
-        if (this.props.isStayFormLogin) {
-            this.props.changeIsStayFormLogin(false);
+        if (this.props.isHidePartOfHeader) {
+            this.props.changeIsHidePartOfHeader(false);
         }
         getData({ a: 1 })
             .then((response) => {

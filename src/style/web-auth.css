@@ -1,9 +1,11 @@
 .settingsContent {
-    margin-top: 214px;
+    margin-top: 150px;
+/*      xiugaiguo*/
 }
 
 .settingsContent h1 {
-    margin: 0 0 25px;
+    margin: 0 0 0;
+/*      xiugaiguo*/
 }
 
 .text {
@@ -257,8 +259,9 @@
 .content .title {
     font-weight: 700;
     line-height: 2;
-    color: #727272;
-    font-size: 2rem;
+    color: black;
+    font-size: 1.2rem;
+/*     xiugaiguo */
 }
 
 .content .success {
@@ -1092,7 +1095,8 @@
 }
 
 .historyMain .contentArea {
-    margin-top: 56px;
+    margin-top: 10px;
+/*      xiugaiguo*/
 }
 
 .btnArea {

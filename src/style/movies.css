@@ -5,8 +5,8 @@
 
 .movies .play-movie {
     width: 100%;
-    padding: 100px 65px 0;
-    background-image: linear-gradient(to top, rgb(38, 38, 45), rgba(38, 38, 45, 0.4) 83%, rgba(38, 38, 45, 0.2)), url('//canvas-bridge02.tubitv.com/nqBOOjTS1FFNwaHhoOWM1-jyY6k=/1920x1080/smart/img.adrise.tv/1cbfa188-2615-4221-a140-de8bf18de2f7.jpg');
+    padding: 80px 10px 0;
+/*     background-image: linear-gradient(to top, rgb(38, 38, 45), rgba(38, 38, 45, 0.4) 83%, rgba(38, 38, 45, 0.2)), url('//canvas-bridge02.tubitv.com/nqBOOjTS1FFNwaHhoOWM1-jyY6k=/1920x1080/smart/img.adrise.tv/1cbfa188-2615-4221-a140-de8bf18de2f7.jpg'); */
     background-size: cover;
 }
 
@@ -304,7 +304,7 @@
 /* ================================== */
 @media screen and (max-width: 767px) {
     .movies .play-movie {
-        padding: 70px 20px 0;
+        padding: 60px 0px 0;
     }
 
     .movies .info-movie {
@@ -320,7 +320,7 @@
     }
 
     .info-movie .right {
-        padding: 0 15px 20px;
+        padding: 0 15px 10px;
     }
 
     .info-movie .right .name {

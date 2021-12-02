@@ -24,7 +24,7 @@ class Movies extends React.Component {
         this.state = {
             videoData: null,
             alsoLike: [],
-            userAuthType: 0,
+            canContinueWatch: 0,
             addOrRemoveToMyListText: 'Add to My List',
             isTipToPay: false,
             //
@@ -38,7 +38,7 @@ class Movies extends React.Component {
         this.setState({
             videoData: null,
             alsoLike: [],
-            userAuthType: 0,
+            canContinueWatch: 0,
             addOrRemoveToMyListText: 'Add to My List',
         });
 
@@ -78,23 +78,6 @@ class Movies extends React.Component {
     //     return state || null;
     // }
 
-    showPayConfirm = () => {
-        confirm({
-            title: 'You Need To Pay For This Video',
-            icon: <ExclamationCircleOutlined />,
-            content: <Pay />,
-            footer: {},
-            onOk: () => {
-                this.props.history.push({
-                    pathname: '/pay',
-                });
-            },
-            ononCancelOk: () => {
-                console.log('Cancel');
-            },
-        });
-    };
-
     showLoginConfirm = () => {
         confirm({
             title: 'You should sign-in to continue',
@@ -110,6 +93,7 @@ class Movies extends React.Component {
         });
     };
 
+    isShownTip = false;//控制只弹一次, 不然会弹两次
     render() {
         let props = this.props;
         let {
@@ -120,6 +104,9 @@ class Movies extends React.Component {
             visible,
         } = this.state;
         const vid = props.match.params.id;
+        const isLogined = localStorage.getItem('email');
+
+        const showBuy = !isLogined || localStorage.getItem('userType') == '0'; //用户类型 0普通用户  1会员;
 
         return (
             videoData && (
@@ -144,35 +131,31 @@ class Movies extends React.Component {
                                 controls
                                 controlslist="nodownload"
                                 onPlay={(e) => {
+                                    this.isShownTip = false;
                                     console.log('onPlay');
 
                                     userAuth({ vid }).then((response) => {
                                         // 类型 0试看 1通过
                                         this.setState({
-                                            userAuthType: response.data.type,
+                                            canContinueWatch:
+                                                response.data.type,
                                         });
                                     });
 
                                     // 1. 用户点击播放
-                                    const isLogined =
-                                        localStorage.getItem('email');
-
                                     // 2. 如果用户已登录 且 type大于0 直接播放
                                     if (
                                         isLogined &&
-                                        localStorage.getItem('userType') != '0'
+                                        localStorage.getItem('userType') != '0' //用户类型 0普通用户  1会员
                                     ) {
                                         return;
                                     }
                                 }}
                                 onTimeUpdate={(e) => {
-                                    const isLogined =
-                                        localStorage.getItem('email');
-
                                     // 2. 如果用户已登录 且 type大于0 直接播放
                                     if (
                                         isLogined &&
-                                        this.state.userAuthType != '0'
+                                        this.state.canContinueWatch != '0'
                                     )
                                         return;
 
@@ -180,30 +163,30 @@ class Movies extends React.Component {
                                     const video = this.myRef.current;
                                     var timeDisplay = Math.floor(
                                         video.currentTime
-                                    );
+                                    );                         
 
-                                    console.log('onTimeUpdate', timeDisplay);
-                                    if (timeDisplay > 2) {
+                                    if (!this.isShownTip && timeDisplay > 30) {
                                         // 4. 用户已登录，试播30秒后弹出框用户选择支付
                                         if (isLogined) {
                                             //视频暂停操作
                                             video.pause();
                                             //去除视频地址src内容
-                                            video.setAttribute('src', '');
+                                            // video.setAttribute('src', '');
                                             //将视频隐藏掉
-                                            video.style.display = 'none';
+                                            // video.style.display = 'none';
                                             //提示层显示
                                             this.setState({ isTipToPay: true });
-                                            // this.showPayConfirm();
                                             this.setState({
                                                 visible: true,
                                             });
+                                            this.isShownTip = true;
                                         } else {
                                             // 3. 用户未登录，试播30秒弹出提示用户到登录页面登录
                                             video.pause();
-                                            video.setAttribute('src', '');
-                                            video.style.display = 'none';
+                                            // video.setAttribute('src', '');
+                                            // video.style.display = 'none';
                                             this.showLoginConfirm();
+                                            this.isShownTip = true;
                                         }
                                     }
                                 }}
@@ -218,7 +201,7 @@ class Movies extends React.Component {
                     {isTipToPay && (
                         <div style={{ textAlign: 'center' }}>
                             <a
-                                style={{ color: 'white',}}
+                                style={{ color: 'white' }}
                                 onClick={() => {
                                     this.setState({
                                         visible: true,
@@ -261,9 +244,20 @@ class Movies extends React.Component {
                                             }
                                         }}
                                     >
-                                        Add to My List
+                                        {addOrRemoveToMyListText}
                                     </div>
-                                    <div className="share flex"></div>
+                                    {showBuy && (
+                                        <div
+                                            className="add-to-list"
+                                            onClick={() => {
+                                                this.setState({
+                                                    visible: true,
+                                                });
+                                            }}
+                                        >
+                                            Buy
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -294,8 +288,8 @@ class Movies extends React.Component {
                                         ))}
                                     </div>
                                     <div className="sub flex">
-                                        <p>CC</p>
-                                        <p>TV-14</p>
+                                        {/* <p>CC</p>
+                                        <p>TV-14</p> */}
                                     </div>
                                 </div>
                                 <div className="dirc">
@@ -309,6 +303,7 @@ class Movies extends React.Component {
                         <div className="share-small hide">
                             <div
                                 className="add-to-list"
+                                style={{ width: showBuy ? '49%' : '100%' }}
                                 onClick={() => {
                                     switch (addOrRemoveToMyListText) {
                                         case 'Add to My List':
@@ -336,9 +331,24 @@ class Movies extends React.Component {
                             >
                                 {addOrRemoveToMyListText}
                             </div>
+                            {showBuy && (
+                                <div
+                                    className="add-to-list"
+                                    style={{ width: '49%' }}
+                                    onClick={() => {
+                                        this.setState({
+                                            visible: true,
+                                        });
+                                    }}
+                                >
+                                    Buy
+                                </div>
+                            )}
                         </div>
                         <div className="dirc-small hide">
-                            <p className="dirc">{videoData.introduction}</p>
+                            <p className="dirc">
+                                Introduction:{' ' + videoData.introduction}
+                            </p>
                             <Topic
                                 categoryName={'You May Also Like'}
                                 videoList={alsoLike}

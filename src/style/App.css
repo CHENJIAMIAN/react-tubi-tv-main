@@ -253,3 +253,9 @@ input {
     display: flex;
     flex-wrap: wrap;
 }
+
+
+/*  */
+.title{
+    color:white;
+}

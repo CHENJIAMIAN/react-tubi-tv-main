@@ -3,11 +3,9 @@ import Film from 'src/components/Film.js';
 import 'src/style/results.css';
 import { videoSearch } from 'src/utils/request.js';
 
-import { List, message, Avatar, Spin } from 'antd';
-import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import VList from 'react-virtualized/dist/commonjs/List';
-import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
+import { List, message, Avatar, Spin, Skeleton, Divider } from 'antd';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class SearchResults extends React.Component {
     state = {
@@ -15,144 +13,95 @@ class SearchResults extends React.Component {
         films: [],
         pageNo: 1,
         pageSize: 10,
-        total: 100,
+        total: 10,
     };
-
-    loadedRowsMap = {};
 
     componentWillUnmount() {
         window.scrollTo({ top: 0 });
     }
 
     componentDidMount() {
-        this.fetchData((result) => {
-            this.setState({
-                films: result.data,
-                total: result.total,
-            });
-        }, this.state.pageNo);
+        /*list infinite start---------------------------------------------------------------------------------------*/
+        this.loadMoreData();
+        /*list infinite end---------------------------------------------------------------------------------------*/
     }
-
-    fetchData = (callback, pageNo) => {
-        const { pageSize } = this.state;
-
-        let { keyword } = this.props.match.params;
-
-        videoSearch({ keyword, pageNo, pageSize }).then((result) => {
-            callback(result);
-        });
-    };
-
-    handleInfiniteOnLoad = ({ startIndex, stopIndex }) => {
-        let { films } = this.state;
-        const pageNo = this.state.pageNo + 1;
+    /*list infinite start---------------------------------------------------------------------------------------*/
+    loadMoreData = () => {
+        const { keyword, id } = this.props.match.params;
+        const { loading, pageNo: pageNo, pageSize: pageSize } = this.state;
+        if (loading) {
+            return;
+        }
         this.setState({
-            pageNo,
             loading: true,
         });
-        for (let i = startIndex; i <= stopIndex; i++) {
-            // 1 means loading
-            this.loadedRowsMap[i] = 1;
-        }
-        this.fetchData((result) => {
-            films = films.concat(result.data);
-            this.setState({
-                films,
-                loading: false,
+        videoSearch({ keyword, pageNo, pageSize })
+            .then((res) => {
+                this.setState({
+                    loading: false,
+                    films: [...this.state.films, ...res.data],
+                    pageNo: this.state.pageNo + 1,
+                    total: res.total,
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    loading: false,
+                });
             });
-        }, pageNo);
     };
-
-    isRowLoaded = ({ index }) => !!this.loadedRowsMap[index];
-
-    renderItem = ({ index, key, style }) => {
-        const { films } = this.state;
-        console.log('renderItem', { index, key, style }, films.length);
-        return <Film video={films[index]} key={index} />;
-    };
+    /*list infinite end---------------------------------------------------------------------------------------*/
 
     render() {
-        let { keyword } = this.props.match.params;
-        const { films, columnWidth } = this.state;
+        const keyword = this.props.match.params.keyword;
+        const { films, loading, total } = this.state;
 
-        const vlist = ({
-            height,
-            isScrolling,
-            onChildScroll,
-            scrollTop,
-            onRowsRendered,
-            width,
-        }) => (
-            <VList
-                autoHeight
-                height={height}
-                isScrolling={isScrolling}
-                onScroll={onChildScroll}
-                overscanRowCount={2}
-                rowCount={films.length}
-                rowHeight={40}
-                rowRenderer={this.renderItem}
-                onRowsRendered={onRowsRendered}
-                scrollTop={scrollTop}
-                width={width}
-            />
-        );
-        const autoSize = ({
-            height,
-            isScrolling,
-            onChildScroll,
-            scrollTop,
-            onRowsRendered,
-        }) => (
-            <AutoSizer disableHeight>
-                {({ width }) =>
-                    vlist({
-                        height,
-                        isScrolling,
-                        onChildScroll,
-                        scrollTop,
-                        onRowsRendered,
-                        width,
-                    })
-                }
-            </AutoSizer>
-        );
-        const infiniteLoader = ({
-            height,
-            isScrolling,
-            onChildScroll,
-            scrollTop,
-        }) => (
-            <InfiniteLoader
-                isRowLoaded={this.isRowLoaded}
-                loadMoreRows={this.handleInfiniteOnLoad}
-                rowCount={films.length}
-            >
-                {({ onRowsRendered }) =>
-                    autoSize({
-                        height,
-                        isScrolling,
-                        onChildScroll,
-                        scrollTop,
-                        onRowsRendered,
-                    })
-                }
-            </InfiniteLoader>
-        );
         return (
             <div className="results">
                 <h4>Results for</h4>
                 <p className="search-key">{keyword}</p>
                 <span className="hide note">No matches</span>
                 {films.length > 0 && (
-                    <WindowScroller>{infiniteLoader}</WindowScroller>
+                    <div
+                        id="scrollableDiv"
+                        style={{
+                            height: 'calc(100vh - 155px)',
+                            overflow: 'auto',
+                        }}
+                    >
+                        <InfiniteScroll
+                            dataLength={films.length}
+                            next={this.loadMoreData}
+                            hasMore={films.length < total}
+                            loader={
+                                <Skeleton
+                                    avatar
+                                    paragraph={{
+                                        rows: 1,
+                                    }}
+                                    active
+                                />
+                            }
+                            endMessage={
+                                <Divider plain>
+                                    It is all, nothing more 🤐
+                                </Divider>
+                            }
+                            scrollableTarget="scrollableDiv"
+                        >
+                            <List
+                                grid={{ gutter: 0, column: 2 }}
+                                itemLayout="vertical"
+                                dataSource={films}
+                                renderItem={(item, index) => (
+                                    <Film video={item} key={index} />
+                                )}
+                            />
+                        </InfiniteScroll>
+                    </div>
                 )}
-                {this.state.loading && <Spin className="demo-loading" />}
             </div>
         );
-    }
-    componentWillUnmount() {
-        window.scrollTo({ top: 0 });
     }
 }
 

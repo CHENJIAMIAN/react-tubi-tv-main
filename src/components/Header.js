@@ -53,23 +53,23 @@ class Header extends React.Component {
         });
     };
 
+    HEADER_HEIGHT = 80;
+    beforeY = 0;
     scrollListener = () => {
-        const header = this.header;
+        const header = document.querySelector('.header');
         if (!header) return;
-        let path = props.location.pathname;
+        let path = this.props.location.pathname;
         if (path.indexOf('form-login') > -1) {
-            header.style.background =
-                'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))';
             return;
         }
         let nowY = window.scrollY;
-        if (nowY > beforeY) {
-            header.style.top = -HEADER_HEIGHT + 'px';
-            beforeY = nowY;
+        if (nowY > this.beforeY) {
+            header.style.top = -this.HEADER_HEIGHT + 'px';
+            this.beforeY = nowY;
             return;
         }
         header.style.top = 0;
-        beforeY = nowY;
+        this.beforeY = nowY;
 
         if (window.pageYOffset !== 0) {
             header.style.background = 'rgba(0, 0, 0, 0.6)';
@@ -80,13 +80,16 @@ class Header extends React.Component {
     };
 
     showAndHideHeaderWhenScroll = (props) => {
+        const header = document.querySelector('.header');
+        if (header) {
+            header.style = {};
+        }
+
         const isWhite = props.location.pathname.includes('/account');
-        let search = document.querySelector('.search');
+        const search = document.querySelector('.search');
 
         if (!isWhite) {
             if (search) search.style.visibility = 'initial';
-            const HEADER_HEIGHT = 80;
-            let beforeY = 0;
             window.addEventListener('scroll', this.scrollListener);
         } else {
             // 白色条
@@ -95,15 +98,11 @@ class Header extends React.Component {
     };
 
     goFormLogin = (str) => {
-        let bool = str === 'register' ? true : false;
-        this.props.changeIsStayFormLogin(true);
-        this.changeIsRegister(bool);
-    };
-    changeIsRegister = (bool) => {
-        this.props.changeIsRegister(bool);
+        this.props.changeIsHidePartOfHeader(true);
     };
 
     searchHandle = (target) => {
+        this.hideMenu()
         if (window.location.pathname !== '/search') {
             target.value.length > 0 &&
                 this.routingFunction(`/search/${target.value}`);
@@ -150,15 +149,11 @@ class Header extends React.Component {
     };
 
     render() {
-        const {
-            isStayFormLogin,
-            location,
-            isStayFormRegister,
-            isLogged,
-            changeIsLogged,
-        } = this.props;
+        const { isHidePartOfHeader, location } = this.props;
         const { categorys } = this.state;
         const isWhite = location.pathname.includes('/account');
+        const isLogined = localStorage.getItem('email');
+        const isSignPage = location.pathname.includes('/sign');
 
         return (
             <header
@@ -174,7 +169,7 @@ class Header extends React.Component {
                     <Link
                         className="hide-small"
                         style={{
-                            display: `${isStayFormLogin ? 'none' : 'block'}`,
+                            display: `${isHidePartOfHeader ? 'none' : 'block'}`,
                         }}
                         to="/home/"
                         onClick={this.showMenu}
@@ -183,13 +178,17 @@ class Header extends React.Component {
                     </Link>
                     <i
                         style={{
-                            display: `${isStayFormLogin ? 'none' : ''}`,
+                            display: `${isHidePartOfHeader ? 'none' : ''}`,
                         }}
                         className="fas fa-bars menu"
                         onClick={this.showMenu}
                     ></i>
                 </div>
-                <div className={`${isStayFormLogin ? 'hide' : 'search flex'} `}>
+                <div
+                    className={`${
+                        isHidePartOfHeader ? 'hide' : 'search flex'
+                    } `}
+                >
                     <i className="fas fa-search"></i>
                     <input
                         type="text"
@@ -197,9 +196,11 @@ class Header extends React.Component {
                         onChange={(e) => this.searchHandle(e.target)}
                     />
                 </div>
-                <div className={`${isStayFormLogin ? 'hide' : 'login flex'} `}>
+                <div
+                    className={`${isHidePartOfHeader ? 'hide' : 'login flex'} `}
+                >
                     <div className="register-wrap">
-                        {isLogged ? (
+                        {isLogined && (
                             <div className="welcome flex">
                                 <h1
                                     title={localStorage.getItem('email')}
@@ -211,13 +212,18 @@ class Header extends React.Component {
                                     <Link
                                         to="/home/"
                                         className="sign-out"
-                                        onClick={() => changeIsLogged(null)}
+                                        onClick={() => {
+                                            localStorage.removeItem('email');
+                                            localStorage.removeItem('token');
+                                        }}
                                     >
                                         Sign Out
                                     </Link>
                                 </div>
                             </div>
-                        ) : (
+                        )}
+                        {!isLogined && !isHidePartOfHeader && (
+                            // 注册按钮，只在非登录主页页面显示，只在未登录时显示
                             <Link
                                 to="/form-login/register"
                                 className="register"
@@ -227,7 +233,7 @@ class Header extends React.Component {
                             </Link>
                         )}
                     </div>
-                    <div className={`sign-wrap ${isLogged ? 'hide' : ''}`}>
+                    <div className={`sign-wrap ${isLogined ? 'hide' : ''}`}>
                         <Link
                             to="/form-login/sign"
                             onClick={() => this.goFormLogin('sign')}
@@ -237,21 +243,13 @@ class Header extends React.Component {
                     </div>
                 </div>
 
-                <div className={`${isStayFormLogin ? 'form-change' : 'hide'}`}>
-                    {isStayFormRegister ? (
-                        <Link
-                            to="/form-login/sign"
-                            onClick={() => this.changeIsRegister(false)}
-                        >
-                            Sign In
-                        </Link>
+                <div
+                    className={`${isHidePartOfHeader ? 'form-change' : 'hide'}`}
+                >
+                    {!isSignPage ? (
+                        <Link to="/form-login/sign">Sign In</Link>
                     ) : (
-                        <Link
-                            to="/form-login/register"
-                            onClick={() => this.changeIsRegister(true)}
-                        >
-                            Register
-                        </Link>
+                        <Link to="/form-login/register">Register</Link>
                     )}
                 </div>
                 <div className="menu-content">
@@ -287,8 +285,6 @@ class Header extends React.Component {
     }
 
     componentDidMount() {
-        let header = document.querySelector('.header');
-        this.header = header;
         // withRouter注入 location 等到props
         this.showAndHideHeaderWhenScroll(this.props);
         this.checkScrollHandler(this.props.location.pathname);
@@ -359,9 +355,11 @@ class Header extends React.Component {
                 nextProps,
                 this.props.location.pathname
             );
-            const channel = getQueryVariable('channel');
             // 第一次进 页面存channel, 之后其他跳转在UNSAFE_componentWillReceiveProps去获取
+            const channel = getQueryVariable('channel');
             channel && localStorage.setItem('channel', channel);
+
+            window.removeEventListener('scroll', this.scrollListener);
             this.showAndHideHeaderWhenScroll(nextProps);
         }
     }
