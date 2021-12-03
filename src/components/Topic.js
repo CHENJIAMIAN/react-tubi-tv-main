@@ -16,7 +16,7 @@ class Topic extends React.Component {
     next = (categoryName) => {
         document.querySelector(
             '.' + categoryName.replace(/\s+/g, '').toLowerCase() + ' .pre'
-        ).style.display = 'flex';
+        ).style.display = 'flex';//显示pre
         let list = document
             .querySelector('.' + categoryName.replace(/\s+/g, '').toLowerCase())
             .querySelector('.list-wrap');

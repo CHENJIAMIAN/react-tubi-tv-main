@@ -332,8 +332,8 @@
     }
 
     .info-movie .right .time-type {
-        width: 70%;
-        max-width: 70%;
+        width: 100%;
+        max-width: 100%;
     }
 
     .info-movie .right .sub {

@@ -3,6 +3,7 @@ import React from 'react';
 import Film from 'src/components/Film.js';
 import 'src/style/results.css';
 import { categoryVideoByPage } from 'src/utils/request.js';
+import { Link, withRouter } from 'react-router-dom';
 
 import { List, message, Avatar, Spin, Skeleton, Divider } from 'antd';
 
@@ -17,8 +18,29 @@ class SearchResults extends React.Component {
         total: 10,
     };
 
-    componentWillUnmount() {
-        window.scrollTo({ top: 0 });
+    static getDerivedStateFromProps(props, state) {
+        // 保存 prevId 在 state 中，以便我们在 props 变化时进行对比。
+        // 清除之前加载的数据（这样我们就不会渲染旧的内容）。
+        if (state.id && props.match.params.id !== state.id) {
+            return {
+                id: props.match.params.id,
+                loading: false,
+                films: [],
+                pageNo: 1,
+                pageSize: 10,
+                total: 10,
+            };
+        }
+        // 无需更新 state
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.films.length === 0 && !this.state.loading) {
+            /*list infinite start---------------------------------------------------------------------------------------*/
+            this.loadMoreData();
+            /*list infinite end---------------------------------------------------------------------------------------*/
+        }
     }
 
     componentDidMount() {
@@ -26,10 +48,17 @@ class SearchResults extends React.Component {
         this.loadMoreData();
         /*list infinite end---------------------------------------------------------------------------------------*/
     }
+
+    componentWillUnmount() {
+        window.scrollTo({ top: 0 });
+    }
+
     /*list infinite start---------------------------------------------------------------------------------------*/
     loadMoreData = () => {
         const { name: categoryName, id } = this.props.match.params;
+
         const { loading, pageNo: pageNo, pageSize: pageSize } = this.state;
+
         if (loading) {
             return;
         }
@@ -39,6 +68,7 @@ class SearchResults extends React.Component {
         categoryVideoByPage({ categoryId: id, pageNo, pageSize })
             .then((res) => {
                 this.setState({
+                    id,
                     loading: false,
                     films: [...this.state.films, ...res.data],
                     pageNo: this.state.pageNo + 1,
@@ -104,4 +134,4 @@ class SearchResults extends React.Component {
     }
 }
 
-export default SearchResults;
+export default withRouter(SearchResults);

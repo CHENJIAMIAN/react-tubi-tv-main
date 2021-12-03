@@ -93,7 +93,7 @@ class Movies extends React.Component {
         });
     };
 
-    isShownTip = false;//控制只弹一次, 不然会弹两次
+    isShownTip = false; //控制只弹一次, 不然会弹两次
     render() {
         let props = this.props;
         let {
@@ -129,7 +129,7 @@ class Movies extends React.Component {
                             <video
                                 ref={this.myRef}
                                 controls
-                                controlslist="nodownload"
+                                controlsList="nodownload"
                                 onPlay={(e) => {
                                     this.isShownTip = false;
                                     console.log('onPlay');
@@ -163,7 +163,7 @@ class Movies extends React.Component {
                                     const video = this.myRef.current;
                                     var timeDisplay = Math.floor(
                                         video.currentTime
-                                    );                         
+                                    );
 
                                     if (!this.isShownTip && timeDisplay > 30) {
                                         // 4. 用户已登录，试播30秒后弹出框用户选择支付
@@ -273,23 +273,19 @@ class Movies extends React.Component {
                                             <span className="dot">·</span>
                                             {videoData.duration}
                                         </p>
-                                        {videoData.tags.map((item, index) => (
-                                            <Link
-                                                to={`/tag/${item}`}
-                                                className="play"
-                                            >
-                                                <span
-                                                    className="tag"
-                                                    key={index}
+                                        <div className="flex genre">
+                                            {videoData.tags.map((item, index) => (
+                                                <Link
+                                                    to={`/tag/${item}`}
+                                                    className="play"
+                                                    key={item}
                                                 >
-                                                    {item}
-                                                </span>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                    <div className="sub flex">
-                                        {/* <p>CC</p>
-                                        <p>TV-14</p> */}
+                                                    <span className="tag">
+                                                        {item}
+                                                    </span>
+                                                </Link>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="dirc">

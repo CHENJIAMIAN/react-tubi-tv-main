@@ -102,7 +102,7 @@ class Header extends React.Component {
     };
 
     searchHandle = (target) => {
-        this.hideMenu()
+        this.hideMenu();
         if (window.location.pathname !== '/search') {
             target.value.length > 0 &&
                 this.routingFunction(`/search/${target.value}`);
@@ -363,6 +363,7 @@ class Header extends React.Component {
             this.showAndHideHeaderWhenScroll(nextProps);
         }
     }
+
 }
 
 export default withRouter(Header);

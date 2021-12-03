@@ -46,7 +46,7 @@
 .topic .list-wrap {
     width: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .topic .list-film .item {
@@ -180,9 +180,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
     transition: all 0.3s;
     z-index: 2;
+    opacity: 0;
 }
 
 .topic .list-film .pre {

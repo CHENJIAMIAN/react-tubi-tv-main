@@ -9489,10 +9489,10 @@ a.containerMenuLink:hover {
 }
 
 .play {
-    width: 4rem;
-    height: 4rem;
-    font-size: 0;
-    line-height: 0;
+/*     width: 4rem; */
+/*     height: 4rem; */
+/*     font-size: 0; */
+/*     line-height: 0; */
     cursor: pointer;
     color: #fff;
     transition: color 0.2s;
@@ -9632,6 +9632,7 @@ a.containerMenuLink:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap:5px;
 }
 
 .genreList {
