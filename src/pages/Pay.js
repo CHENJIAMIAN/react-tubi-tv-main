@@ -16,7 +16,7 @@ import React, { useState, useEffect } from 'react';
 const { Option } = Select;
 
 export default function Pay(props) {
-    const [contryList, setContryList] = useState([]);
+    const [CountryList, setCountryList] = useState([]);
     const [memberPriceList, setMemberPriceList] = useState([]);
     const [orderPayInfoList, setOrderPayInfoList] = useState([]);
     const [orderPayInfoIndex, setOrderPayInfoIndex] = useState(0);
@@ -24,22 +24,31 @@ export default function Pay(props) {
     const [memberPriceType, setMemberPriceType] = useState();
     const [busiId, setBusiId] = useState();
     const [bankCode, setBankCode] = useState();
+    const [ccyno, setCcyno] = useState();
 
     useEffect(() => {
         countryList().then((result) => {
             const { data, memberPriceList } = result;
-            setContryList(data);
+            setCountryList(data);
+            const country0 = document.querySelector(`.country-0`);
+            country0 && country0.click();
+            const member2 = document.querySelector(`.member-2`);
+            member2 && member2.click();
         });
     }, []);
 
-    const handleCountryChange = (value) => {
+    const handleCountryChange = (e) => {
+        const value = e.target.value;
         console.log(`handleCountryChange ${value}`);
-        const contry = contryList.find((i) => i.id === value);
+        const country = CountryList.find((i) => i.id === value);
         orderPayInfo({ countryId: value }).then((result) => {
             setOrderPayInfoList(result.data);
+            const mode0 = document.querySelector(`.mode-0`);
+            mode0 && mode0.click();
         });
 
-        setMemberPriceList(contry.memberPriceList);
+        setMemberPriceList(country.memberPriceList);
+        setCcyno(country.ccyno);
     };
 
     const handleBankChange = (value) => {
@@ -63,11 +72,6 @@ export default function Pay(props) {
     };
 
     return (
-        
-        
-        
-        
-        
         <Form
             name="control-hooks"
             onFinish={(values) => {
@@ -79,96 +83,100 @@ export default function Pay(props) {
             autoComplete="off"
         >
             <Form.Item label="Country">
-                <Select
+                {/* <Select
                     style={{ width: '100%' }}
                     onChange={handleCountryChange}
                 >
-                    {contryList.length > 0 &&
-                        contryList.map((item, index) => {
+                    {CountryList.length > 0 &&
+                        CountryList.map((item, index) => {
                             return (
-                                <Option
-                                    value={item.id}
-                                    key={item.id}
-                                >
+                                <Option value={item.id} key={item.id}>
                                     {item.name}
                                 </Option>
                             );
                         })}
-                </Select>
+                </Select> */}
+                <Radio.Group name="country" buttonStyle="solid">
+                    {CountryList.map((item, index) => {
+                        return (
+                            <Radio.Button
+                                onChange={handleCountryChange}
+                                value={item.id}
+                                key={item.id}
+                            >
+                                <span className={'country-' + index}>
+                                    {item.name}
+                                </span>
+                            </Radio.Button>
+                        );
+                    })}
+                </Radio.Group>
             </Form.Item>
             {memberPriceList.length > 0 && (
-                <Form.Item label="MemberPrice">
+                <Form.Item label="Member">
                     <Radio.Group buttonStyle="solid">
-                        {memberPriceList.map(
-                            (item, index) => {
+                        <Space direction="vertical">
+                            {memberPriceList.map((item, index) => {
                                 return (
                                     <Radio.Button
-                                        onChange={
-                                            onMemberPriceChange
-                                        }
+                                        onChange={onMemberPriceChange}
                                         value={item.type}
                                         key={item.type}
                                     >
-                                        {item.type === 0 &&
-                                            'Single'}
-                                        {item.type === 1 &&
-                                            'Month'}
-                                        {item.type === 2 &&
-                                            'Year'}
-                                        {`(${item.price})`}
+                                        <span className={'member-' + item.type}>
+                                            {`${item.price}${ccyno}`}
+                                            {item.type === 0 &&
+                                                '  Buy Current Video'}
+                                            {item.type === 1 &&
+                                                '  One Month Membership'}
+                                            {item.type === 2 &&
+                                                '  One Year Membership'}
+                                        </span>
                                     </Radio.Button>
                                 );
-                            }
-                        )}
+                            })}
+                        </Space>
                     </Radio.Group>
                 </Form.Item>
             )}
             {orderPayInfoList.length > 0 && (
-                <Form.Item label="PayType">
-                    <Radio.Group
-                        onChange={onPayTypeChange}
-                        buttonStyle="solid"
-                    >
-                        {orderPayInfoList.map(
-                            (item, index) => {
-                                return (
-                                    <Radio.Button
-                                        value={item.busiId}
-                                        key={item.busiId}
-                                    >
+                <Form.Item label="Mode Of Payment">
+                    <Radio.Group onChange={onPayTypeChange} buttonStyle="solid">
+                        {orderPayInfoList.map((item, index) => {
+                            return (
+                                <Radio.Button
+                                    value={item.busiId}
+                                    key={item.busiId}
+                                >
+                                    <span className={`mode-` + index}>
                                         {item.busiName}
-                                    </Radio.Button>
-                                );
-                            }
-                        )}
+                                    </span>
+                                </Radio.Button>
+                            );
+                        })}
                     </Radio.Group>
                 </Form.Item>
             )}
             {orderPayInfoList[orderPayInfoIndex] &&
-                orderPayInfoList[orderPayInfoIndex]
-                    .bankList && (
+                orderPayInfoList[orderPayInfoIndex].bankList && (
                     <Form.Item label="Bank">
-                        <Select
-                            style={{ width: '100%' }}
+                        <Radio.Group
                             onChange={handleBankChange}
+                            buttonStyle="solid"
                         >
-                            {orderPayInfoList[
-                                orderPayInfoIndex
-                            ].bankList.map(
+                            {orderPayInfoList[orderPayInfoIndex].bankList.map(
                                 (item, index) => {
                                     return (
-                                        <Option
-                                            value={
-                                                item.code
-                                            }
+                                        <Radio.Button
+                                            value={item.code}
                                             key={item.code}
                                         >
                                             {item.bankName}
-                                        </Option>
+                                        </Radio.Button>
                                     );
                                 }
                             )}
-                        </Select>
+                        </Radio.Group>
                     </Form.Item>
                 )}
             <Form.Item>
@@ -182,10 +190,7 @@ export default function Pay(props) {
                             busiId, //onPayTypeChange
                             bankCode, //handleBankChange
                         }).then((result) => {
-                            window.open(
-                                result.data.payUrl,
-                                '_blank'
-                            );
+                            window.open(result.data.payUrl, '_blank');
                         });
                     }}
                     style={{ marginTop: 16 }}
@@ -194,10 +199,5 @@ export default function Pay(props) {
                 </Button>
             </Form.Item>
         </Form>
-        
-        
-        
-        
-        
     );
 }

@@ -16,6 +16,9 @@ import Topic from 'src/components/Topic.js';
 import { message, Modal, Button, Space, Drawer } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Pay from 'src/pages/Pay.js';
+
+import Hls from 'hls.js';
+
 const { confirm } = Modal;
 
 class Movies extends React.Component {
@@ -51,12 +54,34 @@ class Movies extends React.Component {
                 videoData: data.videoData,
                 alsoLike: data.alsoLike,
             });
+            const video = document.getElementById('hlsVedio');
+            if (data.videoData.videoHLS) {
+                const hls = this.hls;
+                if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = data.videoData.videoHLS;
+                    video.addEventListener('loadedmetadata', function () {
+                        // video.play();
+                        console.log('loadedmetadata');
+                    });
+                } else if (Hls.isSupported()) {
+                    hls.loadSource(data.videoData.videoHLS);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        // video.play();
+                        console.log(Hls.Events.MANIFEST_PARSED);
+                    });
+                }
+            } else {
+                video.src = data.videoData.videoUrl;
+            }
         });
         const isLogined = localStorage.getItem('email');
         isLogined && addHistory({ vid }).then((response) => {});
     };
     componentDidMount() {
         this.getMovie(this.props);
+        const hls = new Hls();
+        this.hls = hls;
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -113,6 +138,7 @@ class Movies extends React.Component {
                 <div className="movies">
                     <Drawer
                         title="Pay"
+                        height="600"
                         placement={'bottom'}
                         closable={false}
                         onClose={() => {
@@ -127,6 +153,7 @@ class Movies extends React.Component {
                     <div className="play-movie">
                         <div className="movie-wrap">
                             <video
+                                id="hlsVedio"
                                 ref={this.myRef}
                                 controls
                                 controlsList="nodownload"
@@ -190,12 +217,7 @@ class Movies extends React.Component {
                                         }
                                     }
                                 }}
-                            >
-                                <source
-                                    src={videoData.videoUrl}
-                                    type="video/mp4"
-                                ></source>
-                            </video>
+                            ></video>
                         </div>
                     </div>
                     {isTipToPay && (
@@ -274,17 +296,19 @@ class Movies extends React.Component {
                                             {videoData.duration}
                                         </p>
                                         <div className="flex genre">
-                                            {videoData.tags.map((item, index) => (
-                                                <Link
-                                                    to={`/tag/${item}`}
-                                                    className="play"
-                                                    key={item}
-                                                >
-                                                    <span className="tag">
-                                                        {item}
-                                                    </span>
-                                                </Link>
-                                            ))}
+                                            {videoData.tags.map(
+                                                (item, index) => (
+                                                    <Link
+                                                        to={`/tag/${item}`}
+                                                        className="play"
+                                                        key={item}
+                                                    >
+                                                        <span className="tag">
+                                                            {item}
+                                                        </span>
+                                                    </Link>
+                                                )
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -359,6 +383,9 @@ class Movies extends React.Component {
     }
     componentWillUnmount() {
         window.scrollTo({ top: 0 });
+        if (this.hls) {
+            this.hls.destroy();
+        }
     }
 }
 

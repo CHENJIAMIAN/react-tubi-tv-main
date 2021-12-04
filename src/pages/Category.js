@@ -36,7 +36,13 @@ class SearchResults extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.films.length === 0 && !this.state.loading) {
+        // 在路由改变时刷新
+        if (
+            // 这些条件用以证明路由改变了
+            this.state.films.length === 0 &&
+            this.state.pageNo === 1 &&
+            !this.state.loading
+        ) {
             /*list infinite start---------------------------------------------------------------------------------------*/
             this.loadMoreData();
             /*list infinite end---------------------------------------------------------------------------------------*/

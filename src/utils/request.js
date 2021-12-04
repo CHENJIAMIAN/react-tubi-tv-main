@@ -12,9 +12,13 @@ const errorHandler = function (error) {
         message.error(
             `请求${error.request.url} 发生了错误:${JSON.stringify(error.data)}`
         );
+        console.log(
+            `请求${error.request.url} 发生了错误:${JSON.stringify(error.data)}`
+        )
     } else {
         // 请求初始化时出错或者没有响应返回的异常
-        message.error(error.message);
+        // message.error(error.message);
+        console.log(error.message)
     }
 
     throw error; // 如果throw. 错误将继续抛出.
@@ -58,11 +62,12 @@ request.interceptors.response.use(async (response) => {
     const { code, msg } = data;
     // console.error(codeMaps[response.status]);
     if (code !== 0) {
+        console.log(msg);
         message.error(msg);
         if (3001 === code || 3002 === code) {
             window.location.href = `/form-login/sign?redirect=${window.location.href}`;
         }
-        throw msg;
+        // throw data;//被errorHandler接收
     }
     return response;
 });
