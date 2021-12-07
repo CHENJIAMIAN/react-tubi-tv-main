@@ -10,7 +10,7 @@ class Film extends React.Component {
             <div className="item">
                 <div className="img">
                     <Link to={`/movies/${video.id}`} className="img-wrap">
-                        <img src={video.pic1} alt="" />
+                        <img src={video.pic2 || video.pic1 || video.pic0} alt="" />
                     </Link>
                     <Link to={`/movies/${video.id}`} className="play">
                         <i className="fas fa-play"></i>

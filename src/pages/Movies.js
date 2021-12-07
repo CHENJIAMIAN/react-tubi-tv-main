@@ -72,7 +72,7 @@ class Movies extends React.Component {
                     });
                 }
             } else {
-                video.src = data.videoData.videoUrl;
+                video.src = data.videoData.videoHighUrl || data.videoData.videoUrl;
             }
         });
         const isLogined = localStorage.getItem('email');
@@ -237,7 +237,7 @@ class Movies extends React.Component {
                     <div className="info-movie flex">
                         <div className="left">
                             <div className="content">
-                                <img src={videoData.pic1} alt="" />
+                                <img src={videoData.pic2 || videoData.pic1 || videoData.pic0} alt="" />
                                 <div className="left-content">
                                     <div
                                         className="add-to-list"
