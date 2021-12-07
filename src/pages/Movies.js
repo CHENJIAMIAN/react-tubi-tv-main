@@ -55,6 +55,7 @@ class Movies extends React.Component {
                 alsoLike: data.alsoLike,
             });
             const video = document.getElementById('hlsVedio');
+            if (!video) return;
             if (data.videoData.videoHLS) {
                 const hls = this.hls;
                 if (video.canPlayType('application/vnd.apple.mpegurl')) {
@@ -72,7 +73,8 @@ class Movies extends React.Component {
                     });
                 }
             } else {
-                video.src = data.videoData.videoHighUrl || data.videoData.videoUrl;
+                video.src =
+                    data.videoData.videoHighUrl || data.videoData.videoUrl;
             }
         });
         const isLogined = localStorage.getItem('email');
@@ -109,7 +111,10 @@ class Movies extends React.Component {
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
                 this.props.history.push({
-                    pathname: '/form-login/sign',
+                    pathname: `/form-login/sign`,
+                    query:{
+                        redirect:window.location.href
+                    }
                 });
             },
             ononCancelOk: () => {
@@ -237,7 +242,14 @@ class Movies extends React.Component {
                     <div className="info-movie flex">
                         <div className="left">
                             <div className="content">
-                                <img src={videoData.pic2 || videoData.pic1 || videoData.pic0} alt="" />
+                                <img
+                                    src={
+                                        videoData.pic2 ||
+                                        videoData.pic1 ||
+                                        videoData.pic0
+                                    }
+                                    alt=""
+                                />
                                 <div className="left-content">
                                     <div
                                         className="add-to-list"

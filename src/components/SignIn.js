@@ -75,7 +75,7 @@ class SignIn extends React.Component {
     };
 
     loginSuccess = () => {
-        const path = getQueryVariable('redirect');
+        const path = getQueryVariable('redirect') || this.props.location.query.redirect;
         if (path) {
             window.location.href = path;
         } else {

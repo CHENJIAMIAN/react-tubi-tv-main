@@ -30,7 +30,7 @@ class FormLogin extends React.Component {
                             <i className="far fa-user"></i>
                         </div>
                         <Switch>
-                            <Route exact path="/form-login/sign">
+                            <Route path="/form-login/sign">
                                 <SignIn
                                     history={this.props.history}
                                     changeIsHidePartOfHeader={
