@@ -217,8 +217,8 @@ class Movies extends React.Component {
                                             video.pause();
                                             // video.setAttribute('src', '');
                                             // video.style.display = 'none';
-                                            this.showLoginConfirm();
                                             this.isShownTip = true;
+                                            this.showLoginConfirm();
                                         }
                                     }
                                 }}

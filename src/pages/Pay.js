@@ -142,18 +142,26 @@ export default function Pay(props) {
             {orderPayInfoList.length > 0 && (
                 <Form.Item label="Mode Of Payment">
                     <Radio.Group onChange={onPayTypeChange} buttonStyle="solid">
-                        {orderPayInfoList.map((item, index) => {
-                            return (
-                                <Radio.Button
-                                    value={item.busiId}
-                                    key={item.busiId}
-                                >
-                                    <span className={`mode-` + index}>
-                                        {item.busiName}
-                                    </span>
-                                </Radio.Button>
-                            );
-                        })}
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '5px',
+                            }}
+                        >
+                            {orderPayInfoList.map((item, index) => {
+                                return (
+                                    <Radio.Button
+                                        value={item.busiId}
+                                        key={item.busiId}
+                                    >
+                                        <span className={`mode-` + index}>
+                                            {item.busiName}
+                                        </span>
+                                    </Radio.Button>
+                                );
+                            })}
+                        </div>
                     </Radio.Group>
                 </Form.Item>
             )}
@@ -164,8 +172,16 @@ export default function Pay(props) {
                             onChange={handleBankChange}
                             buttonStyle="solid"
                         >
-                            {orderPayInfoList[orderPayInfoIndex].bankList.map(
-                                (item, index) => {
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    gap: '5px',
+                                }}
+                            >
+                                {orderPayInfoList[
+                                    orderPayInfoIndex
+                                ].bankList.map((item, index) => {
                                     return (
                                         <Radio.Button
                                             value={item.code}
@@ -174,8 +190,8 @@ export default function Pay(props) {
                                             {item.bankName}
                                         </Radio.Button>
                                     );
-                                }
-                            )}
+                                })}
+                            </div>
                         </Radio.Group>
                     </Form.Item>
                 )}
