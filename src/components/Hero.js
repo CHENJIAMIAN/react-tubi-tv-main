@@ -15,6 +15,7 @@ class Hero extends React.Component {
     }
 
     slideAuto = () => {
+        // 小图
         const carousel = this.props.carousel;
         if (!document.querySelector('.hero')) {
             return;
@@ -56,7 +57,7 @@ class Hero extends React.Component {
             film1.remove();
             film3.remove();
             let newIndex = currentIndex + 1;
-            if (newIndex >= carouselLength - 1) {
+            if (newIndex > carouselLength - 1) {
                 newIndex = 0;
                 this.setState({ currentIndex: newIndex }, () => null);
                 return;

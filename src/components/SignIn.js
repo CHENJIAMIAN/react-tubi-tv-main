@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/formLogin.css';
 import { Link, withRouter } from 'react-router-dom';
-import { userLogin, request } from 'src/utils/request.js';
+import { userLogin, request,userAuth } from 'src/utils/request.js';
 import { message } from 'antd';
 import { getQueryVariable } from 'src/utils/util.js';
 
@@ -25,13 +25,20 @@ class SignIn extends React.Component {
                 // response.data.type 用户类型 0普通用户  1会员
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('userType', response.data.type);
+                localStorage.setItem('email', email);
 
                 request.extendOptions({
                     headers: {
                         token: response.data.token,
                     },
                 });
-                localStorage.setItem('email', email);
+
+                clearInterval(window.checkAuth)
+                window.checkAuth = setInterval(() => {
+                    //30分钟后检查登录态
+                    userAuth({ vid: 0 });
+                }, 60 * 1000 * 30);
+
                 target.querySelector('input.email').value = '';
                 target.querySelector('input.password').value = '';
                 this.loginSuccess();
@@ -75,7 +82,8 @@ class SignIn extends React.Component {
     };
 
     loginSuccess = () => {
-        const path = getQueryVariable('redirect') || this.props.location.query.redirect;
+        const path =
+            getQueryVariable('redirect') || this.props.location.query.redirect;
         if (path) {
             window.location.href = path;
         } else {
@@ -116,11 +124,7 @@ class SignIn extends React.Component {
                 <div className="to-register">
                     <p>
                         Create new Account!
-                        <Link
-                            to="/form-login/register"
-                        >
-                            Register
-                        </Link>
+                        <Link to="/form-login/register">Register</Link>
                     </p>
                 </div>
             </div>

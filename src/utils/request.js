@@ -14,11 +14,11 @@ const errorHandler = function (error) {
         );
         console.log(
             `请求${error.request.url} 发生了错误:${JSON.stringify(error.data)}`
-        )
+        );
     } else {
         // 请求初始化时出错或者没有响应返回的异常
         // message.error(error.message);
-        console.log(error.message)
+        console.log(error.message);
     }
 
     throw error; // 如果throw. 错误将继续抛出.
