@@ -13,7 +13,7 @@
 .movies .play-movie .movie-wrap {
     position: relative;
     width: 100%;
-    padding-bottom: 52%;
+/*     padding-bottom: 52%; */
 }
 
 .movies .play-movie .movie-wrap video {

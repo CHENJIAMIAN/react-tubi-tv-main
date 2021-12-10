@@ -17,7 +17,10 @@ import { message, Modal, Button, Space, Drawer } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Pay from 'src/pages/Pay.js';
 
-import Hls from 'hls.js';
+import 'video.js/dist/video-js.css';
+import videojs from 'video.js';
+import '@videojs/http-streaming';
+// import 'src/utils/videojs-zh-CN.js';
 
 const { confirm } = Modal;
 
@@ -33,8 +36,6 @@ class Movies extends React.Component {
             //
             visible: false,
         };
-
-        this.myRef = React.createRef();
     }
 
     getMovie = (props) => {
@@ -54,36 +55,135 @@ class Movies extends React.Component {
                 videoData: data.videoData,
                 alsoLike: data.alsoLike,
             });
-            const video = document.getElementById('hlsVedio');
-            if (!video) return;
-            if (data.videoData.videoHLS) {
-                const hls = this.hls;
-                if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = data.videoData.videoHLS;
-                    video.addEventListener('loadedmetadata', function () {
-                        // video.play();
-                        console.log('loadedmetadata');
+
+            const vid = this.props.match.params.id;
+            const isLogined = localStorage.getItem('email');
+            const _this = this;
+            var video = videojs(
+                'hlsVedio',
+                {
+                    controls: true,
+                    autoplay: false,
+                    preload: 'auto',
+                    playbackRates: [0.5, 1, 1.5, 2],
+                    fluid: true,
+                },
+                function onPlayerReady() {
+                    videojs.log('Your player is ready!');
+
+                    this.on('loadstart', function () {
+                        console.log('开始请求数据 ');
                     });
-                } else if (Hls.isSupported()) {
-                    hls.loadSource(data.videoData.videoHLS);
-                    hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                        // video.play();
-                        console.log(Hls.Events.MANIFEST_PARSED);
+                    this.on('progress', function () {
+                        // console.log('正在请求数据 ');
+                    });
+                    this.on('loadedmetadata', function () {
+                        console.log('获取资源长度完成 ');
+                    });
+                    this.on('canplaythrough', function () {
+                        console.log('视频源数据加载完成');
+                    });
+                    this.on('waiting', function () {
+                        console.log('等待数据');
+                    });
+                    this.on('play', function () {
+                        console.log('视频开始播放');
+                        _this.isShownTip = false;
+
+                        userAuth({ vid }).then((response) => {
+                            // 类型 0试看 1通过
+                            _this.setState({
+                                canContinueWatch: response.data.type,
+                            });
+                        });
+
+                        // 1. 用户点击播放
+                        // 2. 如果用户已登录 且 type大于0 直接播放
+                        if (
+                            isLogined &&
+                            localStorage.getItem('userType') != '0' //用户类型 0普通用户  1会员
+                        ) {
+                            return;
+                        }
+                    });
+                    this.on('playing', function () {
+                        console.log('视频播放中');
+                    });
+                    this.on('pause', function () {
+                        console.log('视频暂停播放');
+                    });
+                    this.on('ended', function () {
+                        console.log('视频播放结束');
+                    });
+                    this.on('error', function () {
+                        console.log('加载错误');
+                    });
+                    this.on('seeking', function () {
+                        console.log('视频跳转中');
+                    });
+                    this.on('seeked', function () {
+                        console.log('视频跳转结束');
+                    });
+                    this.on('ratechange', function () {
+                        console.log('播放速率改变');
+                    });
+                    this.on('timeupdate', function () {
+                        // console.log('播放时长改变');
+                        // 2. 如果用户已登录 且 type大于0 直接播放
+                        if (isLogined && _this.state.canContinueWatch != '0')
+                            return;
+
+                        //用秒数来显示当前播放进度
+                        const video = this;
+                        var timeDisplay = Math.floor(video.currentTime());
+
+                        if (!_this.isShownTip && timeDisplay > 90) {
+                            // 4. 用户已登录，试播30秒后弹出框用户选择支付
+                            if (isLogined) {
+                                //视频暂停操作
+                                video.pause();
+                                //去除视频地址src内容
+                                // video.setAttribute('src', '');
+                                //将视频隐藏掉
+                                // video.style.display = 'none';
+                                //提示层显示
+                                _this.setState({ isTipToPay: true });
+                                _this.setState({
+                                    visible: true,
+                                });
+                                _this.isShownTip = true;
+                            } else {
+                                // 3. 用户未登录，试播30秒弹出提示用户到登录页面登录
+                                video.pause();
+                                // video.setAttribute('src', '');
+                                // video.style.display = 'none';
+                                _this.isShownTip = true;
+                                _this.showLoginConfirm();
+                            }
+                        }
+                    });
+                    this.on('volumechange', function () {
+                        console.log('音量改变');
+                    });
+                    this.on('stalled', function () {
+                        console.log('网速异常');
                     });
                 }
-            } else {
-                video.src =
-                    data.videoData.videoHighUrl || data.videoData.videoUrl;
-            }
+            );
+
+            if (!video) return;
+            video.src(
+                // 'https://hls-hw.xvideos-cdn.com/videos_new/hls/35/a9/ea/35a9ea2d385ba333ff2c5a69f6f23c93/hls.m3u8?e=1639108246&l=0&h=fd53a325fb033966de4cfdfe079b97d7'||
+                data.videoData.videoHLS ||
+                    data.videoData.videoHighUrl ||
+                    data.videoData.videoUrl
+            );
         });
         const isLogined = localStorage.getItem('email');
         isLogined && addHistory({ vid }).then((response) => {});
     };
     componentDidMount() {
         this.getMovie(this.props);
-        const hls = new Hls();
-        this.hls = hls;
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -112,9 +212,9 @@ class Movies extends React.Component {
             onOk: () => {
                 this.props.history.push({
                     pathname: `/form-login/sign`,
-                    query:{
-                        redirect:window.location.href
-                    }
+                    query: {
+                        redirect: window.location.href,
+                    },
                 });
             },
             ononCancelOk: () => {
@@ -157,72 +257,10 @@ class Movies extends React.Component {
                     </Drawer>
                     <div className="play-movie">
                         <div className="movie-wrap">
-                            <video
+                            <video-js
+                                class="vjs-default-skin"
                                 id="hlsVedio"
-                                ref={this.myRef}
-                                controls
-                                controlsList="nodownload"
-                                onPlay={(e) => {
-                                    this.isShownTip = false;
-                                    console.log('onPlay');
-
-                                    userAuth({ vid }).then((response) => {
-                                        // 类型 0试看 1通过
-                                        this.setState({
-                                            canContinueWatch:
-                                                response.data.type,
-                                        });
-                                    });
-
-                                    // 1. 用户点击播放
-                                    // 2. 如果用户已登录 且 type大于0 直接播放
-                                    if (
-                                        isLogined &&
-                                        localStorage.getItem('userType') != '0' //用户类型 0普通用户  1会员
-                                    ) {
-                                        return;
-                                    }
-                                }}
-                                onTimeUpdate={(e) => {
-                                    // 2. 如果用户已登录 且 type大于0 直接播放
-                                    if (
-                                        isLogined &&
-                                        this.state.canContinueWatch != '0'
-                                    )
-                                        return;
-
-                                    //用秒数来显示当前播放进度
-                                    const video = this.myRef.current;
-                                    var timeDisplay = Math.floor(
-                                        video.currentTime
-                                    );
-
-                                    if (!this.isShownTip && timeDisplay > 30) {
-                                        // 4. 用户已登录，试播30秒后弹出框用户选择支付
-                                        if (isLogined) {
-                                            //视频暂停操作
-                                            video.pause();
-                                            //去除视频地址src内容
-                                            // video.setAttribute('src', '');
-                                            //将视频隐藏掉
-                                            // video.style.display = 'none';
-                                            //提示层显示
-                                            this.setState({ isTipToPay: true });
-                                            this.setState({
-                                                visible: true,
-                                            });
-                                            this.isShownTip = true;
-                                        } else {
-                                            // 3. 用户未登录，试播30秒弹出提示用户到登录页面登录
-                                            video.pause();
-                                            // video.setAttribute('src', '');
-                                            // video.style.display = 'none';
-                                            this.isShownTip = true;
-                                            this.showLoginConfirm();
-                                        }
-                                    }
-                                }}
-                            ></video>
+                            ></video-js>
                         </div>
                     </div>
                     {isTipToPay && (
@@ -395,9 +433,6 @@ class Movies extends React.Component {
     }
     componentWillUnmount() {
         window.scrollTo({ top: 0 });
-        if (this.hls) {
-            this.hls.destroy();
-        }
     }
 }
 

@@ -1,0 +1,456 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20211210.114500.31340.0.001.json",
+    "dumpEventTime": "2021-12-10T11:45:00Z",
+    "dumpEventTimeStamp": "1639107900903",
+    "processId": 31340,
+    "cwd": "D:\\Desktop\\react-tubi-tv-main",
+    "commandLine": [
+      "node",
+      "scripts/start.js"
+    ],
+    "nodejsVersion": "v12.14.1",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.14.1",
+      "v8": "7.7.299.13-node.16",
+      "uv": "1.33.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.1",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.14.1/node-v12.14.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.14.1/node-v12.14.1.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.14.1/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.22504",
+    "osVersion": "Windows 10 Home China",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 33227265,
+        "nice": 0,
+        "sys": 74310390,
+        "idle": 462551250,
+        "irq": 4317406
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 29794359,
+        "nice": 0,
+        "sys": 57406406,
+        "idle": 482887765,
+        "irq": 894843
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 50365671,
+        "nice": 0,
+        "sys": 78977765,
+        "idle": 440745093,
+        "irq": 1059750
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 42218203,
+        "nice": 0,
+        "sys": 69348187,
+        "idle": 458522140,
+        "irq": 746828
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 38833046,
+        "nice": 0,
+        "sys": 73849281,
+        "idle": 457406187,
+        "irq": 1185828
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 31205562,
+        "nice": 0,
+        "sys": 61104218,
+        "idle": 477778734,
+        "irq": 827171
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 38460343,
+        "nice": 0,
+        "sys": 72717859,
+        "idle": 458910312,
+        "irq": 893109
+      },
+      {
+        "model": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx  ",
+        "speed": 2096,
+        "user": 43378437,
+        "nice": 0,
+        "sys": 69733671,
+        "idle": 456976406,
+        "irq": 698000
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "WLAN",
+        "internal": false,
+        "mac": "e8:6f:38:4f:3f:e3",
+        "address": "fe80::e83d:2678:da84:2bff",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 8
+      },
+      {
+        "name": "WLAN",
+        "internal": false,
+        "mac": "e8:6f:38:4f:3f:e3",
+        "address": "10.168.1.135",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "vEthernet (WSL)",
+        "internal": false,
+        "mac": "00:15:5d:7c:7a:4a",
+        "address": "fe80::15b6:2ae:c17a:4e89",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 59
+      },
+      {
+        "name": "vEthernet (WSL)",
+        "internal": false,
+        "mac": "00:15:5d:7c:7a:4a",
+        "address": "192.168.160.1",
+        "netmask": "255.255.240.0",
+        "family": "IPv4"
+      }
+    ],
+    "host": "cjm"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff7adae1759",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
+    },
+    {
+      "pc": "0x00007ff7adae5b7c",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28316"
+    },
+    {
+      "pc": "0x00007ff7adae4b38",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24152"
+    },
+    {
+      "pc": "0x00007ff7adbd433b",
+      "symbol": "v8::base::CPU::has_sse+37723"
+    },
+    {
+      "pc": "0x00007ff7ae3d8c5e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff7ae3c0ca1",
+      "symbol": "v8::SharedArrayBuffer::Externalize+833"
+    },
+    {
+      "pc": "0x00007ff7ae28e56c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff7ae299910",
+      "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
+    },
+    {
+      "pc": "0x00007ff7ae296444",
+      "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
+    },
+    {
+      "pc": "0x00007ff7ae28bcd3",
+      "symbol": "v8::internal::Heap::CollectGarbage+1283"
+    },
+    {
+      "pc": "0x00007ff7ae28a4a4",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2356"
+    },
+    {
+      "pc": "0x00007ff7ae2ab775",
+      "symbol": "v8::internal::Factory::NewFillerObject+53"
+    },
+    {
+      "pc": "0x00007ff7ae017a49",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+4057"
+    },
+    {
+      "pc": "0x00007ff7ae80463d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+567949"
+    },
+    {
+      "pc": "0x00007ff7ae783763",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+39859"
+    },
+    {
+      "pc": "0x000003de72fa6eaf",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2154872832,
+    "totalCommittedMemory": 2154872832,
+    "usedMemory": 2130613176,
+    "availableMemory": 47806928,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261872,
+        "used": 32296,
+        "available": 229576
+      },
+      "new_space": {
+        "memorySize": 4194304,
+        "committedMemory": 4194304,
+        "capacity": 2094976,
+        "used": 218552,
+        "available": 1876424
+      },
+      "old_space": {
+        "memorySize": 2022289408,
+        "committedMemory": 2022289408,
+        "capacity": 2005832280,
+        "used": 2005168792,
+        "available": 663488
+      },
+      "code_space": {
+        "memorySize": 2523136,
+        "committedMemory": 2523136,
+        "capacity": 2180192,
+        "used": 2180192,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 6295552,
+        "committedMemory": 6295552,
+        "capacity": 3949840,
+        "used": 3949840,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 118685696,
+        "committedMemory": 118685696,
+        "capacity": 118513104,
+        "used": 118513104,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 622592,
+        "committedMemory": 622592,
+        "capacity": 550400,
+        "used": 550400,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 2094976,
+        "used": 0,
+        "available": 2094976
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 380.015,
+    "kernelCpuSeconds": 316.218,
+    "cpuConsumptionPercent": 20.9772,
+    "maxRss": 3482591232,
+    "pageFaults": {
+      "IORequired": 2741156,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 12086,
+      "writes": 70
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\",
+    "=D:": "D:\\Desktop\\react-tubi-tv-main",
+    "AGSDESKTOPJAVA": "D:\\Program Files (x86)\\ArcGIS\\Desktop10.5\\",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "ANDROID_HOME": "D:\\Users\\cjm\\AppData\\Local\\Android\\Sdk",
+    "APPDATA": "C:\\Users\\cjm\\AppData\\Roaming",
+    "BABEL_ENV": "development",
+    "COLOR": "1",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPOSE_CONVERT_WINDOWS_PATHS": "true",
+    "COMPUTERNAME": "CJM",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "EDITOR": "notepad.exe",
+    "EMULATOR_AVD_ROOT": "D:\\Program Files\\MobileAppEngine\\emui",
+    "EMULATOR_SDK_ROOT": "D:\\Program Files\\MobileAppEngine\\EmulatorSdk",
+    "HOME": "C:\\Users\\cjm",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\cjm",
+    "INIT_CWD": "D:\\Desktop\\react-tubi-tv-main",
+    "LOCALAPPDATA": "C:\\Users\\cjm\\AppData\\Local",
+    "LOGONSERVER": "\\\\CJM",
+    "NODE": "D:\\Program Files\\nodejs\\node.exe",
+    "NODE_ENV": "development",
+    "NODE_EXE": "D:\\Program Files\\nodejs\\\\node.exe",
+    "NODE_PATH": "",
+    "NPM_CLI_JS": "C:\\Users\\cjm\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
+    "npm_command": "run-script",
+    "npm_config_cache": "C:\\Users\\cjm\\AppData\\Local\\npm-cache",
+    "npm_config_globalconfig": "C:\\Users\\cjm\\AppData\\Roaming\\npm\\etc\\npmrc",
+    "npm_config_global_prefix": "C:\\Users\\cjm\\AppData\\Roaming\\npm",
+    "npm_config_home": "https://npm.taobao.org",
+    "npm_config_init_module": "C:\\Users\\cjm\\.npm-init.js",
+    "npm_config_local_prefix": "D:\\Desktop\\react-tubi-tv-main",
+    "npm_config_metrics_registry": "https://registry.npm.taobao.org/",
+    "npm_config_node_gyp": "C:\\Users\\cjm\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
+    "npm_config_noproxy": "",
+    "npm_config_prefix": "C:\\Users\\cjm\\AppData\\Roaming\\npm",
+    "npm_config_registry": "https://registry.npm.taobao.org/",
+    "npm_config_userconfig": "C:\\Users\\cjm\\.npmrc",
+    "npm_config_user_agent": "npm/8.1.4 node/v12.14.1 win32 x64 workspaces/false",
+    "npm_execpath": "C:\\Users\\cjm\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
+    "npm_lifecycle_event": "start",
+    "npm_lifecycle_script": "node scripts/start.js",
+    "npm_node_execpath": "D:\\Program Files\\nodejs\\node.exe",
+    "npm_package_json": "D:\\Desktop\\react-tubi-tv-main\\package.json",
+    "npm_package_name": "reponsive",
+    "npm_package_version": "0.1.0",
+    "NPM_PREFIX_NPM_CLI_JS": "C:\\Users\\cjm\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OneDrive": "C:\\Users\\cjm\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "D:\\Desktop\\react-tubi-tv-main\\node_modules\\.bin;D:\\Desktop\\node_modules\\.bin;D:\\node_modules\\.bin;C:\\Users\\cjm\\AppData\\Roaming\\npm\\node_modules\\npm\\node_modules\\@npmcli\\run-script\\lib\\node-gyp-bin;D:\\Program Files (x86)\\NetSarang\\Xshell 6\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;D:\\Program Files\\nodejs\\;d:\\Program Files\\Git\\cmd;D:\\Program Files\\Java\\jdk1.8.0_301\\bin;;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\ProgramData\\DockerDesktop\\version-bin;C:\\Users\\cjm\\AppData\\Local\\Programs\\Python\\Python38-32\\Scripts\\;C:\\Users\\cjm\\AppData\\Local\\Programs\\Python\\Python38-32\\;C:\\Users\\cjm\\AppData\\Local\\Programs\\Python\\Python36\\Scripts\\;C:\\Users\\cjm\\AppData\\Local\\Programs\\Python\\Python36\\;C:\\Users\\cjm\\AppData\\Local\\Microsoft\\WindowsApps;d:\\Users\\cjm\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\cjm\\AppData\\Roaming\\npm;D:\\sqlite;D:\\Users\\cjm\\AppData\\Local\\Programs\\Fiddler;C:\\Users\\cjm\\AppData\\Local\\Microsoft\\WindowsApps;D:\\Users\\cjm\\AppData\\Local\\Android\\Sdk\\platform-tools;D:\\Users\\cjm\\AppData\\Local\\Android\\Sdk\\emulator;D:\\Users\\cjm\\AppData\\Local\\Android\\Sdk\\tools;D:\\Users\\cjm\\AppData\\Local\\Android\\Sdk\\tools\\bin;",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "PROCESSOR_LEVEL": "23",
+    "PROCESSOR_REVISION": "1801",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "SESSIONNAME": "Console",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\cjm\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\cjm\\AppData\\Local\\Temp",
+    "USERDOMAIN": "CJM",
+    "USERDOMAIN_ROAMINGPROFILE": "CJM",
+    "USERNAME": "cjm",
+    "USERPROFILE": "C:\\Users\\cjm",
+    "VBOX_HWVIRTEX_IGNORE_SVM_IN_USE": "1",
+    "WEBPACK_DEV_SERVER": "true",
+    "windir": "C:\\WINDOWS"
+  },
+  "sharedObjects": [
+    "D:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+    "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\nlansp_c.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll"
+  ]
+}
