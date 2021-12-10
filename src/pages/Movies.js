@@ -21,6 +21,8 @@ import 'video.js/dist/video-js.css';
 import videojs from 'video.js';
 import '@videojs/http-streaming';
 // import 'src/utils/videojs-zh-CN.js';
+import qualityLevels from 'videojs-contrib-quality-levels';
+import videojsqualityselector from 'videojs-hls-quality-selector';
 
 const { confirm } = Modal;
 
@@ -59,7 +61,7 @@ class Movies extends React.Component {
             const vid = this.props.match.params.id;
             const isLogined = localStorage.getItem('email');
             const _this = this;
-            var video = window.player = videojs(
+            var video = (window.player = videojs(
                 'hlsVedio',
                 {
                     controls: true,
@@ -68,7 +70,7 @@ class Movies extends React.Component {
                     playbackRates: [0.5, 1, 1.5, 2],
                     // fill: true,
                     fluid: true,
-                    responsive: true
+                    responsive: true,
                 },
                 function onPlayerReady() {
                     videojs.log('Your player is ready!');
@@ -171,15 +173,23 @@ class Movies extends React.Component {
                         console.log('网速异常');
                     });
                 }
-            );
+            ));
 
             if (!video) return;
+
             video.src(
-                // 'https://hls-hw.xvideos-cdn.com/videos_new/hls/35/a9/ea/35a9ea2d385ba333ff2c5a69f6f23c93/hls.m3u8?e=1639108246&l=0&h=fd53a325fb033966de4cfdfe079b97d7'||
-                data.videoData.videoHLS ||
+                'https://hls-hw.xvideos-cdn.com/videos_new/hls/84/5d/6c/845d6c339c193c4e29285cccee1951b7/hls.m3u8?e=1639134916&l=0&h=b38e445756315999dc50e5a6d46bc900' ||
+                    data.videoData.videoHLS ||
                     data.videoData.videoHighUrl ||
                     data.videoData.videoUrl
             );
+
+            video.qualityLevels = qualityLevels;
+            video.qualityLevels();
+            video.hlsQualitySelector = videojsqualityselector;
+            video.hlsQualitySelector({
+                displayCurrentQuality: true,
+            });
         });
         const isLogined = localStorage.getItem('email');
         isLogined && addHistory({ vid }).then((response) => {});
@@ -259,9 +269,7 @@ class Movies extends React.Component {
                     </Drawer>
                     <div className="play-movie">
                         <div className="movie-wrap">
-                            <video-js
-                                id="hlsVedio"
-                            ></video-js>
+                            <video-js id="hlsVedio"></video-js>
                         </div>
                     </div>
                     {isTipToPay && (
