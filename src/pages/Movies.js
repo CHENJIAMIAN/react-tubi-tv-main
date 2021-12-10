@@ -59,14 +59,16 @@ class Movies extends React.Component {
             const vid = this.props.match.params.id;
             const isLogined = localStorage.getItem('email');
             const _this = this;
-            var video = videojs(
+            var video = window.player = videojs(
                 'hlsVedio',
                 {
                     controls: true,
                     autoplay: false,
                     preload: 'auto',
                     playbackRates: [0.5, 1, 1.5, 2],
+                    // fill: true,
                     fluid: true,
+                    responsive: true
                 },
                 function onPlayerReady() {
                     videojs.log('Your player is ready!');
@@ -258,7 +260,6 @@ class Movies extends React.Component {
                     <div className="play-movie">
                         <div className="movie-wrap">
                             <video-js
-                                class="vjs-default-skin"
                                 id="hlsVedio"
                             ></video-js>
                         </div>

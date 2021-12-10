@@ -19,7 +19,7 @@
 .movies .play-movie .movie-wrap video {
     position: absolute;
     width: 100%;
-    object-fit: cover;
+/*     object-fit: cover; */
     height: 100%;
 }
 
