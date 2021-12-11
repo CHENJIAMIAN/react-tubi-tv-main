@@ -50,6 +50,7 @@ request.interceptors.request.use(
     { global: true }
 );
 
+let msgFlag = false;
 // 提前对响应做异常处理
 request.interceptors.response.use(async (response) => {
     // const contentType = response.headers.get('Content-Type');
@@ -63,8 +64,19 @@ request.interceptors.response.use(async (response) => {
     // console.error(codeMaps[response.status]);
     if (code !== 0) {
         console.log(msg);
-        message.error(msg);
+
+        if (!msgFlag) {
+            msgFlag = true;
+            message.error(msg);
+            setTimeout(() => {
+                msgFlag = false;
+            }, 500);
+        }
+
         if (3001 === code || 3002 === code) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('email');
             window.location.href = `/form-login/sign?redirect=${window.location.href}`;
         }
         // throw data;//被errorHandler接收

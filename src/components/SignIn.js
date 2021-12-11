@@ -81,7 +81,7 @@ class SignIn extends React.Component {
             'Password must 6 character';
     };
 
-    loginSuccess = () => {
+    loginSuccess = () => {  
         const path =
             getQueryVariable('redirect') || (this.props.location.query && this.props.location.query.redirect);
         if (path) {

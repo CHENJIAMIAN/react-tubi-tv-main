@@ -213,8 +213,9 @@ class Header extends React.Component {
                                         to="/home/"
                                         className="sign-out"
                                         onClick={() => {
-                                            localStorage.removeItem('email');
                                             localStorage.removeItem('token');
+                                            localStorage.removeItem('userType');
+                                            localStorage.removeItem('email');
                                         }}
                                     >
                                         Sign Out
@@ -363,7 +364,6 @@ class Header extends React.Component {
             this.showAndHideHeaderWhenScroll(nextProps);
         }
     }
-
 }
 
 export default withRouter(Header);

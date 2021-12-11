@@ -209,7 +209,6 @@ class Home extends React.Component {
     };
 
     render() {
-        console.log('src/pages/Account.js render');
         const { type } = this.props.match.params;
         const {
             userInfo,
