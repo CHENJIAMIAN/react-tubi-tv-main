@@ -86,6 +86,13 @@ class Movies extends React.Component {
                     });
                     this.on('canplaythrough', function () {
                         console.log('视频源数据加载完成');
+                        const sortedQualityLevels =
+                            this.qualityLevels().levels_.sort(
+                                (a, b) => b.height - a.height
+                            );
+                        this.hlsQualitySelector.setQuality(
+                            sortedQualityLevels[0].height
+                        );
                     });
                     this.on('waiting', function () {
                         console.log('等待数据');
@@ -178,16 +185,16 @@ class Movies extends React.Component {
             if (!video) return;
 
             video.src(
-                'https://hls-hw.xvideos-cdn.com/videos_new/hls/84/5d/6c/845d6c339c193c4e29285cccee1951b7/hls.m3u8?e=1639134916&l=0&h=b38e445756315999dc50e5a6d46bc900' ||
                     data.videoData.videoHLS ||
                     data.videoData.videoHighUrl ||
                     data.videoData.videoUrl
             );
 
             video.qualityLevels = qualityLevels;
-            video.qualityLevels();
+            const qualityLevelsVal = video.qualityLevels();
+
             video.hlsQualitySelector = videojsqualityselector;
-            video.hlsQualitySelector({
+            const hlsQualitySelectorVal = video.hlsQualitySelector({
                 displayCurrentQuality: true,
             });
         });
