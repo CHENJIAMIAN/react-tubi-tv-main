@@ -3,10 +3,11 @@ import Hero from 'src/components/Hero.js';
 import Main from 'src/components/Main.js';
 import Footer from 'src/components/Footer.js';
 import { getData } from 'src/utils/request.js';
+import { connect } from 'react-redux';
 
 class Home extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             indexData: { carousel: [], categoryList: [] },
         };
@@ -40,5 +41,13 @@ class Home extends React.Component {
         window.scrollTo({ top: 0 });
     }
 }
-
-export default Home;
+export default connect(
+    (state) => ({ ...state.ping }),
+    (dispatch) => {
+        return {
+            changeIsHidePartOfHeader: (payload) =>
+                dispatch({ type: 'CHANGE_IS_HIDE_PART_OF_HEADER', payload }),
+            dispatch,
+        };
+    }
+)(Home);

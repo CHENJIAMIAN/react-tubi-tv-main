@@ -6,6 +6,7 @@ import { videoSearch } from 'src/utils/request.js';
 import { List, message, Avatar, Spin, Skeleton, Divider } from 'antd';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { withRouter } from 'react-router';
 
 class SearchResults extends React.Component {
     state = {
@@ -105,4 +106,4 @@ class SearchResults extends React.Component {
     }
 }
 
-export default SearchResults;
+export default withRouter(SearchResults);

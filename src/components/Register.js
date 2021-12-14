@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { userRegister } from 'src/utils/request.js';
 import { Select, Form, Input, Checkbox, message, Button, Space } from 'antd';
+import { connect } from 'react-redux';
 const { Option } = Select;
 
 class Register extends React.Component {
@@ -187,11 +188,7 @@ class Register extends React.Component {
                 <div className="to-sign">
                     <p>
                         You have account!
-                        <Link
-                            to="/form-login/sign"
-                        >
-                            Sign In
-                        </Link>
+                        <Link to="/form-login/sign">Sign In</Link>
                     </p>
                 </div>
             </div>
@@ -203,4 +200,13 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+export default connect(
+    (state) => ({ ...state.ping }),
+    (dispatch) => {
+        return {
+            changeIsHidePartOfHeader: (payload) =>
+                dispatch({ type: 'CHANGE_IS_HIDE_PART_OF_HEADER', payload }),
+            dispatch,
+        };
+    }
+)(withRouter(Register));

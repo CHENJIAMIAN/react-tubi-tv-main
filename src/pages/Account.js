@@ -1,38 +1,18 @@
-import React from 'react';
-import Hero from 'src/components/Hero.js';
-import Main from 'src/components/Main.js';
-import Film from 'src/components/Film.js';
-import HistoryQueueTableRow from 'src/components/HistoryQueueTableRow.js';
-import Footer from 'src/components/Footer.js';
-import 'src/style/web-auth.css';
-import { Link, withRouter } from 'react-router-dom';
 import {
-    myOrder,
-    changeInfo,
-    userInfo,
-    myList,
-    userHistory,
-    clearMyList,
-    clearHistory,
-    changePassword,
-} from 'src/utils/request.js';
-import {
-    Select,
-    Form,
-    Input,
-    Checkbox,
-    message,
-    Button,
-    Space,
-    Radio,
-    List,
-    Avatar,
-    Skeleton,
-    Divider,
+    Divider, Form,
+    Input, List, message, Radio, Select, Skeleton
 } from 'antd';
-import default_profile_pic from 'src/img/default_profile_pic.png';
+import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import HistoryQueueTableRow from 'src/components/HistoryQueueTableRow.js';
 import PayRecordItem from 'src/components/PayRecordItem.js';
+import default_profile_pic from 'src/img/default_profile_pic.png';
+import 'src/style/web-auth.css';
+import {
+    changeInfo, changePassword, clearHistory, clearMyList, myList, myOrder, userHistory, userInfo
+} from 'src/utils/request.js';
 
 const { Option } = Select;
 
@@ -82,7 +62,7 @@ class Home extends React.Component {
                 });
                 this.setState({ userInfo: result.data });
             })
-            .catch((err) => {});
+            .catch(() => {});
         /*list infinite start---------------------------------------------------------------------------------------*/
         this.loadMoreDataMyOrder();
         /*list infinite end---------------------------------------------------------------------------------------*/
@@ -196,14 +176,14 @@ class Home extends React.Component {
                             myList: result.data,
                         });
                     })
-                    .catch((err) => {});
+                    .catch(() => {});
                 break;
             case 'history':
                 userHistory()
                     .then((result) => {
                         this.setState({ userHistory: result.data });
                     })
-                    .catch((err) => {});
+                    .catch(() => {});
                 break;
         }
     };
@@ -215,17 +195,14 @@ class Home extends React.Component {
             showChangPassword,
             /*list infinite start---------------------------------------------------------------------------------------*/
             myOrderList,
-            myOrderLoading,
             myOrderTotal,
             /*list infinite end---------------------------------------------------------------------------------------*/
             /*list infinite start---------------------------------------------------------------------------------------*/
             myList,
-            myListLoading,
             myListTotal,
             /*list infinite end---------------------------------------------------------------------------------------*/
             /*list infinite start---------------------------------------------------------------------------------------*/
             userHistory,
-            userHistoryLoading,
             userHistoryTotal,
             /*list infinite end---------------------------------------------------------------------------------------*/
         } = this.state;
@@ -785,4 +762,13 @@ class Home extends React.Component {
     }
 }
 
-export default withRouter(Home);
+export default connect(
+    (state) => ({ ...state.ping }),
+    (dispatch) => {
+        return {
+            changeIsHidePartOfHeader: (payload) =>
+                dispatch({ type: 'CHANGE_IS_HIDE_PART_OF_HEADER', payload }),
+            dispatch,
+        };
+    }
+)(withRouter(Home));

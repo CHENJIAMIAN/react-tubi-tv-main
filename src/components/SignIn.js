@@ -2,8 +2,8 @@ import React from 'react';
 import '../style/formLogin.css';
 import { Link, withRouter } from 'react-router-dom';
 import { userLogin, request,userAuth } from 'src/utils/request.js';
-import { message } from 'antd';
 import { getQueryVariable } from 'src/utils/util.js';
+import { connect } from 'react-redux';
 
 class SignIn extends React.Component {
     constructor(props, context) {
@@ -136,4 +136,13 @@ class SignIn extends React.Component {
     }
 }
 
-export default withRouter(SignIn);
+export default connect(
+    (state) => ({ ...state.ping }),
+    (dispatch) => {
+        return {
+            changeIsHidePartOfHeader: (payload) =>
+                dispatch({ type: 'CHANGE_IS_HIDE_PART_OF_HEADER', payload }),
+            dispatch,
+        };
+    }
+)(withRouter(SignIn));

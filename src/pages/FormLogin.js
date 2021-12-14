@@ -5,8 +5,7 @@ import SignIn from '../components/SignIn.js';
 import Footer from 'src/components/Footer.js';
 import { userRegister } from 'src/utils/request.js';
 import { message } from 'antd';
-
-
+import { withRouter } from 'react-router';
 
 class FormLogin extends React.Component {
     addNewAccount = (acc) => {
@@ -32,7 +31,6 @@ class FormLogin extends React.Component {
                         <Switch>
                             <Route path="/form-login/sign">
                                 <SignIn
-                                    history={this.props.history}
                                     changeIsHidePartOfHeader={
                                         this.props.changeIsHidePartOfHeader
                                     }
@@ -40,7 +38,6 @@ class FormLogin extends React.Component {
                             </Route>
                             <Route path="/form-login/register">
                                 <Register
-                                    history={this.props.history}
                                     changeIsHidePartOfHeader={
                                         this.props.changeIsHidePartOfHeader
                                     }
@@ -59,4 +56,4 @@ class FormLogin extends React.Component {
     }
 }
 
-export default FormLogin;
+export default withRouter(FormLogin);

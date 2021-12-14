@@ -1,7 +1,6 @@
 import '../style/header.css';
 import classnames from 'classnames';
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { fromEvent } from 'rxjs';
@@ -14,34 +13,21 @@ import {
     throttleTime,
 } from 'rxjs/operators';
 import options from 'src/utils/ConstantTypes.js';
-import { addTodo, dispatch, setFilter, toggleTodo } from '../redux/actions';
 import { getQueryVariable } from 'src/utils/util.js';
 
 import { categoryList } from 'src/utils/request.js';
+import { connect } from 'react-redux';
 
-@connect(
-    // mapStateToProps
-    (state) => {
-        const { visibilityFilter } = state;
-        return { visibilityFilter };
-    },
-    // mapDispatchToProps object | function
-    {
-        dispatch,
-        addTodo,
-        toggleTodo,
-        setFilter,
-    }
-)
 class Header extends React.Component {
     constructor(props) {
         super(props);
         //存储状态
         this.state = {
-            atTop: false,
             categorys: [],
         };
 
+        console.log(this.props);
+        console.log(this.state);
         const channel = getQueryVariable('channel');
         // 第一次进 页面存channel, 之后其他跳转在UNSAFE_componentWillReceiveProps去获取
         localStorage.setItem('channel', channel);
@@ -288,8 +274,6 @@ class Header extends React.Component {
     componentDidMount() {
         // withRouter注入 location 等到props
         this.showAndHideHeaderWhenScroll(this.props);
-        this.checkScrollHandler(this.props.location.pathname);
-        this.handleScroll();
         categoryList().then((response) => {
             this.setState({
                 categorys: response.data,
@@ -300,51 +284,6 @@ class Header extends React.Component {
     componentWillUnmount() {
         this.scrollObserver.unsubscribe();
         window.removeEventListener('scroll', this.scrollListener);
-    }
-    checkScrollHandler(path) {
-        var _self = this;
-        // STATIC_TOP_NAV_PATHNAMES: ['account', 'static', 'preference'],
-        var n = path === 'account';
-        if (n && this.scrollObserver) {
-            // 取消绑定
-            this.scrollObserver.unsubscribe();
-        } else {
-            if (
-                !(n || (this.scrollObserver && !this.scrollObserver.isStopped))
-            ) {
-                this.scrollObserver = fromEvent(window, 'scroll')
-                    .pipe(throttleTime(50))
-                    .subscribe(function () {
-                        _self.handleScroll();
-                    });
-            }
-        }
-    }
-    handleScroll() {
-        var _props = this.props;
-        var dispatch = _props.dispatch;
-        var yDistance = Math.round(window.pageYOffset);
-        var excludeNotSynced = yDistance > this.scrollOffsetY;
-        if (!excludeNotSynced && 0 === this.scrollOffsetY) {
-            return;
-        }
-        if (excludeNotSynced && yDistance > 0) {
-            // 'tb/ui/HIDE_TOP_NAV'
-            // 'tb/ui/SHOW_TOP_NAV'
-            // store.dispatch
-            dispatch('tb/ui/HIDE_TOP_NAV');
-        } else {
-            if (!excludeNotSynced) {
-                dispatch('tb/ui/SHOW_TOP_NAV');
-            }
-        }
-        this.scrollOffsetY = Math.max(0, yDistance);
-        var top = 0 === this.scrollOffsetY;
-        if (this.state.atTop !== top) {
-            this.setState({
-                atTop: top,
-            });
-        }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -366,4 +305,13 @@ class Header extends React.Component {
     }
 }
 
-export default withRouter(Header);
+export default connect(
+    (state) => ({ ...state.ping }),
+    (dispatch) => {
+        return {
+            changeIsHidePartOfHeader: (payload) =>
+                dispatch({ type: 'CHANGE_IS_HIDE_PART_OF_HEADER', payload }),
+            dispatch,
+        };
+    }
+)(withRouter(Header));

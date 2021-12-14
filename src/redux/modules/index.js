@@ -1,13 +1,10 @@
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
 
-import ping, { pingEpic } from './ping';
-import users, { fetchUserEpic } from './users';
-import visibilityFilter from '../reducers/visibilityFilter';
-import todos from '../reducers/todos';
+import ping, { pingEpic } from './pingEpic';
 import { catchError } from 'rxjs/operators';
 
-const epics = [pingEpic, fetchUserEpic];
+const epics = [pingEpic]; //多个
 export const rootEpic = (action$, store$, dependencies) =>
     combineEpics(...epics)(action$, store$, dependencies).pipe(
         catchError((error, source) => {
@@ -17,8 +14,5 @@ export const rootEpic = (action$, store$, dependencies) =>
     );
 
 export const rootReducer = combineReducers({
-    todos,
-    visibilityFilter,
-    ping,
-    users,
+    ping, //多个
 });
