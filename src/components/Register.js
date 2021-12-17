@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Link, withRouter } from 'react-router-dom';
-import { userRegister } from 'src/utils/request.js';
 import { Select, Form, Input, Checkbox, message, Button, Space } from 'antd';
 import { connect } from 'react-redux';
 const { Option } = Select;

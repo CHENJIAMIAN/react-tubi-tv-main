@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { deleteMyList, deleteHistory } from 'src/utils/request.js';
 import { message } from 'antd';
 
 export default function PayRecordItem(props) {

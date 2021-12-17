@@ -83,7 +83,7 @@ class Header extends React.Component {
         }
     };
 
-    goFormLogin = (str) => {
+    goFormLogin = () => {
         this.props.changeIsHidePartOfHeader(true);
     };
 
@@ -212,9 +212,9 @@ class Header extends React.Component {
                         {!isLogined && !isHidePartOfHeader && (
                             // 注册按钮，只在非登录主页页面显示，只在未登录时显示
                             <Link
-                                to="/form-login/register"
+                                to={`/form-login/register?redirect=${location.pathname}`}
                                 className="register"
-                                onClick={() => this.goFormLogin('register')}
+                                onClick={() => this.goFormLogin()}
                             >
                                 Register
                             </Link>
@@ -222,8 +222,8 @@ class Header extends React.Component {
                     </div>
                     <div className={`sign-wrap ${isLogined ? 'hide' : ''}`}>
                         <Link
-                            to="/form-login/sign"
-                            onClick={() => this.goFormLogin('sign')}
+                            to={`/form-login/sign?redirect=${location.pathname}`}
+                            onClick={() => this.goFormLogin()}
                         >
                             Sign In
                         </Link>
@@ -234,9 +234,17 @@ class Header extends React.Component {
                     className={`${isHidePartOfHeader ? 'form-change' : 'hide'}`}
                 >
                     {!isSignPage ? (
-                        <Link to="/form-login/sign">Sign In</Link>
+                        <Link
+                            to={`/form-login/sign?redirect=${location.pathname}`}
+                        >
+                            Sign In
+                        </Link>
                     ) : (
-                        <Link to="/form-login/register">Register</Link>
+                        <Link
+                            to={`/form-login/register?redirect=${location.pathname}`}
+                        >
+                            Register
+                        </Link>
                     )}
                 </div>
                 <div className="menu-content">
