@@ -21,6 +21,7 @@ class SignIn extends React.Component {
         this.curr !== null && this.validatePassword(password, target);
         if (this.isPassword) {
             userLogin({ email, password }).then((response) => {
+                if(!response.data) return;
                 console.log('userLogin token ' + response.data.token);
                 // response.data.type 用户类型 0普通用户  1会员
                 localStorage.setItem('token', response.data.token);

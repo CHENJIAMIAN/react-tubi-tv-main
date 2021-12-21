@@ -61,26 +61,32 @@ class Movies extends React.Component {
                 return;
             }
             const { code, data, msg } = response;
+            const { isFromApp, videoData, alsoLike } = data;
+
+            const src =
+                (isFromApp == true &&
+                    window.androidAppObj &&
+                    window.androidAppObj.getPlaySource &&
+                    window.androidAppObj.getPlaySource(data)) ||
+                videoData.videoHLS ||
+                videoData.videoHighUrl ||
+                videoData.videoUrl;
 
             this.setState({
-                videoData: data.videoData,
-                alsoLike: data.alsoLike,
+                videoData: videoData,
+                alsoLike: alsoLike,
             });
 
             if (!video) {
                 return;
             }
-            video.src(
-                data.videoData.videoHLS ||
-                    data.videoData.videoHighUrl ||
-                    data.videoData.videoUrl
-            );
+            video.src(src);
 
             video.qualityLevels = qualityLevels;
-            const qualityLevelsVal = video.qualityLevels();
+            video.qualityLevels();
 
             video.hlsQualitySelector = videojsqualityselector;
-            const hlsQualitySelectorVal = video.hlsQualitySelector({
+            video.hlsQualitySelector({
                 displayCurrentQuality: true,
             });
         });
@@ -101,6 +107,7 @@ class Movies extends React.Component {
 
     showLoginConfirm = () => {
         confirm({
+            style: { top: 300 },
             title: 'You should sign-in to continue',
             icon: <ExclamationCircleOutlined />,
             onOk: () => {
@@ -162,9 +169,10 @@ class Movies extends React.Component {
                                     this.qualityLevels().levels_.sort(
                                         (a, b) => b.height - a.height
                                     );
-                                this.hlsQualitySelector.setQuality(
-                                    sortedQualityLevels[0].height
-                                );
+                                sortedQualityLevels[0] &&
+                                    this.hlsQualitySelector.setQuality(
+                                        sortedQualityLevels[0].height
+                                    );
                             });
                             this.on('waiting', function () {
                                 console.log('等待数据');
@@ -225,7 +233,8 @@ class Movies extends React.Component {
                                     video.currentTime()
                                 );
 
-                                if (!_this.isShownTip && timeDisplay > 90) {
+                                if (!_this.isShownTip && timeDisplay > 30 * 5) {
+                                    //2.5分钟
                                     // 4. 用户已登录，试播30秒后弹出框用户选择支付
                                     if (isLogined) {
                                         //视频暂停操作
@@ -310,6 +319,7 @@ class Movies extends React.Component {
                     title="Pay"
                     height="600"
                     placement={'bottom'}
+                    contentWrapperStyle={{ top: '300px', height: 'auto' }}
                     closable={false}
                     onClose={() => {
                         this.setState({

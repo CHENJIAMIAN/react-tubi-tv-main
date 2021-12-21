@@ -13,6 +13,7 @@ class FormLogin extends React.Component {
         const { location } = this.props;
         const redirect = getQueryVariable('redirect');
         userRegister(acc).then((response) => {
+            if(!response.data) return;
             console.log('userRegister token ' + response.data.token);
             // response.data.type 用户类型 0普通用户  1会员
             localStorage.setItem('token', response.data.token);
