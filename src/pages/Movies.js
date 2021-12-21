@@ -67,7 +67,7 @@ class Movies extends React.Component {
                 (isFromApp == true &&
                     window.androidAppObj &&
                     window.androidAppObj.getPlaySource &&
-                    window.androidAppObj.getPlaySource(data)) ||
+                    window.androidAppObj.getPlaySource(videoData.link)) ||
                 videoData.videoHLS ||
                 videoData.videoHighUrl ||
                 videoData.videoUrl;
