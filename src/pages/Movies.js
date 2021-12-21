@@ -118,8 +118,9 @@ class Movies extends React.Component {
                     },
                 });
             },
-            ononCancelOk: () => {
-                console.log('Cancel');
+            onCancel: () => {
+                console.log('showLoginConfirm ononCancelOk');
+                this.isShownTip = false;
             },
         });
     };
@@ -179,7 +180,6 @@ class Movies extends React.Component {
                             });
                             this.on('play', function () {
                                 console.log('视频开始播放');
-                                _this.isShownTip = false;
 
                                 userAuth({ vid }).then((response) => {
                                     // 类型 0试看 1通过
@@ -255,6 +255,7 @@ class Movies extends React.Component {
                                         // video.setAttribute('src', '');
                                         // video.style.display = 'none';
                                         _this.isShownTip = true;
+                                        console.log('_this.showLoginConfirm()');
                                         _this.showLoginConfirm();
                                     }
                                 }
